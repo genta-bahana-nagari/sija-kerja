@@ -25,4 +25,15 @@ class Index extends Component
     {
         return view('livewire.siswa.index');
     }
+
+    public function ketGender($gender)
+    {
+        if ($gender === 'L') {
+            return 'Laki-laki';
+        } elseif ($gender === 'P') {
+            return 'Perempuan';
+        } else {
+            return 'Status tidak diketahui';
+        }
+    }
 }

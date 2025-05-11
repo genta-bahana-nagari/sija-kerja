@@ -45,8 +45,8 @@
         <div>
             <label class="block">Status PKL</label>
             <select wire:model="status_pkl" class="w-full border p-2 rounded">
-                <option value="no">Belum</option>
-                <option value="yes">Sudah</option>
+                <option value="no">Belum diterima PKL</option>
+                <option value="yes">Sudah diterima PKL</option>
             </select>
             @error('status_pkl') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>

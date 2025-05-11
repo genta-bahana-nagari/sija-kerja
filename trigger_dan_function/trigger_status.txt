@@ -1,0 +1,12 @@
+DELIMITER //
+
+CREATE TRIGGER update_status_pkl
+AFTER INSERT ON pkl
+FOR EACH ROW
+BEGIN
+    UPDATE siswa
+    SET status_pkl = 'yes'
+    WHERE id = NEW.siswa_id;
+END //
+
+DELIMITER ;

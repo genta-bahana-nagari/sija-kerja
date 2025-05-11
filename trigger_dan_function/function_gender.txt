@@ -1,0 +1,13 @@
+DELIMITER //
+
+CREATE FUNCTION ketGender(jk CHAR(1)) RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    IF jk = 'L' THEN
+        RETURN 'Laki-laki';
+    ELSEIF jk = 'P' THEN
+        RETURN 'Perempuan';
+    END IF;
+END //
+
+DELIMITER ;
