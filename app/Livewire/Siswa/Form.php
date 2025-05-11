@@ -7,13 +7,7 @@ use Livewire\Component;
 
 class Form extends Component
 {
-    public $id;
-    public $nama;
-    public $nis;
-    public $gender;
-    public $alamat;
-    public $kontak;
-    public $email;
+    public $id, $nama, $nis, $gender, $alamat, $kontak, $email;
     public $status_pkl = 'no';
 
     public function mount($id = null)
