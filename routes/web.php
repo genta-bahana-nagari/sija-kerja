@@ -5,6 +5,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Siswa\Form;
 use App\Livewire\Siswa\Index;
+use App\Livewire\Siswa\View;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Route::get('/siswa', Index::class)->name('siswa.index');
+    Route::get('/siswa/show/{id}', View::class)->name('siswa.show');
     Route::get('/siswa/create', Form::class)->name('siswa.create');
     Route::get('/siswa/edit/{id}', Form::class)->name('siswa.edit');
 
