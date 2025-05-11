@@ -23,7 +23,7 @@
                 <tr class="border-b">
                     <td>{{ $siswa->nama }}</td>
                     <td>{{ $siswa->nis }}</td>
-                    <td>{{ $siswa->gender }}</td>
+                    <td>{{ $this->ketGender($siswa->gender) }}</td>
                     <td class="relative">
                         <div x-data="{ open: false }" class="inline-block text-left">
                             <button @click="open = !open" class="text-gray-600 hover:text-gray-800 focus:outline-none">
