@@ -24,6 +24,7 @@ class Index extends Component
         session()->flash('message', 'Data siswa berhasil dihapus.');
     }
 
+    // Method for handling render
     public function render()
     {
         $query = Siswa::query();
@@ -33,11 +34,17 @@ class Index extends Component
                   ->orWhere('nis', 'like', '%' . $this->search . '%');
         }
 
-        $siswaList = $query->paginate($this->numpage);
+        $this->siswaList = $query->paginate($this->numpage);
 
         return view('livewire.siswa.index', [
-            'siswaList' => $siswaList
+            'siswaList' => $this->siswaList,
         ]);
+    }
+
+    // Method to update number of items per page
+    public function updatePageSize($size)
+    {
+        $this->numpage = $size;
     }
     
     public function ketGender($gender)
