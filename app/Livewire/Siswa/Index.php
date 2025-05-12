@@ -4,30 +4,40 @@ namespace App\Livewire\Siswa;
 
 use Livewire\Component;
 use App\Models\Siswa;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $siswaList;
+    use WithPagination;
 
-    public function mount()
+    public $numpage = 10;
+    public $search;
+
+    public function updatingSearch()
     {
-        $this->siswaList = Siswa::all();
-
-        if ($this->siswaList->isEmpty()) {
-        session()->flash('message', 'Tidak ada data siswa');
-    }
+        $this->resetPage();
     }
 
     public function delete($id)
     {
         Siswa::findOrFail($id)->delete();
-        $this->siswaList = Siswa::all();
         session()->flash('message', 'Data siswa berhasil dihapus.');
     }
 
     public function render()
     {
-        return view('livewire.siswa.index');
+        $query = Siswa::query();
+
+        if (!empty($this->search)) {
+            $query->where('nama', 'like', '%' . $this->search . '%')
+                  ->orWhere('nis', 'like', '%' . $this->search . '%');
+        }
+
+        $siswaList = $query->paginate($this->numpage);
+
+        return view('livewire.siswa.index', [
+            'siswaList' => $siswaList
+        ]);
     }
     
     public function ketGender($gender)
