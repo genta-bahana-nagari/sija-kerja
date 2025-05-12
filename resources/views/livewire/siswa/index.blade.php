@@ -67,18 +67,20 @@
         <div class="flex justify-between items-center mb-4">
             <!-- Page Size Selection -->
             <div class="flex items-center space-x-2">
-                <label for="perPage" class="text-sm font-medium text-gray-700">Items per page:</label>
+                <label for="perPage" class="text-sm font-medium text-gray-700">Tampilkan:</label>
                 <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="{{ $siswaList->total() }}">All</option> <!-- Option to display all items -->
                 </select>
+                <span class="text-sm text-gray-700">data per halaman</span>
+
             </div>
             
             <!-- Pagination Controls -->
             <div class="flex justify-end">
-                {{ $siswaList->links('vendor.pagination.tailwind-id') }}
+                {{ $siswaList->links('vendor.pagination.tailwind') }}
             </div>
         </div>
     </div>
