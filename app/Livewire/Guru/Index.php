@@ -4,31 +4,41 @@ namespace App\Livewire\Guru;
 
 use App\Models\Guru;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
 
-    public $guruList;
+    public $search;
 
-    public function mount()
+    public function updatingSearch()
     {
-        $this->guruList = Guru::all();
-        
-        if ($this->guruList->isEmpty()) {
-        session()->flash('message', 'Tidak ada data guru');
-        }
+        $this->resetPage();
     }
 
     public function delete($id)
     {
         Guru::findOrFail($id)->delete();
-        $this->guruList = Guru::all();
         session()->flash('message', 'Data guru berhasil dihapus.');
     }
 
     public function render()
     {
-        return view('livewire.guru.index');
+        $query = Guru::query();
+
+        // If there's a search term, filter the records
+        if (!empty($this->search)) {
+            $query->where('nama', 'like', '%' . $this->search . '%')
+                ->orWhere('nip', 'like', '%' . $this->search . '%');
+        }
+
+        // Get the results after applying the search filter
+        $guruList = $query->get();
+
+        return view('livewire.guru.index', [
+            'guruList' => $guruList, // Pass the result to the view
+        ]);
     }
     
     public function ketGender($gender)
