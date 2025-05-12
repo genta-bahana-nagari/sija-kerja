@@ -1,10 +1,13 @@
 <?php
 
+use App\Livewire\Guru\Form as GuruForm;
+use App\Livewire\Guru\View as GuruView;
+use App\Livewire\Industri\Form as IndustriForm;
+use App\Livewire\Industri\View as IndustriView;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Siswa\Form;
-use App\Livewire\Siswa\Index;
 use App\Livewire\Siswa\View;
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +19,44 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::view('siswa', 'siswa')
+    ->middleware(['auth', 'verified'])
+    ->name('siswa');
+
+Route::view('guru', 'guru')
+    ->middleware(['auth', 'verified'])
+    ->name('guru');
+
+Route::view('industri', 'industri')
+    ->middleware(['auth', 'verified'])
+    ->name('industri');
+
+Route::view('pkl', 'pkl')
+    ->middleware(['auth', 'verified'])
+    ->name('pkl');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
-    Route::get('/siswa', Index::class)->name('siswa.index');
+    // CRUD Siswa Livewire
     Route::get('/siswa/show/{id}', View::class)->name('siswa.show');
     Route::get('/siswa/create', Form::class)->name('siswa.create');
     Route::get('/siswa/edit/{id}', Form::class)->name('siswa.edit');
+   
+    // CRUD Guru Livewire
+    Route::get('/guru/show/{id}', GuruView::class)->name('guru.show');
+    Route::get('/guru/create', GuruForm::class)->name('guru.create');
+    Route::get('/guru/edit/{id}', GuruForm::class)->name('guru.edit');
+    
+    // CRUD Industri Livewire
+    Route::get('/industri/show/{id}', IndustriView::class)->name('industri.show');
+    Route::get('/industri/create', IndustriForm::class)->name('industri.create');
+    Route::get('/industri/edit/{id}', IndustriForm::class)->name('industri.edit');
+    
+    // CRUD PKL Livewire
+    Route::get('/lapor-pkl/show/{id}', View::class)->name('pkl.show');
+    Route::get('/lapor-pkl/create', Form::class)->name('pkl.create');
+    Route::get('/lapor-pkl/edit/{id}', Form::class)->name('pkl.edit');
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
