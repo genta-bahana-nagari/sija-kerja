@@ -17,15 +17,22 @@
             
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Data Personal')" class="grid">
-                    <flux:navlist.item icon="user" :href="route('siswa.index')" :current="request()->routeIs('siswa')" wire:navigate>{{ __('Siswa') }}</flux:navlist.item>
-                    <flux:navlist.item icon="academic-cap" :href="route('siswa.index')" :current="request()->routeIs('siswa')" wire:navigate>{{ __('Guru') }}</flux:navlist.item>
+                    <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('siswa')" wire:navigate>{{ __('Siswa') }}</flux:navlist.item>
+                    <flux:navlist.item icon="academic-cap" :href="route('guru')" :current="request()->routeIs('guru')" wire:navigate>{{ __('Guru') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Data PKL')" class="grid">
-                    <flux:navlist.item icon="building-office-2" :href="route('siswa.index')" :current="request()->routeIs('siswa')" wire:navigate>{{ __('Industri') }}</flux:navlist.item>
-                    <flux:navlist.item icon="briefcase" :href="route('siswa.index')" :current="request()->routeIs('siswa')" wire:navigate>{{ __('PKL') }}</flux:navlist.item>
+                    <flux:navlist.item icon="building-office-2" :href="route('industri')" :current="request()->routeIs('industri')" wire:navigate>{{ __('Industri') }}</flux:navlist.item>
+                    <flux:navlist.item icon="briefcase" :href="route('siswa')" :current="request()->routeIs('lapor-pkl')" wire:navigate>{{ __('Status PKL') }}</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+
+            <flux:navlist variant="outline">
+                <flux:navlist.group :heading="__('Data Khusus Admin')" class="grid">
+                    <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('user')" wire:navigate>{{ __('User') }}</flux:navlist.item>
+                    <flux:navlist.item icon="shield-check" :href="route('siswa')" :current="request()->routeIs('role')" wire:navigate>{{ __('Tipe Akun (Role)') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
