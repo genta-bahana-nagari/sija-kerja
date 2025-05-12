@@ -10,6 +10,7 @@ class Index extends Component
 {
     use WithPagination;
 
+    public $siswaList;
     public $numpage = 10;
     public $search;
 
