@@ -13,6 +13,10 @@ class Index extends Component
     public function mount()
     {
         $this->guruList = Guru::all();
+        
+        if ($this->guruList->isEmpty()) {
+        session()->flash('message', 'Tidak ada data guru');
+        }
     }
 
     public function delete($id)

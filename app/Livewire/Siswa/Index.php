@@ -12,6 +12,10 @@ class Index extends Component
     public function mount()
     {
         $this->siswaList = Siswa::all();
+
+        if ($this->siswaList->isEmpty()) {
+        session()->flash('message', 'Tidak ada data siswa');
+    }
     }
 
     public function delete($id)
