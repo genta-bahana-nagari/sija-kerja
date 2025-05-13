@@ -58,8 +58,8 @@
         <div>
             <label class="block text-sm font-medium text-gray-700 my-2">Status PKL</label>
             <flux:radio.group wire:model="status_pkl">
-                <flux:radio value="no" label="Belum diterima PKL" />
-                <flux:radio value="P" label="Sudah diterima PKL" />
+                <flux:radio value="false" label="Belum diterima PKL" />
+                <flux:radio value="true" label="Sudah diterima PKL" />
             </flux:radio.group>
             @error('status_pkl') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>

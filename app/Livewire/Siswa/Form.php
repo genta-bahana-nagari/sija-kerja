@@ -38,7 +38,7 @@ class Form extends Component
             'kontak' => 'required|string',
             'email' => 'required|email|unique:siswa,email,' . $this->id,
             'foto' => 'nullable',
-            'status_pkl' => 'required|in:no,yes',
+            'status_pkl' => 'required',
         ];
     }
 
