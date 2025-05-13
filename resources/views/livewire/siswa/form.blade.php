@@ -2,6 +2,13 @@
     <h2 class="text-2xl font-semibold mb-6 text-center">{{ $id ? 'Edit Siswa' : 'Tambah Siswa' }}</h2>
 
     <form wire:submit.prevent="save" class="space-y-6">
+        <!-- Foto -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2">Foto Siswa</label>
+            <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="foto">
+            @error('foto') <span class="text-red-500">{{ $message }}</span>@enderror
+        </div>
+        
         <!-- Nama -->
         <div>
             <label class="block text-sm font-medium text-gray-700">Nama</label>
@@ -51,8 +58,8 @@
         <div>
             <label class="block text-sm font-medium text-gray-700 my-2">Status PKL</label>
             <flux:radio.group wire:model="status_pkl">
-                <flux:radio value="no" label="Belum diterima PKL" />
-                <flux:radio value="P" label="Sudah diterima PKL" />
+                <flux:radio value="false" label="Belum diterima PKL" />
+                <flux:radio value="true" label="Sudah diterima PKL" />
             </flux:radio.group>
             @error('status_pkl') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>

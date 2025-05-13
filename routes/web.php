@@ -16,23 +16,23 @@ Route::get('/', function () {
 })->name('home');
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('dashboard');
 
 Route::view('siswa', 'siswa')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('siswa');
 
 Route::view('guru', 'guru')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('guru');
 
 Route::view('industri', 'industri')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('industri');
 
 Route::view('pkl', 'pkl')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'check.roles'])
     ->name('pkl');
 
 Route::middleware(['auth'])->group(function () {

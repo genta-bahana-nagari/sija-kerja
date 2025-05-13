@@ -1,4 +1,11 @@
 <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
+    <h1 class="font-bold text-center text-2xl my-2 text-gray-800">
+        Cek data siswa secara detail
+    </h1>
+
+    <div class="px-4 mb-6 flex justify-center items-center">
+        <img src="{{ asset('storage/'.$siswa->foto) }}" class="w-40 h-40 object-cover rounded-full" alt="{{ $siswa->foto }}">
+    </div>
     <!-- Bento -->
     <div class="grid grid-cols-6 grid-rows-4 gap-4">
         <div class="col-span-3">

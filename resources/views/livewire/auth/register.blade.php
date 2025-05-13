@@ -49,14 +49,14 @@
         />
 
         <!-- Role Selection (Teacher or Student) -->
-        <div class="flex flex-col gap-2">
+        <!-- <div class="flex flex-col gap-2">
             <label for="role" class="font-semibold">{{ __('Select Account Type') }}</label>
             <select wire:model="role" id="role" required class="p-2 border border-gray-300 rounded">
                 <option value="">{{ __('Select Role') }}</option>
                 <option value="guru">{{ __('Teacher') }}</option>
                 <option value="siswa">{{ __('Student') }}</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">

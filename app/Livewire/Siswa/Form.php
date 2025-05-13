@@ -4,10 +4,12 @@ namespace App\Livewire\Siswa;
 
 use App\Models\Siswa;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
-    public $id, $nama, $nis, $gender, $alamat, $kontak, $email;
+    use WithFileUploads;
+    public $id, $nama, $nis, $gender, $alamat, $kontak, $email, $foto;
     public $status_pkl = 'no';
 
     public function mount($id = null)
@@ -21,6 +23,7 @@ class Form extends Component
             $this->alamat = $siswa->alamat;
             $this->kontak = $siswa->kontak;
             $this->email = $siswa->email;
+            $this->foto = $siswa->foto;
             $this->status_pkl = $siswa->status_pkl;
         }
     }
@@ -34,13 +37,16 @@ class Form extends Component
             'alamat' => 'required|string',
             'kontak' => 'required|string',
             'email' => 'required|email|unique:siswa,email,' . $this->id,
-            'status_pkl' => 'required|in:no,yes',
+            'foto' => 'nullable',
+            'status_pkl' => 'required',
         ];
     }
 
     public function save()
     {
         $this->validate();
+
+        $imagePath = $this->foto->store('foto_siswa', 'public');
 
         Siswa::updateOrCreate(
             ['id' => $this->id],
@@ -51,6 +57,7 @@ class Form extends Component
                 'alamat' => $this->alamat,
                 'kontak' => $this->kontak,
                 'email' => $this->email,
+                'foto' => $imagePath,
                 'status_pkl' => $this->status_pkl,
             ]
         );

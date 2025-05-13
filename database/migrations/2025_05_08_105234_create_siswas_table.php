@@ -19,7 +19,8 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('kontak');
             $table->string('email')->unique();
-            $table->enum('status_pkl', ['no', 'yes'])->default('no');
+            $table->string('foto')->nullable();
+            $table->boolean('status_pkl')->default(false);
             $table->timestamps();
         });
     }

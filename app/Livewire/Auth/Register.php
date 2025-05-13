@@ -32,13 +32,13 @@ class Register extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'in:guru,siswa'],  // Validasi untuk role
+            // 'role' => ['required', 'in:guru,siswa'],  // Validasi untuk role
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create($validated);
-        $user->assignRole($this->role);  // Menambahkan role ke user yang baru dibuat
+        // $user->assignRole($this->role);  // Menambahkan role ke user yang baru dibuat
 
         event(new Registered($user));
 

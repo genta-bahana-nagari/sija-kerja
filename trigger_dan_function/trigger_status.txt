@@ -5,7 +5,7 @@ AFTER INSERT ON pkl
 FOR EACH ROW
 BEGIN
     UPDATE siswa
-    SET status_pkl = 'yes'
+    SET status_pkl = true
     WHERE id = NEW.siswa_id;
 END //
 

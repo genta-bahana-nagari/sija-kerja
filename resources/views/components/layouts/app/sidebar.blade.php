@@ -29,12 +29,14 @@
                 </flux:navlist.group>
             </flux:navlist>
 
+            @if(auth()->user() && auth()->user()->hasRole('super_admin'))
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Data Khusus Admin')" class="grid">
                     <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('user')" wire:navigate>{{ __('User') }}</flux:navlist.item>
                     <flux:navlist.item icon="shield-check" :href="route('siswa')" :current="request()->routeIs('role')" wire:navigate>{{ __('Tipe Akun (Role)') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+            @endif
 
             <flux:spacer />
 
