@@ -1,11 +1,11 @@
 DELIMITER //
 
-CREATE FUNCTION ketStatusPKL(status ENUM('no', 'yes')) RETURNS VARCHAR(50)
+CREATE FUNCTION ketStatusPKL(status BOOLEAN) RETURNS VARCHAR(50)
 DETERMINISTIC
 BEGIN
-    IF status = 'no' THEN
+    IF status = 0 THEN
         RETURN 'Belum diterima PKL';
-    ELSEIF status = 'yes' THEN
+    ELSEIF status = 1 THEN
         RETURN 'Sudah diterima PKL';
     ELSE
         RETURN 'Status tidak diketahui';

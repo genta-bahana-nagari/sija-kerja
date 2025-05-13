@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('kontak');
             $table->string('email')->unique();
             $table->string('foto')->nullable();
-            $table->enum('status_pkl', ['no', 'yes'])->default('no');
+            $table->boolean('status_pkl')->default(false);
             $table->timestamps();
         });
     }
