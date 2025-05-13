@@ -4,6 +4,8 @@ use App\Livewire\Guru\Form as GuruForm;
 use App\Livewire\Guru\View as GuruView;
 use App\Livewire\Industri\Form as IndustriForm;
 use App\Livewire\Industri\View as IndustriView;
+use App\Livewire\PKL\Form as PKLForm;
+use App\Livewire\PKL\View as PKLView;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -54,9 +56,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/industri/edit/{id}', IndustriForm::class)->name('industri.edit');
     
     // CRUD PKL Livewire
-    Route::get('/lapor-pkl/show/{id}', View::class)->name('pkl.show');
-    Route::get('/lapor-pkl/create', Form::class)->name('pkl.create');
-    Route::get('/lapor-pkl/edit/{id}', Form::class)->name('pkl.edit');
+    Route::get('/pkl/show/{id}', PKLView::class)->name('pkl.show');
+    Route::get('/pkl/create', PKLForm::class)->name('pkl.create');
+    Route::get('/pkl/edit/{id}', PKLForm::class)->name('pkl.edit');
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
