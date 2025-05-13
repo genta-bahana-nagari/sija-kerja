@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Guru extends Model
 {
@@ -21,5 +22,10 @@ class Guru extends Model
     public function pkl()
     {
         return $this->hasMany(PKL::class);
+    }
+
+    public function getKetGenderAttribute()
+    {
+        return DB::selectOne("SELECT ketGender(?) AS gender", [$this->gender])->gender ?? '-';
     }
 }

@@ -31,14 +31,15 @@ class GuruResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('nama')->required(),
+                TextInput::make('nama')->required()->label('Nama Guru'),
                 TextInput::make('nip')->required()->unique()->label('NIP'),
                 Select::make('gender')
                     ->options(['L' => 'Laki-laki', 'P' => 'Perempuan'])
+                    ->label('Jenis Kelamin')
                     ->required(),
-                Textarea::make('alamat')->required(),
-                TextInput::make('kontak'),
-                TextInput::make('email')->email(),
+                Textarea::make('alamat')->required()->label('Alamat'),
+                TextInput::make('kontak')->label('Kontak'),
+                TextInput::make('email')->email()->label('Email'),
             ]);
     }
 
@@ -48,9 +49,11 @@ class GuruResource extends Resource
             ->columns([
                 TextColumn::make('nama')->label('Nama'),
                 TextColumn::make('nip')->label('NIP'),
+                TextColumn::make('ketGender')
+                    ->label('Jenis Kelamin'),
                 TextColumn::make('alamat')->label('Alamat'),
                 TextColumn::make('kontak')->label('Kontak'),
-                TextColumn::make('email')->label('E-mail'),
+                TextColumn::make('email')->label('Email'),
             ])
             ->filters([
                 //

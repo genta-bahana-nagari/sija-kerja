@@ -10,9 +10,11 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -33,32 +35,40 @@ class SiswaResource extends Resource
     {
         return $form
             ->schema([
-            FileUpload::make('foto')
-                ->label('Foto Siswa')
-                ->image()
-                ->disk('public')
-                ->directory('foto_siswa') 
-                ->imagePreviewHeight('150')
-                ->loadingIndicatorPosition('left')
-                ->uploadProgressIndicatorPosition('left')
-                ->removeUploadedFileButtonPosition('right')
-                ->downloadable()
-                ->openable()
-                ->columnSpanFull()
-                ->required(), 
-            TextInput::make('nama')->required(),
-            TextInput::make('nis')->required()->unique()->label('NIS'),
-            Select::make('gender')
-                ->options(['L' => 'Laki-laki', 'P' => 'Perempuan'])
-                ->required(),
-            Textarea::make('alamat')->required(),
-            TextInput::make('kontak')->required(),
-            TextInput::make('email')->email()->required()->unique(),
-            Select::make('status_pkl')
-                ->options(['no' => 'Belum diterima PKL', 'yes' => 'Sudah diterima PKL'])
-                ->default('no')
-                ->required()
-                ->label('Status PKL'),
+                FileUpload::make('foto')
+                    ->label('Foto Siswa')
+                    ->image()
+                    ->disk('public')
+                    ->directory('foto_siswa') 
+                    ->imagePreviewHeight('150')
+                    ->loadingIndicatorPosition('left')
+                    ->uploadProgressIndicatorPosition('left')
+                    ->removeUploadedFileButtonPosition('right')
+                    ->downloadable()
+                    ->openable()
+                    ->columnSpanFull()
+                    ->required(), 
+                
+                TextInput::make('nama')->required()->label('Nama Siswa'),
+                
+                TextInput::make('nis')->required()->unique()->label('NIS'),
+                
+                Select::make('gender')
+                    ->options(['L' => 'Laki-laki', 'P' => 'Perempuan'])
+                    ->label('Jenis Kelamin')
+                    ->required(),
+                
+                Textarea::make('alamat')->required()->label('Alamat'),
+                
+                TextInput::make('kontak')->required()->label('Kontak'),
+                
+                TextInput::make('email')->email()->required()->label('Email')->unique(),
+                
+                Select::make('status_pkl')
+                    ->options([false => 'Belum diterima PKL', true => 'Sudah diterima PKL'])
+                    ->default(false)
+                    ->required()
+                    ->label('Status PKL'),
             ]);
     }
 
@@ -72,15 +82,19 @@ class SiswaResource extends Resource
                     ->circular(),
                 TextColumn::make('nama')->label('Nama'),
                 TextColumn::make('nis')->label('NIS'),
-                TextColumn::make('gender')
-                    ->label('Kelamin')
-                    ->formatStateUsing(fn ($state) => $state === 'L' ? 'Laki-laki' : 'Perempuan'),
+                TextColumn::make('ketGender')
+                    ->label('Jenis Kelamin'),
                 TextColumn::make('alamat')->label('Alamat'),
                 TextColumn::make('kontak')->label('Kontak'),
-                TextColumn::make('email')->label('E-mail'),
-                TextColumn::make('status_pkl')
-                    ->label('Status PKL')
-                    ->formatStateUsing(fn ($state) => $state === 'yes' ? 'Sudah diterima PKL' : 'Belum diterima PKL'),
+                TextColumn::make('email')->label('Email'),
+                IconColumn::make('status_pkl')
+                    ->label('Status Lapor PKL')
+                    ->alignCenter()
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
             ])
             ->filters([
                 //

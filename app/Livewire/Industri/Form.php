@@ -5,10 +5,12 @@ namespace App\Livewire\Industri;
 use App\Models\Industri;
 use App\Models\Guru;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
-    public $id, $nama, $bidang_usaha, $alamat, $kontak, $email, $guru_pembimbing;
+    use WithFileUploads;
+    public $id, $nama, $bidang_usaha, $alamat, $kontak, $email, $guru_pembimbing, $website, $foto;
 
     public $guruList = [];
 
@@ -27,6 +29,8 @@ class Form extends Component
             $this->kontak = $industri->kontak;
             $this->email = $industri->email;
             $this->guru_pembimbing = $industri->guru_pembimbing;  // Set guru_pembimbing jika edit
+            $this->website = $industri->website;
+            $this->foto = $industri->foto;
         }
     }
 
@@ -39,12 +43,16 @@ class Form extends Component
             'kontak' => 'required|string',
             'email' => 'required|email',
             'guru_pembimbing' => 'required|exists:guru,id',  // Memastikan guru_pembimbing valid
+            'website' => 'required|string',
+            'foto' => 'nullable',
         ];
     }
 
     public function save()
     {
         $this->validate();
+
+        $imagePath = $this->foto->store('foto_industri', 'public');
 
         // Update or create industri
         Industri::updateOrCreate(
@@ -56,6 +64,8 @@ class Form extends Component
                 'kontak' => $this->kontak,
                 'email' => $this->email,
                 'guru_pembimbing' => $this->guru_pembimbing,
+                'website' => $this->website,
+                'foto' => $imagePath,
             ]
         );
 

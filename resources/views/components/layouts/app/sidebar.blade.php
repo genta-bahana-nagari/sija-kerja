@@ -25,7 +25,7 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Data PKL')" class="grid">
                     <flux:navlist.item icon="building-office-2" :href="route('industri')" :current="request()->routeIs('industri')" wire:navigate>{{ __('Industri') }}</flux:navlist.item>
-                    <flux:navlist.item icon="briefcase" :href="route('siswa')" :current="request()->routeIs('lapor-pkl')" wire:navigate>{{ __('Status PKL') }}</flux:navlist.item>
+                    <flux:navlist.item icon="briefcase" :href="route('pkl')" :current="request()->routeIs('pkl')" wire:navigate>{{ __('Status PKL') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

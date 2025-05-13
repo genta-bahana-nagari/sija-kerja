@@ -16,9 +16,9 @@ class View extends Component
 
     public function ketStatusPKL($status)
     {
-        if ($status === 'no') {
+        if ($status === 0) {
             return 'Belum diterima PKL';
-        } elseif ($status === 'yes') {
+        } elseif ($status === 1) {
             return 'Sudah diterima PKL';
         } else {
             return 'Status tidak diketahui';

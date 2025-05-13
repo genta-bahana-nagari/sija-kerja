@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Siswa extends Model
 {
@@ -15,5 +16,17 @@ class Siswa extends Model
     public function pkl()
     {
         return $this->hasMany(PKL::class);
+    }
+
+    // Accessor untuk keterangan gender
+    public function getKetGenderAttribute()
+    {
+        return DB::selectOne("SELECT ketGender(?) AS gender", [$this->gender])->gender ?? '-';
+    }
+
+    // Accessor untuk keterangan status PKL
+    public function getKetStatusPKLAttribute()
+    {
+        return $this->status_pkl ? 'Sudah Lapor PKL' : 'Belum Lapor PKL';
     }
 }
