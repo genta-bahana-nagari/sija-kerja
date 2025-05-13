@@ -4,29 +4,40 @@ namespace App\Livewire\Industri;
 
 use App\Models\Industri;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $industriList;
+    use WithPagination;
 
-    public function mount()
+    public $numpage = 10;
+    public $search;
+
+    public function updatingSearch()
     {
-        $this->industriList = Industri::with('guru')->get();
-        
-        if ($this->industriList->isEmpty()) {
-        session()->flash('message', 'Tidak ada data industri');
-        }
+        $this->resetPage();
     }
 
     public function delete($id)
     {
         Industri::findOrFail($id)->delete();
-        $this->industriList = Industri::with('guru')->get();
         session()->flash('message', 'Data industri berhasil dihapus.');
     }
 
     public function render()
     {
-        return view('livewire.industri.index');
+        $query = Industri::query();
+        
+        if (!empty($this->search)) {
+        $query->join('guru', 'industri.guru_pembimbing', '=', 'guru.id')
+                ->where('industri.nama', 'like', '%' . $this->search . '%')
+                ->orWhere('guru.nama', 'like', '%' . $this->search . '%');
+        }
+
+        $this->industriList = $query->select('industri.*')->paginate($this->numpage);
+
+        return view('livewire.industri.index', [
+            'industriList' => $this->industriList,
+        ]);
     }
 }
