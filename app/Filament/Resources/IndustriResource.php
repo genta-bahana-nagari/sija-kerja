@@ -31,11 +31,12 @@ class IndustriResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('nama')->required(),
-                Textarea::make('bidang_usaha')->required(),
-                Textarea::make('alamat')->required(),
-                TextInput::make('kontak'),
-                TextInput::make('email')->email(),
+                TextInput::make('nama')->required()->label('Nama Industri'),
+                Textarea::make('bidang_usaha')->required()->label('Bidang Usaha'),
+                Textarea::make('alamat')->required()->label('Alamat Industri'),
+                TextInput::make('kontak')->label('Kontak'),
+                TextInput::make('email')->email()->label('Email'),
+                TextInput::make('website')->email()->label('Website Industri'),
                 Select::make('guru_pembimbing')
                     ->relationship('guru', 'nama')
                     ->required()
@@ -51,7 +52,8 @@ class IndustriResource extends Resource
                 TextColumn::make('bidang_usaha')->label('Bidang')->limit(25),
                 TextColumn::make('alamat')->label('Alamat')->limit(25),
                 TextColumn::make('kontak')->label('Kontak'),
-                TextColumn::make('email')->label('E-mail'),
+                TextColumn::make('email')->label('Email'),
+                TextColumn::make('website')->label('Website'),
                 TextColumn::make('guru.nama')->label('Guru Pembimbing'),
             ])
             ->filters([
