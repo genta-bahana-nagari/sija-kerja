@@ -1,7 +1,7 @@
 <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
     <div class="px-4 mb-6 flex justify-center items-center">
         <img src="{{ asset('storage/'.$industri->foto) }}" class="w-40 h-40 object-cover rounded-full" alt="{{ $siswa->foto }}">
-    </div>    
+    </div>
     <!-- Bento -->
     <div class="grid grid-cols-6 grid-rows-3 gap-4">
         <div class="col-span-3">
@@ -40,6 +40,13 @@
                 <p class="text-gray-700 mt-2">{{ $industri->guru ? $industri->guru->nama : 'Tidak ada guru' }}</p>
             </div>
         </div>
+    </div>
+
+    <div class="px-4 mb-6 flex justify-center items-center">
+        <h3 class="font-semibold text-lg text-gray-800">Webiste Perusahaan</h3>
+        <a href="{{ $industri->website }}" class="text-gray-700 mt-2" target="_blank" rel="noopener noreferrer">
+            {{ $industri->website }}
+        </a>
     </div>
 
     <!-- Kembali -->
