@@ -10,7 +10,7 @@ class Siswa extends Model
     use HasFactory;
     protected $table = 'siswa';
 
-    protected $fillable = ['nama', 'nis', 'gender', 'alamat', 'kontak', 'email', 'status_pkl'];
+    protected $fillable = ['nama', 'nis', 'gender', 'alamat', 'kontak', 'email', 'foto', 'status_pkl'];
     
     public function pkl()
     {

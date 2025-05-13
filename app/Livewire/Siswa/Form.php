@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Form extends Component
 {
-    public $id, $nama, $nis, $gender, $alamat, $kontak, $email;
+    public $id, $nama, $nis, $gender, $alamat, $kontak, $email, $foto;
     public $status_pkl = 'no';
 
     public function mount($id = null)
@@ -21,6 +21,7 @@ class Form extends Component
             $this->alamat = $siswa->alamat;
             $this->kontak = $siswa->kontak;
             $this->email = $siswa->email;
+            $this->foto = $siswa->foto;
             $this->status_pkl = $siswa->status_pkl;
         }
     }
@@ -34,6 +35,7 @@ class Form extends Component
             'alamat' => 'required|string',
             'kontak' => 'required|string',
             'email' => 'required|email|unique:siswa,email,' . $this->id,
+            'foto' => 'nullable',
             'status_pkl' => 'required|in:no,yes',
         ];
     }
@@ -41,6 +43,8 @@ class Form extends Component
     public function save()
     {
         $this->validate();
+
+        $imagePath = $this->image->store('products', 'public');
 
         Siswa::updateOrCreate(
             ['id' => $this->id],
@@ -51,6 +55,7 @@ class Form extends Component
                 'alamat' => $this->alamat,
                 'kontak' => $this->kontak,
                 'email' => $this->email,
+                'image' => $imagePath,
                 'status_pkl' => $this->status_pkl,
             ]
         );

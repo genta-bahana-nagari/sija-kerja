@@ -6,12 +6,14 @@ use App\Filament\Resources\SiswaResource\Pages;
 use App\Filament\Resources\SiswaResource\RelationManagers;
 use App\Models\Siswa;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,6 +33,19 @@ class SiswaResource extends Resource
     {
         return $form
             ->schema([
+            FileUpload::make('foto')
+                ->label('Foto Siswa')
+                ->image()
+                ->disk('public')
+                ->directory('foto_siswa') 
+                ->imagePreviewHeight('150')
+                ->loadingIndicatorPosition('left')
+                ->uploadProgressIndicatorPosition('left')
+                ->removeUploadedFileButtonPosition('right')
+                ->downloadable()
+                ->openable()
+                ->columnSpanFull()
+                ->required(), 
             TextInput::make('nama')->required(),
             TextInput::make('nis')->required()->unique()->label('NIS'),
             Select::make('gender')
@@ -51,6 +66,10 @@ class SiswaResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('foto')
+                    ->label('Foto Siswa')
+                    ->height(40)
+                    ->circular(),
                 TextColumn::make('nama')->label('Nama'),
                 TextColumn::make('nis')->label('NIS'),
                 TextColumn::make('gender')
