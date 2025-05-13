@@ -64,11 +64,11 @@ class SiswaResource extends Resource
                 
                 TextInput::make('email')->email()->required()->label('Email')->unique(),
                 
-                Toggle::make('status_lapor_pkl')
-                        ->label('Status Lapor PKL')
-                        ->inline(false)
-                        ->default(false)
-                        ->required(),
+                Select::make('status_pkl')
+                    ->options([false => 'Belum diterima PKL', true => 'Sudah diterima PKL'])
+                    ->default(false)
+                    ->required()
+                    ->label('Status PKL'),
             ]);
     }
 
