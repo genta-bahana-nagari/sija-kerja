@@ -26,10 +26,21 @@ class PKLController extends Controller
             'industri_id' => 'required|exists:industri,id',
             'guru_id' => 'required|exists:guru,id',
             'mulai' => 'required|date',
-            'selesai' => 'required|date',
+            'selesai' => 'nullable|date|after_or_equal:mulai',  // Optional field, ensures selesai is after mulai if provided.
         ]);
 
-        PKL::create($request->all());
+        $pkl = PKL::create([
+            'siswa_id' => $request->siswa_id,
+            'industri_id' => $request->industri_id,
+            'guru_id' => $request->guru_id,
+            'mulai' => $request->mulai,
+            'selesai' => $request->selesai,
+        ]);
+
+        return response()->json([
+            'message' => 'Data PKL berhasil disimpan',
+            'pkl' => $pkl,
+        ], 201);
     }
 
     /**
@@ -37,7 +48,7 @@ class PKLController extends Controller
      */
     public function show(string $id)
     {
-        $pkl = PKL::with('siswa', 'guru','industri')->find($id);
+        $pkl = PKL::with('siswa', 'guru', 'industri')->find($id);
 
         if (!$pkl) {
             return response()->json(['message' => 'Data PKL tidak ditemukan'], 404);
@@ -67,10 +78,16 @@ class PKLController extends Controller
             'industri_id' => 'required|exists:industri,id',
             'guru_id' => 'required|exists:guru,id',
             'mulai' => 'required|date',
-            'selesai' => 'required|date',
+            'selesai' => 'nullable|date|after_or_equal:mulai',  // Optional field, ensures selesai is after mulai if provided.
         ]);
 
-        $pkl->update($request->all());
+        $pkl->update([
+            'siswa_id' => $request->siswa_id,
+            'industri_id' => $request->industri_id,
+            'guru_id' => $request->guru_id,
+            'mulai' => $request->mulai,
+            'selesai' => $request->selesai,
+        ]);
 
         $pkl->load('siswa', 'guru', 'industri');
 
