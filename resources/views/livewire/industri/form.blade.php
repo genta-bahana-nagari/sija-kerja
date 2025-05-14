@@ -2,6 +2,12 @@
     <h2 class="text-2xl font-semibold mb-6 text-center">{{ $id ? 'Edit Industri' : 'Tambah Industri' }}</h2>
 
     <form wire:submit.prevent="save" class="space-y-6">
+
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2">Foto Industri</label>
+            <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="foto">
+            @error('foto') <span class="text-red-500">{{ $message }}</span>@enderror
+        </div>
         
         <div class="grid grid-cols-2 gap-4">
             <div>
@@ -36,7 +42,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Website Perusahaan</label>
-                <input type="text" wire:model="bidang_usaha" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" wire:model="website" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 @error('website') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
             
