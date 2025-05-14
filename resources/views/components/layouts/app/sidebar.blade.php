@@ -37,6 +37,10 @@
                 </flux:navlist.group>
             </flux:navlist>
             @endif
+            
+            <flux:navlist variant="outline">
+                <flux:navlist.item icon="home" :href="route('home')" wire:navigate>{{ __('Kembali') }}</flux:navlist.item>
+            </flux:navlist>
 
             <flux:spacer />
 
