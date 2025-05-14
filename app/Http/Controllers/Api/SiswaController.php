@@ -28,10 +28,11 @@ class SiswaController extends Controller
             'alamat' => 'required|string',
             'kontak' => 'required|string|max:255',
             'email' => 'required|email|unique:siswa,email',
-            'status_pkl' => 'required|in:yes,no',
+            'foto' => 'nullable|string|max:255',  // Handle foto as optional
+            'status_pkl' => 'required|boolean',  // Ensure status_pkl is a boolean (0 or 1)
         ]);
 
-        return Siswa::create($validated);
+        return response()->json(Siswa::create($validated), 201);
     }
 
     /**
@@ -57,13 +58,14 @@ class SiswaController extends Controller
             $siswa = Siswa::findOrFail($id);
 
             $validated = $request->validate([
-                'nama'       => 'sometimes|required|string|max:255',
-                'nis'        => 'sometimes|required|string|max:255|unique:siswa,nis,' . $id,
-                'gender'     => 'sometimes|required|in:L,P',
-                'alamat'     => 'sometimes|required|string',
-                'kontak'     => 'sometimes|required|string|max:255',
-                'email'      => 'sometimes|required|email|unique:siswa,email,' . $id,
-                'status_pkl' => 'sometimes|required|in:yes,no',
+                'nama' => 'sometimes|required|string|max:255',
+                'nis' => 'sometimes|required|string|max:255|unique:siswa,nis,' . $id,
+                'gender' => 'sometimes|required|in:L,P',
+                'alamat' => 'sometimes|required|string',
+                'kontak' => 'sometimes|required|string|max:255',
+                'email' => 'sometimes|required|email|unique:siswa,email,' . $id,
+                'foto' => 'nullable|string|max:255',
+                'status_pkl' => 'sometimes|required|boolean',
             ]);
 
             $siswa->fill($validated)->save();
