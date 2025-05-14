@@ -18,11 +18,12 @@
         </div>
     @endif
     <div class="overflow-x-auto bg-white shadow-sm rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="table-auto w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">Nama</th>
                     <th scope="col" class="px-6 py-3">Bidang Usaha</th>
+                    <th scope="col" class="px-6 py-3">Alamat</th>
                     <th scope="col" class="px-6 py-3">Kontak</th>
                     <th scope="col" class="px-6 py-3">Guru Pembimbing</th>
                     <th scope="col" class="px-6 py-3 text-center">Aksi</th>
@@ -30,9 +31,10 @@
             </thead>
             <tbody>
                 @foreach ($industriList as $industri)
-                <tr class="border-b hover:bg-gray-50 transition duration-200">
+                <tr class="border-b hover:bg-gray-50 whitespace-nowrap">
                     <td class="px-6 py-3">{{ $industri->nama }}</td>
-                    <td class="px-6 py-3">{{ $industri->bidang_usaha }}</td>
+                    <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($industri->bidang_usaha, 25) }}</td>
+                    <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($industri->alamat, 25) }}</td>
                     <td class="px-6 py-3">{{ $industri->kontak }}</td>
                     <!-- Relasi ke guru -->
                     <td class="px-6 py-3">
