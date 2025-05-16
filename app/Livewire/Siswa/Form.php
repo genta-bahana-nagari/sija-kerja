@@ -46,7 +46,12 @@ class Form extends Component
     {
         $this->validate();
 
-        $imagePath = $this->foto->store('foto_siswa', 'public');
+        $imagePath = $this->foto;
+
+        if ($this->foto && !is_string($this->foto)) {
+            // Jika user mengupload file baru
+            $imagePath = $this->foto->store('foto_siswa', 'public');
+        }
 
         Siswa::updateOrCreate(
             ['id' => $this->id],
