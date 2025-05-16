@@ -52,7 +52,13 @@ class Form extends Component
     {
         $this->validate();
 
-        $imagePath = $this->foto ? $this->foto->store('foto_industri', 'public') : $this->foto;
+        // $imagePath = $this->foto ? $this->foto->store('foto_industri', 'public') : $this->foto;
+        $imagePath = $this->foto;
+
+        if ($this->foto && !is_string($this->foto)) {
+            // Jika user mengupload file baru
+            $imagePath = $this->foto->store('foto_industri', 'public');
+        }
 
         // Update or create industri
         Industri::updateOrCreate(
