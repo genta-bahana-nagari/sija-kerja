@@ -23,14 +23,30 @@ class IndustriController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'bidang_usaha' => 'required|string',
+            'bidang_usaha' => 'required|string|max:255',
             'alamat' => 'required|string',
-            'kontak' => 'required|string',
-            'email' => 'required|email|unique:industri,email',
+            'kontak' => 'nullable|string|max:20',
+            'email' => 'nullable|email|unique:industri,email',
             'guru_pembimbing' => 'required|exists:guru,id',
+            'website' => 'required|string|max:255',
+            'foto' => 'nullable|string|max:255',
         ]);
 
-        Industri::create($request->all());
+        $industri = Industri::create([
+            'nama' => $request->nama,
+            'bidang_usaha' => $request->bidang_usaha,
+            'alamat' => $request->alamat,
+            'kontak' => $request->kontak,
+            'email' => $request->email,
+            'guru_pembimbing' => $request->guru_pembimbing,
+            'website' => $request->website,
+            'foto' => $request->foto,
+        ]);
+
+        return response()->json([
+            'message' => 'Data industri berhasil disimpan',
+            'industri' => $industri
+        ], 201);
     }
 
     /**
@@ -63,14 +79,25 @@ class IndustriController extends Controller
 
         $request->validate([
             'nama' => 'required|string|max:255',
-            'bidang_usaha' => 'required|string',
+            'bidang_usaha' => 'required|string|max:255',
             'alamat' => 'required|string',
-            'kontak' => 'required|string',
-            'email' => 'required|email|unique:industri,email,' . $id,
+            'kontak' => 'nullable|string|max:20',
+            'email' => 'nullable|email|unique:industri,email,' . $id,
             'guru_pembimbing' => 'required|exists:guru,id',
+            'website' => 'required|string|max:255',
+            'foto' => 'nullable|string|max:255',
         ]);
 
-        $industri->update($request->all());
+        $industri->update([
+            'nama' => $request->nama,
+            'bidang_usaha' => $request->bidang_usaha,
+            'alamat' => $request->alamat,
+            'kontak' => $request->kontak,
+            'email' => $request->email,
+            'guru_pembimbing' => $request->guru_pembimbing,
+            'website' => $request->website,
+            'foto' => $request->foto,
+        ]);
 
         $industri->load('guru');
 
