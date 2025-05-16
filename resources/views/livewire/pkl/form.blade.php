@@ -9,10 +9,11 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Nama Siswa</label>
                 <select wire:model="siswa_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Cari nama anda</option>
-                    @foreach($siswaList as $siswa)
-                        <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
-                    @endforeach
+                    @if($siswa_login)
+                        <option value="{{ $siswa_login->id }}">{{ $siswa_login->nama }}</option>
+                    @else  
+                        <option disabled selected>Nama siswa tidak ditemukan</option>
+                    @endif
                 </select>
                 @error('siswa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
