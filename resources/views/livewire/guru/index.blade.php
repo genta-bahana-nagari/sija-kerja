@@ -31,7 +31,7 @@
             <tbody>
                 @if ($guruList && $guruList->count())
                     @foreach ($guruList as $guru)
-                    <tr class="border-b hover:bg-gray-50 transition duration-200">
+                    <tr class="border-b hover:bg-gray-50 whitespace-nowrap">
                         <td class="px-6 py-3">{{ $guru->nama }}</td>
                         <td class="px-6 py-3">{{ $guru->nip }}</td>
                         <td class="px-6 py-3">{{ $guru->kontak }}</td>
