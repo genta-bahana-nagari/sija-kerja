@@ -3,6 +3,7 @@
 namespace App\Livewire\PKL;
 
 use App\Models\PKL;
+use App\Models\Siswa;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,8 @@ class Index extends Component
 
     public $numpage = 10;
     public $search;
-
+    public $userMail;
+    
     public function updatingSearch()
     {
         $this->resetPage();
@@ -43,6 +45,7 @@ class Index extends Component
 
         return view('livewire.pkl.index', [
             'pklList' => $pklList,
+            'siswa_login'=>Siswa::where('email','=',$this->userMail)->first(),
         ]);
     }
 }
