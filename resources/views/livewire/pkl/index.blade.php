@@ -5,7 +5,7 @@
                 Lapor PKL
             </a>
         </div>
-        <div class="col-span-12 md:col-span-6 flex justify-between items-center space-x-4">
+        <div class="col-span-12 md:col-span-6 flex justify-end items-center space-x-4">
             <div class="flex items-center space-x-2">
                 <label for="search" class="text-sm font-medium text-gray-700">Search:</label>
                 <input wire:model.live="search" id="search" type="text" placeholder="Search laporan..." class="w-full md:w-72 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150 ease-in-out">
