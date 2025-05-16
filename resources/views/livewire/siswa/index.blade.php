@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-            @if(auth()->user() && auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('Siswa'))
+            @if(auth()->user() && auth()->user()->hasRole('Siswa'))
             <a href="{{ route('siswa.create') }}"
                class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200">
                 Tambah Siswa
@@ -61,7 +61,7 @@
                                            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
                                             View
                                         </a>
-                                        @if(auth()->user() && auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('Siswa'))
+                                        @if(auth()->user() && auth()->user()->hasRole('Siswa'))
                                         <a href="{{ route('siswa.edit', ['id' => $siswa->id]) }}"
                                            class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
                                             Edit

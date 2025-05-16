@@ -1,5 +1,5 @@
 <div class="p-6 max-w-3xl mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg text-gray-800 dark:text-gray-100">
-    @if(auth()->user() && auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('Siswa'))
+    @if(auth()->user() && auth()->user()->hasRole('Siswa'))
     <h2 class="text-2xl font-semibold mb-6 text-center">
         {{ $id ? 'Edit Siswa' : 'Tambah Siswa' }}
     </h2>
