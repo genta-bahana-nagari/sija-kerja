@@ -2,10 +2,12 @@
     <!-- Header -->
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
+            @if(auth()->user() && auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('Siswa'))
             <a href="{{ route('siswa.create') }}"
                class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200">
                 Tambah Siswa
             </a>
+            @endif
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-end space-x-4">
             <div class="flex items-center space-x-2">
@@ -31,7 +33,6 @@
                     <th scope="col" class="px-6 py-3">Foto</th>
                     <th scope="col" class="px-6 py-3">Nama</th>
                     <th scope="col" class="px-6 py-3">NIS</th>
-                    <th scope="col" class="px-6 py-3">Jenis Kelamin</th>
                     <th scope="col" class="px-6 py-3">Status PKL</th>
                     <th scope="col" class="px-6 py-3">Kontak</th>
                     <th scope="col" class="px-6 py-3 text-center">Aksi</th>
@@ -44,9 +45,8 @@
                             <td class="px-6 py-3 text-center">
                                 <img src="{{ Storage::url($siswa->foto) }}" alt="Foto Siswa" class="w-12 h-12 object-cover rounded-full">
                             </td>
-                            <td class="px-6 py-3">{{ $siswa->nama }}</td>
+                            <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($siswa->nama, 15) }}</td>
                             <td class="px-6 py-3">{{ $siswa->nis }}</td>
-                            <td class="px-6 py-3">{{ $this->ketGender($siswa->gender) }}</td>
                             <td class="px-6 py-3">{{ $this->ketStatusPKL($siswa->status_pkl) }}</td>
                             <td class="px-6 py-3">{{ $siswa->kontak }}</td>
                             <td class="px-6 py-3 text-center">
@@ -61,6 +61,7 @@
                                            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
                                             View
                                         </a>
+                                        @if(auth()->user() && auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('Siswa'))
                                         <a href="{{ route('siswa.edit', ['id' => $siswa->id]) }}"
                                            class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
                                             Edit
@@ -69,6 +70,7 @@
                                                 class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
                                             Hapus
                                         </button>
+                                        @endif
                                     </div>
                                 </div>
                             </td>
@@ -91,6 +93,7 @@
                 <label for="perPage" class="text-sm font-medium text-gray-700 dark:text-gray-200">Tampilkan:</label>
                 <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage"
                         class="px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-100 rounded-md">
+                    <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
