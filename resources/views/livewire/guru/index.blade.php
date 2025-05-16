@@ -1,9 +1,11 @@
 <div class="p-4">
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-            <a href="{{ route('guru.create') }}" class="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition duration-200">
+            @if(auth()->user() && auth()->user()->hasRole('super_admin'))
+            <a href="{{ route('guru.create') }}" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200">
                 Tambah Guru
             </a>
+            @endif
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-end items-center space-x-4">
             <div class="flex items-center space-x-2">
@@ -32,7 +34,7 @@
                 @if ($guruList && $guruList->count())
                     @foreach ($guruList as $guru)
                     <tr class="border-b hover:bg-gray-50 whitespace-nowrap">
-                        <td class="px-6 py-3">{{ $guru->nama }}</td>
+                        <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($guru->nama, 15) }}</td>
                         <td class="px-6 py-3">{{ $guru->nip }}</td>
                         <td class="px-6 py-3">{{ $guru->kontak }}</td>
                         <td class="px-6 py-3">{{ $guru->email }}</td>
@@ -45,10 +47,12 @@
                                     class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded shadow-md z-50">
                                     <a href="{{ route('guru.show', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150">View</a>
+                                    @if(auth()->user() && auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('Guru'))
                                     <a href="{{ route('guru.edit', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 transition duration-150">Edit</a>
                                     <button wire:click="delete({{ $guru->id }})"
                                         class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150">Hapus</button>
+                                    @endif                                        
                                 </div>
                             </div>
                         </td>
