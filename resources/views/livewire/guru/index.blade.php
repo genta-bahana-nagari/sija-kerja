@@ -1,21 +1,33 @@
 <div class="p-4">
+    <!-- Header -->
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-            @if(auth()->user() && auth()->user()->hasRole('super_admin'))
-            <a href="{{ route('guru.create') }}" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200">
-                Tambah Guru
-            </a>
+            @if(auth()->check() && auth()->user()->hasRole('Guru') && !auth()->user()->guru)
+                <a href="{{ route('guru.create') }}"
+                class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200
+                dark:bg-blue-500 dark:hover:bg-blue-800">
+                    Tambah Guru
+                </a>
             @endif
         </div>
-        <div class="col-span-12 md:col-span-6 flex justify-end items-center space-x-4">
+        <div class="col-span-12 md:col-span-6 flex justify-end space-x-4">
             <div class="flex items-center space-x-2">
+                @if(auth()->check() && auth()->user()->hasRole('Siswa'))
                 <label for="search" class="text-sm font-medium text-gray-700 dark:text-gray-200">Cari:</label>
-                <input wire:model.live="search" id="search" type="text" placeholder="Cari nama guru..." class="w-full md:w-72 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                <input wire:model.live="search" id="search" type="text" placeholder="Cari nama guru..."
+                       class="w-full md:w-72 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                @endif
             </div>
         </div>
     </div>
+
     @if (session()->has('message'))
-        <div class="bg-gray-200 text-gray-700 p-2 mb-4 rounded text-center">
+        <div
+        x-data="{ show: true }"
+        x-init="setTimeout(() => show = false, 3000)"
+        x-show="show"
+        x-transition
+        class="bg-gray-200 text-gray-700 p-2 mb-4 rounded text-center">
             {{ session('message') }}
         </div>
     @endif
@@ -47,9 +59,9 @@
                                     class="cursor-pointer absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
                                     <a href="{{ route('guru.show', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">View</a>
-                                    @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                     <a href="{{ route('guru.edit', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Edit</a>
+                                    @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                     <button wire:click="delete({{ $guru->id }})"
                                             class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">Hapus</button>
                                     @endif
@@ -60,7 +72,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5" class="text-center py-4 text-gray-900 dark:text-gray-100">Tidak ada data ditemukan.</td>
+                        <td colspan="5" class="text-center py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">Tidak ada data ditemukan.</td>
                     </tr>
                 @endif
             </tbody>
