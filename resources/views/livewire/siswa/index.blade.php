@@ -2,11 +2,11 @@
     <!-- Header -->
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-            @if(auth()->user() && auth()->user()->hasRole('Siswa'))
-            <a href="{{ route('siswa.create') }}"
-               class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200">
-                Tambah Siswa
-            </a>
+            @if(auth()->check() && auth()->user()->hasRole('Siswa') && !auth()->user()->siswa)
+                <a href="{{ route('siswa.create') }}"
+                class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200">
+                    Tambah Siswa
+                </a>
             @endif
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-end space-x-4">
@@ -57,8 +57,10 @@
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150">View</a>
                         <a href="{{ route('siswa.edit', ['id' => $siswa->id]) }}"
                         class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 transition duration-150">Edit</a>
+                        @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                         <button wire:click="delete({{ $siswa->id }})"
                                 class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150">Hapus</button>
+                        @endif
                     </div>
                 </div>
             </td>
