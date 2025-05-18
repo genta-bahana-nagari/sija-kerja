@@ -28,4 +28,9 @@ class Guru extends Model
     {
         return DB::selectOne("SELECT ketGender(?) AS gender", [$this->gender])->gender ?? '-';
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
