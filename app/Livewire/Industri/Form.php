@@ -44,7 +44,7 @@ class Form extends Component
             'email' => 'required|email',
             'guru_pembimbing' => 'required|exists:guru,id',  // Memastikan guru_pembimbing valid
             'website' => 'required|string',
-            'foto' => 'nullable',
+            'foto' => 'nullable|image',
         ];
     }
 
