@@ -48,7 +48,7 @@ class Form extends Component
             'alamat' => 'required|string',
             'kontak' => 'required|string',
             'email' => 'required|email|unique:siswa,email,' . $this->id,
-            'foto' => 'nullable',
+            'foto' => 'nullable|image',
             'status_pkl' => 'required|in:0,1',
         ];
     }
