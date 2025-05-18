@@ -53,7 +53,7 @@ class Index extends Component
             });
         }
 
-        $guruList = $query->all();
+        $guruList = $query->get();
 
         return view('livewire.guru.index', [
             'guruList' => $guruList,
