@@ -11,24 +11,25 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body class="bg-white text-gray-800 dark:bg-[#121212] dark:text-gray-100">
 
     <!-- Navbar -->
-    <header class="w-full py-4 px-6 lg:px-12 flex justify-between items-center shadow-md bg-white dark:bg-[#121212] sticky top-0 z-50">
+    <header class="w-full py-4 px-6 lg:px-12 flex justify-between items-center shadow-sm bg-white/80 dark:bg-[#121212]/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
         <!-- Logo -->
         <div class="text-xl font-bold text-blue-600 dark:text-blue-400">SIJA KERJA</div>
 
         <!-- Navigasi Utama -->
         <nav class="hidden md:flex items-center space-x-6 text-sm text-gray-700 dark:text-gray-200">
-            <a href="#fitur" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Fitur</a>
-            <a href="#mengapa" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Mengapa Kami</a>
-            <a href="#cara" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Cara Kerja</a>
-            <a href="#mitra" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Mitra</a>
-            <a href="#testimoni" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Testimoni</a>
-            <a href="#kontak" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Kontak</a>
+            <a href="#fitur" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 font-medium">Fitur</a>
+            <a href="#mengapa" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 font-medium">Mengapa Kami</a>
+            <a href="#cara" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 font-medium">Cara Kerja</a>
+            <a href="#mitra" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 font-medium">Mitra</a>
+            <a href="#testimoni" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 font-medium">Testimoni</a>
+            <a href="#kontak" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 font-medium">Kontak</a>
 
             @if (Route::has('login'))
                 @auth
@@ -65,7 +66,7 @@
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <!-- Gambar Ilustrasi -->
             <div class="order-2 md:order-1">
-                <img src="https://illustrations.popsy.co/gray/team-presentation.svg" alt="Ilustrasi Pengenalan Aplikasi" class="w-full h-auto rounded-md shadow-lg">
+                <img src="https://insight.study.csu.edu.au/wp-content/uploads/2020/02/banner-10-IT-jobs-option3.jpg" alt="Ilustrasi Pengenalan Aplikasi" class="w-full h-auto rounded-md shadow-lg">
             </div>
 
             <!-- Konten Teks -->
@@ -152,47 +153,58 @@
 
     <!-- Mitra -->
     <section id="mitra" class="bg-blue-50 dark:bg-[#0f172a] py-20">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-        <h3 class="text-3xl font-bold mb-10 text-gray-800 dark:text-white">Instansi Mitra Kami</h3>
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h3 class="text-3xl font-bold mb-10 text-gray-800 dark:text-white">Instansi Mitra Kami</h3>
+            <div class="swiper mitra-swiper">
+                <div class="swiper-wrapper">
+                    @foreach([
+                    'https://vritimes-public.s3.ap-southeast-1.amazonaws.com/production/beef9bfc3116846aa96ebf96542f5a73f4aedcd51bc799f5ce67fb3d9c33823b/logoGT_HiResReg_Color.jpg',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcrlVzJdwpwbGL1wWwC3Nm-LxlSm_TY6x27w&s',
+                    'https://perusahaanjepang.com/wp-content/uploads/2015/08/25-KARYA-HIDUP-SENTOSA-CV-logo-copy.png',
+                    'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/mlogo/CIB-60031-e722c623-dd04-4d8c-8263-8b5434862336.png',
+                    'https://cargloss.co.id/wp-content/uploads/2023/04/logo-cargloss.png',
+                    'https://ugc.production.linktr.ee/0fecabbe-2df2-4021-9581-b10a54002655_Logo-1x1.jpeg?io=true&size=avatar-v3_0',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWo4fp52jZqRGzYg9TCPHi1mlFCvwsa653xw&s',
+                    'https://i0.wp.com/weshare.or.id/wp-content/uploads/2020/10/divistant-logo.png?fit=510%2C510&ssl=1',
 
-        <div class="swiper mitra-swiper">
-        <div class="swiper-wrapper">
-            @foreach([
-            'https://vritimes-public.s3.ap-southeast-1.amazonaws.com/production/beef9bfc3116846aa96ebf96542f5a73f4aedcd51bc799f5ce67fb3d9c33823b/logoGT_HiResReg_Color.jpg',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcrlVzJdwpwbGL1wWwC3Nm-LxlSm_TY6x27w&s',
-            'https://perusahaanjepang.com/wp-content/uploads/2015/08/25-KARYA-HIDUP-SENTOSA-CV-logo-copy.png',
-            'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/mlogo/CIB-60031-e722c623-dd04-4d8c-8263-8b5434862336.png',
-            'https://cargloss.co.id/wp-content/uploads/2023/04/logo-cargloss.png',
-            'https://ugc.production.linktr.ee/0fecabbe-2df2-4021-9581-b10a54002655_Logo-1x1.jpeg?io=true&size=avatar-v3_0',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWo4fp52jZqRGzYg9TCPHi1mlFCvwsa653xw&s',
-            'https://i0.wp.com/weshare.or.id/wp-content/uploads/2020/10/divistant-logo.png?fit=510%2C510&ssl=1',
-
-            ] as $logo)
-            <div class="swiper-slide flex justify-center items-center">
-                <div class="w-32 h-20 bg-white rounded flex justify-center items-center shadow">
-                    <img src="{{ $logo }}" alt="Logo Mitra" class="max-h-16 object-contain" />
+                    ] as $logo)
+                    <div class="swiper-slide flex justify-center items-center">
+                        <div class="w-32 h-20 bg-white rounded flex justify-center items-center shadow">
+                            <img src="{{ $logo }}" alt="Logo Mitra" class="max-h-16 object-contain" />
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
-            @endforeach
         </div>
-        </div>
-    </div>
     </section>
 
     <!-- Testimoni -->
     <section id="testimoni" class="bg-white dark:bg-[#1a1a1a] py-20">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h3 class="text-3xl font-bold mb-10 text-gray-800 dark:text-white">Apa Kata Mereka</h3>
-            <div class="grid md:grid-cols-2 gap-8">
-                @foreach([
-                    ['"SIJA Kerja sangat membantu proses pencarian tempat PKL yang sesuai dengan passion saya!"', 'Fira, Siswa SMK RPL'],
-                    ['"Saya bisa memantau semua siswa bimbingan saya dalam satu dashboard. Sangat efisien."', 'Ibu Sari, Guru Pembimbing']
-                ] as [$msg, $author])
-                <div class="bg-blue-50 dark:bg-gray-800 p-6 rounded shadow hover:shadow-lg transition">
-                    <p class="italic text-gray-700 dark:text-gray-300">{{ $msg }}</p>
-                    <h5 class="mt-4 font-semibold text-blue-600 dark:text-blue-400">– {{ $author }}</h5>
+            <div class="swiper testimoni-swiper">
+                <div class="swiper-wrapper">
+                    @foreach([
+                        ['"SIJA Kerja sangat membantu proses pencarian tempat PKL yang sesuai dengan passion saya!"', 'Genta, Siswa SMK SIJA'],
+                        ['"Saya bisa memantau semua siswa bimbingan saya dalam satu dashboard. Sangat efisien."', 'Pak Ugik, Guru Pembimbing'],
+                        ['"Awalnya bingung mau PKL dimana. Berkat SIJA Kerja, saya bisa menemukan tempat yang cocok!"', 'Ilham, Siswa SMK SIJA'],
+                        ['"Dengan SIJA Kerja, proses pengawasan siswa jadi lebih mudah dan terstruktur."', 'Bu Rere, Guru Pembimbing'],
+                        ['"Platform ini membantu saya menemukan tempat PKL sesuai dengan minat karier saya."', 'Athiyya, Siswa SMK SIJA'],
+                        ['"SIJA Kerja memberi kemudahan dalam mengelola dan memantau progres siswa PKL."', 'Bu Endah, Guru Pembimbing'],
+                        ['"Saya jadi lebih percaya diri saat melamar tempat PKL karena ada panduan lengkap di SIJA Kerja."', 'Arifin, Siswa SMK SIJA'],
+                        ['"Sangat terbantu dengan notifikasi dan sistem evaluasi otomatis di SIJA Kerja."', 'Pak Eka, Guru Pembimbing'],
+                        ['"Pengalaman mencari PKL tidak lagi menegangkan berkat fitur-fitur SIJA Kerja."', 'Salwa, Siswa SMK SIJA'],
+                        ['"Data siswa mudah diakses dan dilaporkan. Sangat membantu tugas administrasi kami."', 'Bu Ratna, Guru Pembimbing']
+                    ] as [$msg, $author])
+                    <div class="swiper-slide">
+                        <div class="bg-blue-50 dark:bg-gray-800 p-6 rounded shadow hover:shadow-lg transition h-full">
+                            <p class="italic text-gray-700 dark:text-gray-300">{{ $msg }}</p>
+                            <h5 class="mt-4 font-semibold text-blue-600 dark:text-blue-400">– {{ $author }}</h5>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
     </section>
@@ -298,6 +310,20 @@
         1024: {
             slidesPerView: 5,
         },
+        },
+    });
+
+    new Swiper('.testimoni-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        slidesPerView: 1,
+        spaceBetween: 20,
+        breakpoints: {
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
         },
     });
     </script>
