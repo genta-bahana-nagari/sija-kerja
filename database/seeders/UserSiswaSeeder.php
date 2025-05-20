@@ -96,7 +96,7 @@ class UserSiswaSeeder extends Seeder
                 ]
             );
 
-            $user->assignRole('siswa');
+            $user->assignRole('Siswa');
         }
     }
 }
