@@ -74,19 +74,19 @@ class Form extends Component
             'status_pkl' => (int) $this->status_pkl,
         ];
 
-    // Tambahkan user_id jika ini insert baru
-    if (!$this->id) {
-        $data['user_id'] = auth()->id();
+        // Tambahkan user_id jika ini insert baru
+        if (!$this->id) {
+            $data['user_id'] = auth()->id();
+        }
+
+        Siswa::updateOrCreate(
+            ['id' => $this->id],
+            $data
+        );
+
+        session()->flash('message', 'Data siswa berhasil disimpan.');
+        return redirect()->route('siswa');
     }
-
-    Siswa::updateOrCreate(
-        ['id' => $this->id],
-        $data
-    );
-
-    session()->flash('message', 'Data siswa berhasil disimpan.');
-    return redirect()->route('siswa');
-}
 
     public function render()
     {

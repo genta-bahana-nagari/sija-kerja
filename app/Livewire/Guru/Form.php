@@ -5,15 +5,14 @@ namespace App\Livewire\Guru;
 use App\Models\Guru;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class Form extends Component
 {
     public $id, $nama, $nip, $gender, $alamat, $kontak, $email;
-    
+
     public function mount($id = null)
     {
-        // Cegah user yang sudah punya data Siswa membuat entri baru
+        // Cegah user yang sudah punya data Guru membuat entri baru
         $existingGuru = Auth::user()->guru;
 
         if (!$id && $existingGuru) {
@@ -59,19 +58,19 @@ class Form extends Component
             'email' => $this->email,
         ];
 
-    // Tambahkan user_id jika ini insert baru
-    if (!$this->id) {
-        $data['user_id'] = auth()->id();
+        // Tambahkan user_id jika ini insert baru
+        if (!$this->id) {
+            $data['user_id'] = auth()->id();
+        }
+
+        Guru::updateOrCreate(
+            ['id' => $this->id],
+            $data
+        );
+
+        session()->flash('message', 'Data guru berhasil disimpan.');
+        return redirect()->route('guru');
     }
-
-    Guru::updateOrCreate(
-        ['id' => $this->id],
-        $data
-    );
-
-    session()->flash('message', 'Data guru berhasil disimpan.');
-    return redirect()->route('guru');
-}
 
     public function render()
     {
