@@ -1,14 +1,18 @@
 <div class="p-4">
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-            <a href="{{ route('pkl.create') }}" class="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition duration-200">
+            @if(auth()->check() && auth()->user()->hasRole('Siswa') && !auth()->user()->siswa)
+            <a href="{{ route('pkl.create') }}"
+               class="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition duration-200 dark:bg-blue-500 dark:hover:bg-blue-800">
                 Lapor PKL
             </a>
+            @endif
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-end items-center space-x-4">
             <div class="flex items-center space-x-2">
-                <label for="search" class="text-sm font-medium text-gray-700">Search:</label>
-                <input wire:model.live="search" id="search" type="text" placeholder="Search laporan..." class="w-full md:w-72 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150 ease-in-out">
+                <label for="search" class="text-sm font-medium text-gray-700 dark:text-gray-200">Cari:</label>
+                <input wire:model.live="search" id="search" type="text" placeholder="Cari laporan..."
+                    class="w-full md:w-72 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150 ease-in-out">
             </div>
         </div>
     </div>
