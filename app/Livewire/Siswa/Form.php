@@ -3,17 +3,28 @@
 namespace App\Livewire\Siswa;
 
 use App\Models\Siswa;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Form extends Component
 {
     use WithFileUploads;
+
     public $id, $nama, $nis, $gender, $alamat, $kontak, $email, $foto;
-    public $status_pkl = 'no';
+    public $status_pkl = '0';
 
     public function mount($id = null)
     {
+        // Cegah user yang sudah punya data Siswa membuat entri baru
+        $existingSiswa = Auth::user()->siswa;
+
+        if (!$id && $existingSiswa) {
+            // Tidak mengizinkan akses create form
+            abort(403, 'Kamu sudah mengisi data siswa.');
+        }
+
+        // Jika sedang edit
         if ($id) {
             $siswa = Siswa::findOrFail($id);
             $this->id = $siswa->id;
@@ -37,8 +48,8 @@ class Form extends Component
             'alamat' => 'required|string',
             'kontak' => 'required|string',
             'email' => 'required|email|unique:siswa,email,' . $this->id,
-            'foto' => 'nullable',
-            'status_pkl' => 'required',
+            'foto' => 'nullable|image',
+            'status_pkl' => 'required|in:0,1',
         ];
     }
 
@@ -46,24 +57,34 @@ class Form extends Component
     {
         $this->validate();
 
-        $imagePath = $this->foto->store('foto_siswa', 'public');
+        $imagePath = $this->foto;
+
+        if ($this->foto && !is_string($this->foto)) {
+            $imagePath = $this->foto->store('foto_siswa', 'public');
+        }
+
+        $data = [
+            'nama' => $this->nama,
+            'nis' => $this->nis,
+            'gender' => $this->gender,
+            'alamat' => $this->alamat,
+            'kontak' => $this->kontak,
+            'email' => $this->email,
+            'foto' => $imagePath,
+            'status_pkl' => (int) $this->status_pkl,
+        ];
+
+        // Tambahkan user_id jika ini insert baru
+        if (!$this->id) {
+            $data['user_id'] = auth()->id();
+        }
 
         Siswa::updateOrCreate(
             ['id' => $this->id],
-            [
-                'nama' => $this->nama,
-                'nis' => $this->nis,
-                'gender' => $this->gender,
-                'alamat' => $this->alamat,
-                'kontak' => $this->kontak,
-                'email' => $this->email,
-                'foto' => $imagePath,
-                'status_pkl' => $this->status_pkl,
-            ]
+            $data
         );
 
         session()->flash('message', 'Data siswa berhasil disimpan.');
-
         return redirect()->route('siswa');
     }
 

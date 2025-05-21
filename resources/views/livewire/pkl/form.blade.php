@@ -1,4 +1,5 @@
-<div class="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
+<div class="p-6 max-w-3xl mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg text-gray-800 dark:text-gray-100">
+    @if(auth()->user() && auth()->user()->hasRole('Siswa'))    
     <h2 class="text-2xl font-semibold mb-6 text-center">
         {{ $id ? 'Edit Laporan' : 'Lapor PKL' }}
     </h2>
@@ -9,10 +10,11 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Nama Siswa</label>
                 <select wire:model="siswa_id" class="w-full mt-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Cari nama anda</option>
-                    @foreach($siswaList as $siswa)
-                        <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
-                    @endforeach
+                    @if($siswa_login)
+                        <option value="{{ $siswa_login->id }}">{{ $siswa_login->nama }}</option>
+                    @else  
+                        <option disabled selected>Nama siswa tidak ditemukan</option>
+                    @endif
                 </select>
                 @error('siswa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
@@ -65,4 +67,9 @@
             </button>
         </div>
     </form>
+    @else
+    <h2 class="text-2xl font-semibold my-6 text-center">
+        Anda tidak punya akses untuk ini.
+    </h2>
+    @endif
 </div>

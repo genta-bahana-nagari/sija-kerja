@@ -28,6 +28,12 @@ class Form extends Component
         $this->industriList = Industri::all();
         $this->guruList = Guru::all();
 
+        // Ambil siswa yang sedang login
+        $siswa = Siswa::where('email', $this->userMail)->first();
+        if ($siswa) {
+            $this->siswa_id = $siswa->id;
+        }
+
         if ($id) {
             $pkl = PKL::findOrFail($id);
             $this->id = $pkl->id;
@@ -90,6 +96,10 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.pkl.form');
+        $siswa_login = Siswa::where('email', '=', $this->userMail)->first();
+
+        return view('livewire.pkl.form', [
+            'siswa_login'=>$siswa_login,
+        ]);
     }
 }

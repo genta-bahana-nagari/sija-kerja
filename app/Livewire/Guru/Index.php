@@ -3,6 +3,7 @@
 namespace App\Livewire\Guru;
 
 use App\Models\Guru;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,6 +12,13 @@ class Index extends Component
     use WithPagination;
 
     public $search;
+
+    public $userMail;
+
+    public function mount()
+    {
+        $this->userMail = Auth::user()->email;
+    }
 
     public function updatingSearch()
     {
@@ -25,19 +33,30 @@ class Index extends Component
 
     public function render()
     {
-        $query = Guru::query();
+        $user = Auth::user();
+        
+        if ($user->hasRole('Guru')) {
+            $guruList = Guru::where('email', $user->email)->get();
 
-        // If there's a search term, filter the records
-        if (!empty($this->search)) {
-            $query->where('nama', 'like', '%' . $this->search . '%')
-                ->orWhere('nip', 'like', '%' . $this->search . '%');
+            return view('livewire.guru.index', [
+                'guruList' => $guruList,
+            ]);
         }
 
-        // Get the results after applying the search filter
+        
+        $query = Guru::query();
+
+        if (!empty($this->search)) {
+            $query->where(function ($q) {
+                $q->where('nama', 'like', '%' . $this->search . '%')
+                ->orWhere('nip', 'like', '%' . $this->search . '%');
+            });
+        }
+
         $guruList = $query->get();
 
         return view('livewire.guru.index', [
-            'guruList' => $guruList, // Pass the result to the view
+            'guruList' => $guruList,
         ]);
     }
     

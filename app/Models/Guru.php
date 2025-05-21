@@ -12,7 +12,7 @@ class Guru extends Model
 
     protected $table = 'guru';
 
-    protected $fillable = ['nama', 'nip', 'gender', 'alamat', 'kontak', 'email'];
+    protected $fillable = ['nama', 'nip', 'gender', 'alamat', 'kontak', 'email', 'user_id'];
 
     public function industri()
     {
@@ -27,5 +27,10 @@ class Guru extends Model
     public function getKetGenderAttribute()
     {
         return DB::selectOne("SELECT ketGender(?) AS gender", [$this->gender])->gender ?? '-';
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

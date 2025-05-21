@@ -16,29 +16,27 @@ class UserGuruSeeder extends Seeder
     public function run(): void
     {
         $guruData = [
-            ['Sugiarto'],
-            ['Yunianto Hermawan'],
-            ['Margaretha Endah Titisari'],
-            ['Eka Nur Ahmad Romadhoni'],
-            ['Rr. Retna Trimantaraningsih'],
-            ['Ratna Yunitasari'],
+            ['nama' => 'Sugiarto', 'email' => 'ugik@sija.com'],
+            ['nama' => 'Yunianto Hermawan', 'email' => 'yuni@sija.com'],
+            ['nama' => 'Margaretha Endah Titisari', 'email' => 'endah@sija.com'],
+            ['nama' => 'Eka Nur Ahmad Romadhoni', 'email' => 'eka@sija.com'],
+            ['nama' => 'Rr. Retna Trimantaraningsih', 'email' => 'rere@sija.com'],
+            ['nama' => 'Ratna Yunitasari', 'email' => 'ratna@sija.com'],
         ];
 
-        // Buat role siswa jika belum ada
+        // Buat role guru jika belum ada
         Role::firstOrCreate(['name' => 'guru']);
 
-        foreach ($guruData as $index => [$name]) {
-            $email = "guru{$index}@sija.com"; // email unik untuk setiap guru
-
+        foreach ($guruData as $data) {
             $user = User::firstOrCreate(
-                ['email' => $email],
+                ['email' => $data['email']],
                 [
-                    'name' => $name,
-                    'password' => Hash::make('password'),
+                    'name' => $data['nama'],
+                    'password' => Hash::make('password'), // ganti dengan password yang lebih aman di production
                 ]
             );
 
-            $user->assignRole('guru');
+            $user->assignRole('Guru');
         }
     }
 }
