@@ -38,7 +38,6 @@
         <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Foto</th>
                     <th scope="col" class="px-6 py-3">Nama</th>
                     <th scope="col" class="px-6 py-3">NIS</th>
                     <th scope="col" class="px-6 py-3">Status PKL</th>
@@ -51,7 +50,6 @@
                     <tr class="border-b dark:bg-gray-800 dark:hover:bg-gray-500 whitespace-nowrap">
                         <td class="px-6 py-3">{{ $siswa->nama }}</td>
                         <td class="px-6 py-3">{{ $siswa->nis }}</td>
-                        <td class="px-6 py-3">{{ $this->ketGender($siswa->gender) }}</td>
                         <td class="px-6 py-3">{{ $this->ketStatusPKL($siswa->status_pkl) }}</td>
                         <td class="px-6 py-3">{{ $siswa->kontak }}</td>
                         <td class="px-6 py-3 text-center">
