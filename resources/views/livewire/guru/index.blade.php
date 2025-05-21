@@ -59,8 +59,10 @@
                                     class="cursor-pointer absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
                                     <a href="{{ route('guru.show', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">View</a>
+                                    @if(auth()->user() && auth()->user()->hasRole('Guru'))
                                     <a href="{{ route('guru.edit', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Edit</a>
+                                    @endif
                                     @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                     <button wire:click="delete({{ $guru->id }})"
                                             class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">Hapus</button>
