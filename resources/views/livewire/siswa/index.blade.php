@@ -48,7 +48,7 @@
             <tbody>
                 @forelse ($siswaList as $siswa)
                     <tr class="border-b dark:bg-gray-800 dark:hover:bg-gray-500 whitespace-nowrap">
-                        <td class="px-6 py-3">{{ $siswa->nama }}</td>
+                        <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($siswa->nama, 25) }}</td>
                         <td class="px-6 py-3">{{ $siswa->nis }}</td>
                         <td class="px-6 py-3">{{ $this->ketStatusPKL($siswa->status_pkl) }}</td>
                         <td class="px-6 py-3">{{ $siswa->kontak }}</td>
