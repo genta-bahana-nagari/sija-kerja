@@ -4,7 +4,7 @@
         <!-- Jika siswa sudah pernah mengisi laporan PKL -->
         @if(auth()->user()->siswa->pkl)
             <h2 class="text-2xl font-semibold my-6 text-center">
-                Kamu sudah pernah laporan PKL.
+                Kamu sudah lapor PKL.
             </h2>
         @else
             <!-- Jika siswa belum pernah mengisi laporan PKL -->
