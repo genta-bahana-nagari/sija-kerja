@@ -51,9 +51,13 @@
     <section class="bg-gradient-to-r from-blue-50 via-white to-blue-100 py-24 dark:from-blue-900 dark:via-gray-900 dark:to-blue-950">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6">Solusi Cerdas Penempatan PKL Siswa</h2>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-800 dark:text-blue-300 mb-6">
+                Solusi Cerdas Penempatan PKL Siswa
+                </h2>
                 <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Temukan dan kelola tempat magang dengan mudah menggunakan <strong>SIJA Kerja</strong>, platform digital terpercaya untuk siswa dan guru pembimbing.</p>
-                <a href="{{ route('login') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md shadow hover:bg-blue-700 transition">Mulai Sekarang</a>
+                <a href="{{ route('login') }}" class="inline-block bg-blue-600 hover:bg-blue-700 active:scale-95 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 text-white px-6 py-3 rounded-md shadow transition">
+                  Mulai Sekarang
+                </a>
             </div>
             <div class="hidden md:block">
                 <img src="https://illustrations.popsy.co/gray/work-from-home.svg" alt="Ilustrasi PKL" class="w-full h-auto" />
@@ -96,12 +100,12 @@
             <h3 class="text-3xl font-bold mb-12 text-gray-800 dark:text-white">Fitur Unggulan</h3>
             <div class="grid md:grid-cols-3 gap-12">
                 @foreach([
-                    ['img' => 'task.png', 'title' => 'Manajemen PKL', 'desc' => 'Pengajuan, persetujuan, dan pelaporan PKL semua dalam satu platform.'],
-                    ['img' => 'data-report.png', 'title' => 'Laporan Otomatis', 'desc' => 'Laporan harian dan akhir magang dibuat secara otomatis dan rapi.'],
-                    ['img' => 'support.png', 'title' => 'Komunikasi Real-time', 'desc' => 'Diskusi langsung dengan pembimbing dan mitra industri secara online.'],
+                    ['img' => 'https://www.umn.ac.id/wp-content/uploads/2022/10/Alasan-kuliah-manajemen.jpg', 'title' => 'Manajemen PKL', 'desc' => 'Pengajuan, persetujuan, dan pelaporan PKL semua dalam satu platform.'],
+                    ['img' => 'https://www.anu.edu.au/files/styles/anu_full_1180_660/public/guidance/images/Report%2520writing%2520-%2520smaller_0.jpg?h=6715e217&itok=8tveKnoS', 'title' => 'Laporan Otomatis', 'desc' => 'Laporan harian dan akhir magang dibuat secara otomatis dan rapi.'],
+                    ['img' => 'https://img.freepik.com/free-photo/colleagues-working-together-call-center-office_23-2149256147.jpg', 'title' => 'Komunikasi Real-time', 'desc' => 'Diskusi langsung dengan pembimbing dan mitra industri secara online.'],
                 ] as $fitur)
                 <div class="p-6 border rounded-lg hover:shadow-lg transition dark:border-gray-700">
-                    <img src="https://img.icons8.com/fluency/96/{{ $fitur['img'] }}" class="mx-auto mb-4" />
+                    <img src="{{ $fitur['img'] }}" class="mx-auto mb-4" />
                     <h4 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{{ $fitur['title'] }}</h4>
                     <p class="text-gray-600 dark:text-gray-300">{{ $fitur['desc'] }}</p>
                 </div>
@@ -116,7 +120,7 @@
             <h3 class="text-3xl font-bold mb-10 text-gray-800 dark:text-white">Mengapa Memilih SIJA Kerja?</h3>
             <div class="grid md:grid-cols-4 gap-8 text-left">
                 @foreach([
-                    ['title' => '✅ Terintegrasi', 'desc' => 'Semua proses PKL dari awal hingga akhir berada dalam satu platform.'],
+                    ['title' => '✅ Terintegrasi', 'desc' => 'Semua proses PKL dari pendaftaran hingga penerimaan berada dalam satu platform.'],
                     ['title' => '🔒 Aman', 'desc' => 'Data siswa, guru, dan mitra dilindungi dengan keamanan modern.'],
                     ['title' => '📊 Monitoring', 'desc' => 'Pantau aktivitas dan kemajuan siswa secara real-time dan akurat.'],
                     ['title' => '📱 Responsif', 'desc' => 'Akses dari perangkat apapun: desktop, tablet, hingga ponsel.']
@@ -210,80 +214,83 @@
     </section>
 
     <!-- Kontak -->
-    <section id="kontak" class="bg-blue-600 text-white py-20">
+   <section id="kontak" class="bg-gray-100 dark:bg-gray-900 py-20">
         <div class="max-w-5xl mx-auto px-6">
-            <h3 class="text-3xl font-bold text-center mb-12">Hubungi Kami</h3>
-            <div class="grid md:grid-cols-2 gap-10 text-white text-base">
-                
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">Hubungi Kami</h3>
+
+            <div class="flex justify-center">
+            <div class="grid md:grid-cols-2 gap-8 text-gray-800 dark:text-gray-300 max-w-2xl">
+                <!-- Konten kontak mulai dari sini -->
+
+                <!-- Email -->
                 <div class="flex items-start space-x-4">
-                    <div>
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" 
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 8h18"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-semibold">Email</p>
-                        <p>kontak@sijakerja.id</p>
-                    </div>
+                <div class="p-3 bg-blue-100 dark:bg-blue-800 rounded-full">
+                    <!-- Heroicon: Envelope -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 dark:text-blue-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M2.25 6.75A2.25 2.25 0 014.5 4.5h15a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25H4.5A2.25 2.25 0 012.25 17.25V6.75zm2.45-.06a.75.75 0 00-.7 1.32l7.5 4.5a.75.75 0 00.7 0l7.5-4.5a.75.75 0 10-.7-1.32L12 10.377 4.7 6.69z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-semibold">Email</p>
+                    <p class="text-sm">kontak@sijakerja.id</p>
+                </div>
                 </div>
 
+                <!-- Telepon -->
                 <div class="flex items-start space-x-4">
-                    <div>
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3 5h2l.4 2M7 13h10l1.2-6H6.2M16 16a2 2 0 11-4 0 2 2 0 014 0zm-6 0a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-semibold">Telepon</p>
-                        <p>+62 812 3456 7890</p>
-                    </div>
+                <div class="p-3 bg-green-100 dark:bg-green-800 rounded-full">
+                    <!-- Heroicon: Phone -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M2.25 3a.75.75 0 01.75-.75h2.496c.285 0 .534.16.651.407l1.717 3.663a.75.75 0 01-.138.823l-1.279 1.38a11.25 11.25 0 005.292 5.292l1.38-1.28a.75.75 0 01.823-.137l3.663 1.716a.75.75 0 01.407.652v2.495a.75.75 0 01-.75.75H18A15.75 15.75 0 012.25 3z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-semibold">Telepon</p>
+                    <p class="text-sm">+62 812 3456 7890</p>
+                </div>
                 </div>
 
+                <!-- Alamat -->
                 <div class="flex items-start space-x-4">
-                    <div>
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M17 20h5V4H2v16h5m10 0v-2a2 2 0 00-2-2h-2a2 2 0 00-2 2v2"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-semibold">Alamat</p>
-                        <p>Jl. Teknologi No. 45, Jakarta, Indonesia</p>
-                    </div>
+                <div class="p-3 bg-purple-100 dark:bg-purple-800 rounded-full">
+                    <!-- Heroicon: MapPin -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M11.07 21.292a1.5 1.5 0 001.86 0c1.323-1.04 6.57-5.538 6.57-10.542A7.5 7.5 0 0012 3a7.5 7.5 0 00-7.5 7.5c0 5.004 5.247 9.502 6.57 10.542zM12 12.75a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-semibold">Alamat</p>
+                    <p class="text-sm">Jl. Teknologi No. 45, Jakarta, Indonesia</p>
+                </div>
                 </div>
 
+                <!-- Media Sosial -->
                 <div class="flex items-start space-x-4">
-                    <div>
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M18.36 6.64a9 9 0 010 12.72M15.54 9.46a5 5 0 010 7.07M12.73 12.27a1 1 0 01-1.46 0L9 10M21 21l-6-6"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-semibold">Media Sosial</p>
-                        <p>
-                            <a href="https://instagram.com/sijakerja" target="_blank" class="underline hover:text-gray-200">@sijakerja</a>
-                        </p>
-                    </div>
+                <div class="p-3 bg-pink-100 dark:bg-pink-800 rounded-full">
+                    <!-- Heroicon: Hashtag -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-600 dark:text-pink-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10.5 3.75a.75.75 0 01.75.75v2.25h2.25V4.5a.75.75 0 011.5 0v2.25h2.25a.75.75 0 010 1.5H15v4.5h2.25a.75.75 0 010 1.5H15v2.25a.75.75 0 01-1.5 0v-2.25h-2.25v2.25a.75.75 0 01-1.5 0v-2.25H7.5a.75.75 0 010-1.5H9v-4.5H7.5a.75.75 0 010-1.5H9V4.5a.75.75 0 011.5 0v2.25h2.25V4.5a.75.75 0 01.75-.75zM10.5 9v4.5h2.25V9H10.5z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-semibold">Media Sosial</p>
+                    <a href="https://instagram.com/sijakerja" target="_blank" class="text-sm text-blue-600 dark:text-blue-300 hover:underline">@sijakerja</a>
+                </div>
                 </div>
 
+                <!-- Konten kontak selesai -->
+            </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8">
+    <footer class="bg-gray-900 text-white py-8 text-sm">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; {{ date('Y') }} SIJA Kerja. All rights reserved.</p>
-            <div class="space-x-4 mt-4 md:mt-0">
-                <a href="#" class="hover:underline">Kebijakan Privasi</a>
-                <a href="#" class="hover:underline">Syarat & Ketentuan</a>
+            <p class="mb-2 md:mb-0">&copy; {{ date('Y') }} SIJA Kerja. All rights reserved.</p>
+            <div class="flex space-x-4 divide-x divide-gray-500">
+            <a href="#" class="pl-4 hover:underline">Kebijakan Privasi</a>
+            <a href="#" class="pl-4 hover:underline">Syarat & Ketentuan</a>
             </div>
         </div>
     </footer>
