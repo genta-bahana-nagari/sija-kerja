@@ -41,19 +41,23 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-4. Install dan konfigurasi Filament Shield:
+4. Migrate database:
 ```bash
-php artisan shield:install
-php artisan shield:generate
+php artisan migrate
 ```
 
-5. Jalankan server lokal:
+5. Membuat user super admin untuk Filament Shield:
+```bash
+php artisan make:filament-user
+```
+
+6. Jalankan server lokal:
 ```bash
 php artisan serve
 npm run dev
 ```
 
-6. Jika ingin deploy, build dulu:
+7. Jika ingin deploy, build dulu:
 ```bash
 npm run build
 ```
