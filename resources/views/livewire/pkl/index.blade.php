@@ -74,10 +74,12 @@
                                 class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded shadow-md z-50">
                                 <a href="{{ route('pkl.show', ['id' => $pkl->id]) }}"
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150">View</a>
+                                @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                 <a href="{{ route('pkl.edit', ['id' => $pkl->id]) }}"
                                    class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 transition duration-150">Edit</a>
                                 <button wire:click="delete({{ $pkl->id }})"
                                     class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150">Hapus</button>
+                                @endif
                             </div>
                         </div>
                     </td>
@@ -86,4 +88,33 @@
             </tbody>
         </table>
     </div>
+    @if(auth()->user() && auth()->user()->hasRole('Guru'))
+        <div class="my-4">
+            <!-- Pagination Links -->
+            <div class="flex justify-between items-center mb-4">
+                <!-- Page Size Selection -->
+                <div class="flex items-center space-x-2">
+                    <label for="perPage" class="text-sm font-medium text-gray-700">Tampilkan:</label>
+                    <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md">
+                        @if($pklList->total() >= 10)
+                            <option value="10">10</option>
+                        @endif
+                        @if($pklList->total() >= 25)
+                        <option value="25">25</option>
+                        @endif
+                        @if($pklList->total() >= 50)
+                            <option value="50">50</option>
+                        @endif
+                        <option value="{{ $pklList->total() }}">Semua</option>
+                    </select>
+                    <span class="text-sm text-gray-700">data per halaman</span>
+                </div>
+                
+                <!-- Pagination Controls -->
+                <div class="flex justify-end">
+                    {{ $pklList->links('vendor.pagination.tailwind') }}
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
