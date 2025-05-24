@@ -2,11 +2,11 @@
     @if(auth()->user() && auth()->user()->hasRole('Siswa'))    
 
         <!-- Jika siswa sudah pernah mengisi laporan PKL -->
-        @if(auth()->user()->siswa->pkl)
-            <h2 class="text-2xl font-semibold my-6 text-center">
-                Kamu sudah lapor PKL.
-            </h2>
-        @else
+            @if(auth()->user()->siswa && auth()->user()->siswa->pkl)
+                <h2 class="text-2xl font-semibold my-6 text-center">
+                    Kamu sudah pernah laporan PKL.
+                </h2>
+            @else
             <!-- Jika siswa belum pernah mengisi laporan PKL -->
             <h2 class="text-2xl font-semibold mb-6 text-center">
                 {{ $id ? 'Edit Laporan' : 'Lapor PKL' }}
