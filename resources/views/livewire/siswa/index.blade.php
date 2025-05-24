@@ -38,6 +38,7 @@
         <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
+                    <th scope="col" class="px-6 py-3">Foto Siswa</th>
                     <th scope="col" class="px-6 py-3">Nama</th>
                     <th scope="col" class="px-6 py-3">NIS</th>
                     <th scope="col" class="px-6 py-3">Status PKL</th>
@@ -48,6 +49,11 @@
             <tbody>
                 @forelse ($siswaList as $siswa)
                     <tr class="border-b dark:bg-gray-800 dark:hover:bg-gray-500 whitespace-nowrap">
+                        <td class="px-6 py-3">
+                            <img src="{{ asset('storage/'.$siswa->foto) }}"
+                                class="object-cover rounded-full dark:border-gray-700"
+                                alt="{{ $siswa->foto }}">
+                        </td>
                         <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($siswa->nama, 25) }}</td>
                         <td class="px-6 py-3">{{ $siswa->nis }}</td>
                         <td class="px-6 py-3">{{ $this->ketStatusPKL($siswa->status_pkl) }}</td>
@@ -67,7 +73,7 @@
                                     @endif
                                     @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                     <button wire:click="delete({{ $siswa->id }})"
-                                            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">Hapus</button>
+                                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">Hapus</button>
                                     @endif
                                 </div>
                             </div>
@@ -81,4 +87,33 @@
             </tbody>
         </table>
     </div>
+    @if(auth()->user() && auth()->user()->hasRole('Guru'))
+        <div class="my-4">
+            <!-- Pagination Links -->
+            <div class="flex justify-between items-center mb-4">
+                <!-- Page Size Selection -->
+                <div class="flex items-center space-x-2">
+                    <label for="perPage" class="text-sm font-medium text-gray-700 dark:text-gray-300">Tampilkan:</label>
+                    <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md text-gray-700 dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600">
+                        @if($siswaList->total() >= 10)
+                            <option value="10">10</option>
+                        @endif
+                        @if($siswaList->total() >= 25)
+                            <option value="25">25</option>
+                        @endif
+                        @if($siswaList->total() >= 50)
+                            <option value="50">50</option>
+                        @endif
+                        <option value="{{ $siswaList->total() }}">semua</option>
+                    </select>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">data per halaman</span>
+                </div>
+                
+                <!-- Pagination Controls -->
+                <div class="flex justify-end">
+                    {{ $siswaList->links('vendor.pagination.tailwind') }}
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
