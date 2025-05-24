@@ -40,4 +40,9 @@ class Index extends Component
             'industriList' => $this->industriList,
         ]);
     }
+
+    public function updatePageSize($size)
+    {
+        $this->numpage = $size;
+    }
 }
