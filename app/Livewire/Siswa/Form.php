@@ -74,7 +74,6 @@ class Form extends Component
             'status_pkl' => (int) $this->status_pkl,
         ];
 
-        // Tambahkan user_id jika ini insert baru
         if (!$this->id) {
             $data['user_id'] = auth()->id();
         }
