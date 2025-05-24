@@ -4,7 +4,8 @@
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
             @if(auth()->check() && auth()->user()->hasRole('Siswa'))
             <a href="{{ route('industri.create') }}"
-               class="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition duration-200 dark:bg-blue-500 dark:hover:bg-blue-800">
+                class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200
+                dark:bg-blue-500 dark:hover:bg-blue-800">
                 Tambah Industri
             </a>
             @endif
@@ -86,8 +87,8 @@
             <div class="flex justify-between items-center mb-4">
                 <!-- Page Size Selection -->
                 <div class="flex items-center space-x-2">
-                    <label for="perPage" class="text-sm font-medium text-gray-700">Tampilkan:</label>
-                    <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md">
+                    <label for="perPage" class="text-sm font-medium text-gray-700 dark:text-gray-300">Tampilkan:</label>
+                    <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md text-gray-700 dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600">
                         @if($industriList->total() >= 10)
                             <option value="10">10</option>
                         @endif
@@ -97,11 +98,9 @@
                         @if($industriList->total() >= 50)
                             <option value="50">50</option>
                         @endif
-                        @if($industriList->total() > 50)
-                            <option value="{{ $industriList->total() }}">Semua</option>
-                        @endif
+                        <option value="{{ $industriList->total() }}">semua</option>
                     </select>
-                    <span class="text-sm text-gray-700">data per halaman</span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">data per halaman</span>
                 </div>
                 
                 <!-- Pagination Controls -->

@@ -3,7 +3,8 @@
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
             @if(auth()->check() && auth()->user()->hasRole('Siswa') && !auth()->user()->siswa)
             <a href="{{ route('pkl.create') }}"
-               class="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition duration-200 dark:bg-blue-500 dark:hover:bg-blue-800">
+                class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200
+                dark:bg-blue-500 dark:hover:bg-blue-800">
                 Lapor PKL
             </a>
             @endif
@@ -17,13 +18,18 @@
         </div>
     </div>
     @if (session()->has('message'))
-        <div class="bg-gray-200 text-gray-700 p-2 mb-4 rounded text-center">
+        <div
+        x-data="{ show: true }"
+        x-init="setTimeout(() => show = false, 3000)"
+        x-show="show"
+        x-transition
+        class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 p-2 mb-4 rounded text-center">
             {{ session('message') }}
         </div>
     @endif
-    <div class="overflow-x-auto bg-white shadow-sm rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div class="overflow-x-auto bg-white dark:bg-gray-800 shadow-sm rounded-lg">
+        <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
                     <th scope="col" class="px-6 py-3">Nama Siswa</th>
                     <th scope="col" class="px-6 py-3">Industri</th>
@@ -35,7 +41,7 @@
             </thead>
             <tbody>
                 @foreach ($pklList as $pkl)
-                <tr class="border-b hover:bg-gray-50 whitespace-nowrap">
+                <tr class="border-b dark:bg-gray-800 dark:hover:bg-gray-500 whitespace-nowrap">
                     <!-- Relasi ke siswa -->
                     <td class="px-6 py-3">
                         @if ($pkl->siswa)
@@ -67,18 +73,18 @@
                     <td class="px-6 py-3">{{ $pkl->selesai }}</td>
                     <td class="px-6 py-3 text-center">
                         <div x-data="{ open: false }" class="inline-block text-left">
-                            <button @click="open = !open" class="text-gray-600 hover:text-gray-800 focus:outline-none transition duration-200">
+                            <button @click="open = !open" class="text-gray-900 dark:text-gray-100 focus:outline-none transition duration-200">
                                 &#8942;
                             </button>
                             <div x-show="open" x-transition @click.away="open = false"
-                                class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded shadow-md z-50">
+                                class="cursor-pointer absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
                                 <a href="{{ route('pkl.show', ['id' => $pkl->id]) }}"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150">View</a>
+                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">View</a>
                                 @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                 <a href="{{ route('pkl.edit', ['id' => $pkl->id]) }}"
-                                   class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 transition duration-150">Edit</a>
+                                    class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Edit</a>
                                 <button wire:click="delete({{ $pkl->id }})"
-                                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150">Hapus</button>
+                                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">Hapus</button>
                                 @endif
                             </div>
                         </div>
@@ -94,20 +100,20 @@
             <div class="flex justify-between items-center mb-4">
                 <!-- Page Size Selection -->
                 <div class="flex items-center space-x-2">
-                    <label for="perPage" class="text-sm font-medium text-gray-700">Tampilkan:</label>
-                    <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md">
+                    <label for="perPage" class="text-sm font-medium text-gray-700 dark:text-gray-300">Tampilkan:</label>
+                    <select wire:model="numpage" wire:change="updatePageSize($event.target.value)" id="perPage" class="px-3 py-2 border rounded-md text-gray-700 dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600">
                         @if($pklList->total() >= 10)
                             <option value="10">10</option>
                         @endif
                         @if($pklList->total() >= 25)
-                        <option value="25">25</option>
+                            <option value="25">25</option>
                         @endif
                         @if($pklList->total() >= 50)
                             <option value="50">50</option>
                         @endif
-                        <option value="{{ $pklList->total() }}">Semua</option>
+                        <option value="{{ $pklList->total() }}">semua</option>
                     </select>
-                    <span class="text-sm text-gray-700">data per halaman</span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">data per halaman</span>
                 </div>
                 
                 <!-- Pagination Controls -->
