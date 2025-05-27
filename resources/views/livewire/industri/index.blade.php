@@ -32,7 +32,7 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
                     <th class="px-6 py-3">Nama</th>
-                    <th class="px-6 py-3">Bidang Usaha</th>
+                    <th class="px-6 py-3 whitespace-nowrap">Bidang Usaha</th>
                     <th class="px-6 py-3">Alamat</th>
                     <th class="px-6 py-3">Kontak</th>
                     <th class="px-6 py-3">Guru Pembimbing</th>

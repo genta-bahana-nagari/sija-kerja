@@ -38,7 +38,7 @@
         <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Foto Siswa</th>
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Foto Siswa</th>
                     <th scope="col" class="px-6 py-3">Nama</th>
                     <th scope="col" class="px-6 py-3">NIS</th>
                     <th scope="col" class="px-6 py-3">Status PKL</th>
