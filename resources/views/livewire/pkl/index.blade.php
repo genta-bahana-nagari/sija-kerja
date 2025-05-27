@@ -34,8 +34,9 @@
                     <th scope="col" class="px-6 py-3">Nama Siswa</th>
                     <th scope="col" class="px-6 py-3">Industri</th>
                     <th scope="col" class="px-6 py-3">Guru Pembimbing</th>
-                    <th scope="col" class="px-6 py-3 text-center">Tanggal Mulai</th>
-                    <th scope="col" class="px-6 py-3 text-center">Tanggal Selesai</th>
+                    <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Tanggal Mulai</th>
+                    <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Tanggal Selesai</th>
+                    <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Durasi (hari)</th>
                     <th scope="col" class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -71,6 +72,10 @@
                     <td class="px-6 py-3">{{ $pkl->mulai }}</td>
                     <!-- Tanggal Keluar -->
                     <td class="px-6 py-3">{{ $pkl->selesai }}</td>
+                    <!-- Durasi -->
+                    <td class="px-6 py-3">
+                        {{ \Carbon\Carbon::parse($pkl->mulai)->diffInDays($pkl->selesai) }} hari
+                    </td>
                     <td class="px-6 py-3 text-center">
                         <div x-data="{ open: false }" class="inline-block text-left">
                             <button @click="open = !open" class="text-gray-900 dark:text-gray-100 focus:outline-none transition duration-200">
