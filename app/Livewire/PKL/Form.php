@@ -9,6 +9,7 @@ use App\Models\Siswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class Form extends Component
 {
@@ -59,6 +60,17 @@ class Form extends Component
     public function save()
     {
         $this->validate();
+
+        // Durasi PKL minimal 3 bulan
+        $start = Carbon::parse($this->mulai);
+        $end = Carbon::parse($this->selesai);
+        $diffInMonths = $start->diffInMonths($end);
+
+        if ($diffInMonths < 3) {
+            session()->flash('message', 'Durasi PKL minimal 3 bulan, silakan ulangi.');
+            // $this->resetOnly(['selesai']);
+            return redirect()->route('pkl.create');
+        }
 
         DB::beginTransaction();
 

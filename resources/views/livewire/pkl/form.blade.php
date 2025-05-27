@@ -12,6 +12,17 @@
                 {{ $id ? 'Edit Laporan' : 'Lapor PKL' }}
             </h2>
 
+            @if (session()->has('message'))
+                <div
+                x-data="{ show: true }"
+                x-init="setTimeout(() => show = false, 3000)"
+                x-show="show"
+                x-transition
+                class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 p-2 mb-4 rounded text-center">
+                    {{ session('message') }}
+                </div>
+            @endif
+
             <form wire:submit.prevent="save" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Nama Siswa -->
