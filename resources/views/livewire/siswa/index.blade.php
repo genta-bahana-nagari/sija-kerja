@@ -23,13 +23,46 @@
 
     <!-- Flash Message -->
     @if (session()->has('message'))
+        @php
+            $message = session('message');
+            // Check if the message is an array
+            if (is_array($message)) {
+                $type = $message['type'] ?? 'info';
+                $text = $message['text'];
+            } else {
+                // If it's not an array, assume it's just the message text
+                $type = 'info';
+                $text = $message;
+            }
+        @endphp
+
         <div
-        x-data="{ show: true }"
-        x-init="setTimeout(() => show = false, 3000)"
-        x-show="show"
-        x-transition
-        class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 p-2 mb-4 rounded text-center">
-            {{ session('message') }}
+            x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 3000)"
+            x-show="show"
+            x-transition
+            class="p-2 mb-4 rounded text-center
+                @if($type == 'success') bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200 @endif
+                @if($type == 'warning') bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200 @endif
+                @if($type == 'error') bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200 @endif">
+            
+            <div class="flex items-center justify-center space-x-2">
+                <!-- Icon -->
+                @if($type == 'success')
+                    <x-heroicon-o-check-circle class="w-5 h-5 text-green-600 dark:text-green-400" />
+                @elseif($type == 'warning')
+                    <x-heroicon-o-exclamation-circle  class="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                @elseif($type == 'error')
+                    <x-heroicon-o-x-circle class="w-5 h-5 text-red-600 dark:text-red-400" />
+                @else
+                    <x-heroicon-o-information-circle class="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                @endif
+
+                <!-- Message Text -->
+                <span class="text-sm">
+                    {{ $text }}
+                </span>
+            </div>
         </div>
     @endif
 
@@ -51,7 +84,7 @@
                     <tr class="border-b dark:bg-gray-800 dark:hover:bg-gray-500 whitespace-nowrap">
                         <td class="px-6 py-3">
                             <img src="{{ asset('storage/'.$siswa->foto) }}"
-                                class="object-cover rounded-full dark:border-gray-700"
+                                class="object-cover rounded-full w-10 h-10 dark:border-gray-700"
                                 alt="{{ $siswa->foto }}">
                         </td>
                         <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($siswa->nama, 25) }}</td>
@@ -77,12 +110,19 @@
                                         Update
                                     </a>
                                     @endif
-                                    @if(auth()->user() && auth()->user()->hasRole('super_admin'))
-                                    <button wire:click="delete({{ $siswa->id }})"
-                                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">
-                                        <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />
-                                        Update
-                                    </button>
+                                    @php
+                                        $hasPklRelation = $siswa->pkl()->exists(); // Cek apakah siswa memiliki data PKL terkait
+                                    @endphp
+
+                                    @if (!$hasPklRelation)
+                                        <button 
+                                            onclick="confirm('Yakin ingin menghapus data ini?') || event.stopImmediatePropagation()" 
+                                            wire:click="delete({{ $siswa->id }})" 
+                                            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150"
+                                        >
+                                            <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />    
+                                            Hapus
+                                        </button>
                                     @endif
                                 </div>
                             </div>

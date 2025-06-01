@@ -67,8 +67,25 @@ class Index extends Component
 
     public function delete($id)
     {
-        Siswa::findOrFail($id)->delete();
-        session()->flash('message', 'Data siswa berhasil dihapus.');
+        $siswa = Siswa::findOrFail($id);
+
+        // Cek apakah ada relasi dengan PKL
+        if ($siswa->pkl()->exists()) {
+            // Jika ada relasi, kembalikan pesan error atau lakukan penanganan lain
+            session()->flash('message', [
+                'type' => 'error',
+                'text' => 'Data siswa tidak bisa dihapus karena terkait dengan PKL.'
+            ]);
+            return;
+        }
+
+        // Jika tidak ada relasi, hapus data siswa
+        $siswa->delete();
+
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Data siswa berhasil dihapus.'
+        ]);
     }
 
     public function updatePageSize($size)

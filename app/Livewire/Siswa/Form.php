@@ -86,7 +86,10 @@ class Form extends Component
             $data
         );
 
-        session()->flash('message', 'Data siswa berhasil disimpan.');
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Data siswa berhasil disimpan.'
+        ]);
         return redirect()->route('siswa');
     }
 
