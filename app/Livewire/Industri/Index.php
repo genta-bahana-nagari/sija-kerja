@@ -3,6 +3,7 @@
 namespace App\Livewire\Industri;
 
 use App\Models\Industri;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,8 +21,18 @@ class Index extends Component
 
     public function delete($id)
     {
-        Industri::findOrFail($id)->delete();
-        session()->flash('message', 'Data industri berhasil dihapus.');
+        // Hapus data industri
+        $industri = Industri::findOrFail($id);
+        $industri->delete();
+
+        // Reset Auto-Increment
+        DB::statement('ALTER TABLE industri AUTO_INCREMENT = 1');
+
+        // Menampilkan pesan flash
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Data industri berhasil dihapus.'
+        ]);
     }
 
     public function render()

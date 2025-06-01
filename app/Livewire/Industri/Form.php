@@ -76,7 +76,10 @@ class Form extends Component
             ]
         );
 
-        session()->flash('message', 'Data industri berhasil disimpan.');
+        session()->flash('message', [
+            'type' => 'success', // Jenis pesan (success, warning, error)
+            'text' => 'Data industri berhasil disimpan.'
+        ]);
 
         return redirect()->route('industri');
     }
