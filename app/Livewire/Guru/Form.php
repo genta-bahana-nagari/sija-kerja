@@ -9,6 +9,7 @@ use Livewire\Component;
 class Form extends Component
 {
     public $id, $nama, $nip, $gender, $alamat, $kontak, $email;
+    public $alreadyExists = false;
 
     public function mount($id = null)
     {
@@ -16,8 +17,9 @@ class Form extends Component
         $existingGuru = Auth::user()->guru;
 
         if (!$id && $existingGuru) {
-            // Tidak mengizinkan akses create form
-            abort(403, 'Kamu sudah mengisi data guru.');
+            // Tandai bahwa user sudah punya data siswa, jangan abort langsung
+            $this->alreadyExists = true;
+            return;
         }
 
         // Jika sedang edit
