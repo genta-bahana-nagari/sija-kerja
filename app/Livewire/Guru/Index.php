@@ -28,7 +28,10 @@ class Index extends Component
     public function delete($id)
     {
         Guru::findOrFail($id)->delete();
-        session()->flash('message', 'Data guru berhasil dihapus.');
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Data guru berhasil dihapus.'
+        ]);
     }
 
     public function render()

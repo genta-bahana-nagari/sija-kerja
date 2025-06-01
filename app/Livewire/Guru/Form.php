@@ -70,7 +70,10 @@ class Form extends Component
             $data
         );
 
-        session()->flash('message', 'Data guru berhasil disimpan.');
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Data guru berhasil dihapus.'
+        ]);
         return redirect()->route('guru');
     }
 
