@@ -3,9 +3,18 @@
 
         <!-- Jika siswa sudah pernah mengisi laporan PKL -->
             @if(auth()->user()->siswa && auth()->user()->siswa->pkl)
-                <h2 class="text-2xl font-semibold my-6 text-center">
-                    Kamu sudah pernah laporan PKL.
+            <div class="text-center py-16">
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                    Kamu sudah melaporkan PKL.
                 </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Data kamu sudah tercatat di sistem. Silakan hubungi admin jika ini adalah kesalahan.
+                </p>
+                <a href="{{ route('pkl') }}"
+                class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200">
+                Kembali
+                </a>
+            </div>
             @else
             <!-- Jika siswa belum pernah mengisi laporan PKL -->
             <h2 class="text-2xl font-semibold mb-6 text-center">
@@ -89,7 +98,7 @@
         @endif
     @else
         <!-- Jika pengguna bukan siswa -->
-        <h2 class="text-2xl font-semibold my-6 text-center">
+        <h2 class="text-2xl font-semibold text-center">
             Anda tidak punya akses untuk ini.
         </h2>
     @endif

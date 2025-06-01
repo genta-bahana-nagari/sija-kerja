@@ -31,9 +31,9 @@
         <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Nama Siswa</th>
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Nama Siswa</th>
                     <th scope="col" class="px-6 py-3">Industri</th>
-                    <th scope="col" class="px-6 py-3">Guru Pembimbing</th>
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Guru Pembimbing</th>
                     <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Tanggal Mulai</th>
                     <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Tanggal Selesai</th>
                     <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Durasi (hari)</th>
