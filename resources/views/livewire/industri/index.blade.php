@@ -62,7 +62,7 @@
                     <div class="font-semibold inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
                         {{ $industri->bidang_usaha }}
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ \Illuminate\Support\Str::limit($industri->alamat, 50) }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ \Illuminate\Support\Str::limit($industri->alamat, 30) }}</p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ $industri->kontak }}</p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ $industri->email }}</p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
