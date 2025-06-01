@@ -29,7 +29,10 @@ class Index extends Component
     public function delete($id)
     {
         PKL::findOrFail($id)->delete();
-        session()->flash('message', 'Data PKL berhasil dihapus.');
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Laporan PKL berhasil dihapus.'
+        ]);
     }
 
     public function render()

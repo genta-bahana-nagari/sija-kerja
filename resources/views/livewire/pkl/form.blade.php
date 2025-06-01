@@ -23,13 +23,39 @@
             </h2>
 
             @if (session()->has('message'))
+                @php
+                    $message = session('message');
+                    $type = $message['type'] ?? 'info';  // Default 'info' if no type
+                    $text = $message['text'];
+                @endphp
+
                 <div
                     x-data="{ show: true }"
                     x-init="setTimeout(() => show = false, 3000)"
                     x-show="show"
                     x-transition
-                    class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 p-2 mb-4 rounded text-center">
-                    {{ session('message') }}
+                    class="p-2 mb-4 rounded text-center
+                        @if($type == 'success') bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200 @endif
+                        @if($type == 'warning') bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200 @endif
+                        @if($type == 'error') bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200 @endif">
+                    
+                    <div class="flex items-center justify-center space-x-2">
+                        <!-- Icon -->
+                        @if($type == 'success')
+                            <x-heroicon-o-check-circle class="w-5 h-5 text-green-600 dark:text-green-400" />
+                        @elseif($type == 'warning')
+                            <x-heroicon-o-exclamation-circle  class="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                        @elseif($type == 'error')
+                            <x-heroicon-o-x-circle class="w-5 h-5 text-red-600 dark:text-red-400" />
+                        @else
+                            <x-heroicon-o-information-circle class="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                        @endif
+
+                        <!-- Message Text -->
+                        <span class="text-sm">
+                            {{ $text }}
+                        </span>
+                    </div>
                 </div>
             @endif
 

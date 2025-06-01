@@ -69,7 +69,10 @@ class Form extends Component
 
         // If already has a PKL record, prevent creating a new one
         if ($this->alreadyExists && !$this->id) {
-            session()->flash('message', 'Anda sudah pernah melaporkan PKL. Anda hanya bisa mengupdate data.');
+            session()->flash('message', [
+                'type' => 'warning',
+                'text' => 'Anda sudah pernah lapor PKL.'
+            ]);
             return redirect()->route('pkl');
         }
         
@@ -79,7 +82,11 @@ class Form extends Component
         $diffInMonths = $start->diffInMonths($end);
 
         if ($diffInMonths < 3) {
-            session()->flash('message', 'Durasi PKL minimal 3 bulan, silakan ulangi.');
+            // session()->flash('message', 'Durasi PKL minimal 3 bulan, silakan ulangi.');
+            session()->flash('message', [
+                'type' => 'warning',
+                'text' => 'Durasi PKL minimal 3 bulan, silakan ulangi.'
+            ]);
             return redirect()->route('pkl.create');
         }
 
@@ -92,7 +99,10 @@ class Form extends Component
             // Cek jika siswa ditemukan dan sudah punya laporan PKL
             if ($siswa && PKL::where('siswa_id', $siswa->id)->exists() && !$this->id) {
                 DB::rollBack();
-                session()->flash('message', 'Input dibatalkan: Anda sudah pernah melaporkan PKL.');
+                session()->flash('message', [
+                    'type' => 'error',
+                    'text' => 'Anda sudah pernah lapor PKL.'
+                ]);
                 return redirect()->route('pkl');
             }
 
@@ -108,12 +118,19 @@ class Form extends Component
             );
 
             DB::commit();
-            session()->flash('message', 'Laporan PKL berhasil disimpan.');
+            session()->flash('message', [
+                'type' => 'success',
+                'text' => 'Laporan PKL berhasil disimpan.'
+            ]);
 
             return redirect()->route('pkl');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('pkl')->with('error', 'Terjadi kesalahan teknis, silakan ulangi.');
+            session()->flash('message', [
+                'type' => 'error',
+                'text' => 'Terjadi kesalahan teknis, silakan ulangi.'
+            ]);
+            return redirect()->route('pkl');
         }
     }
 
