@@ -13,6 +13,7 @@ class Form extends Component
 
     public $id, $nama, $nis, $gender, $alamat, $kontak, $email, $foto;
     public $status_pkl = '0';
+    public $alreadyExists = false;
 
     public function mount($id = null)
     {
@@ -20,10 +21,10 @@ class Form extends Component
         $existingSiswa = Auth::user()->siswa;
 
         if (!$id && $existingSiswa) {
-            // Tidak mengizinkan akses create form
-            abort(403, 'Kamu sudah mengisi data siswa.');
+            // Tandai bahwa user sudah punya data siswa, jangan abort langsung
+            $this->alreadyExists = true;
+            return;
         }
-
         // Jika sedang edit
         if ($id) {
             $siswa = Siswa::findOrFail($id);
@@ -57,6 +58,8 @@ class Form extends Component
     {
         $this->validate();
 
+        $this->status_pkl = 0;
+
         $imagePath = $this->foto;
 
         if ($this->foto && !is_string($this->foto)) {
@@ -71,7 +74,7 @@ class Form extends Component
             'kontak' => $this->kontak,
             'email' => $this->email,
             'foto' => $imagePath,
-            'status_pkl' => (int) $this->status_pkl,
+            'status_pkl' => (int) $this->status_pkl,  // Pastikan status_pkl otomatis '0'
         ];
 
         if (!$this->id) {
