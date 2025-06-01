@@ -53,7 +53,7 @@
 
                 <!-- Industri Image -->
                 <div class="relative">
-                    <img class="rounded-t-lg w-full h-48 object-cover" src="{{ $industri->foto_industri }}" alt="{{ $industri->nama }}">
+                    <img class="rounded-t-lg w-full h-48 object-cover" src="{{ asset('storage/'.$industri->foto) }}" alt="{{ $industri->nama }}">
                 </div>
 
                 <!-- Card Body -->
