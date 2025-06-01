@@ -33,12 +33,12 @@
                 <!-- Kebab Menu - Above Image -->
                 <div class="absolute top-2 right-2 z-10">
                     <div x-data="{ open: false }" class="inline-block text-left">
-                        <button @click="open = !open" class="text-white dark:text-gray-100 focus:outline-none transition duration-200">
+                        <button @click="open = !open" class="text-gray-600 dark:text-gray-100 focus:outline-none transition duration-200">
                             &#8942;
                         </button>
                         <div x-show="open" x-transition @click.away="open = false" class="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-                            <a href="{{ route('industri.show', ['id' => $industri->id]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">View</a>
-                            <a href="{{ route('industri.edit', ['id' => $industri->id]) }}" class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Edit</a>
+                            <a href="{{ route('industri.show', ['id' => $industri->id]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Detail</a>
+                            <a href="{{ route('industri.edit', ['id' => $industri->id]) }}" class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Update</a>
                             <button wire:click="delete({{ $industri->id }})" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
                                 Hapus
                             </button>
@@ -60,8 +60,9 @@
                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ \Illuminate\Support\Str::limit($industri->alamat, 50) }}</p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ $industri->kontak }}</p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Pembimbing: 
                         @if ($industri->guru)
-                            {{ $industri->guru->nama }}
+                            {{ \Illuminate\Support\Str::limit($industri->guru->nama, 10) }}
                         @else
                             <em>{{ __('Guru Pembimbing Tidak Ditemukan') }}</em>
                         @endif
