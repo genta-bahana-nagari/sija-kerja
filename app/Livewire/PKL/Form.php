@@ -19,6 +19,7 @@ class Form extends Component
     public $industriList = [];
     public $guruList = [];
     public $userMail;
+    public $alreadyExists = false;  // New property to check if PKL exists for the student
 
     public function mount($id = null)
     {
@@ -29,13 +30,14 @@ class Form extends Component
         $this->industriList = Industri::all();
         $this->guruList = Guru::all();
 
-        // Ambil siswa yang sedang login
+        // Ambil siswa login
         $siswa = Siswa::where('email', $this->userMail)->first();
         if ($siswa) {
             $this->siswa_id = $siswa->id;
         }
 
         if ($id) {
+            // Edit mode
             $pkl = PKL::findOrFail($id);
             $this->id = $pkl->id;
             $this->siswa_id = $pkl->siswa_id;
@@ -43,6 +45,10 @@ class Form extends Component
             $this->guru_id = $pkl->guru_id;
             $this->mulai = $pkl->mulai;
             $this->selesai = $pkl->selesai;
+            $this->alreadyExists = false; // allow editing
+        } else {
+            // Create mode - check if already exists
+            $this->alreadyExists = PKL::where('siswa_id', $this->siswa_id)->exists();
         }
     }
 
@@ -61,6 +67,12 @@ class Form extends Component
     {
         $this->validate();
 
+        // If already has a PKL record, prevent creating a new one
+        if ($this->alreadyExists && !$this->id) {
+            session()->flash('message', 'Anda sudah pernah melaporkan PKL. Anda hanya bisa mengupdate data.');
+            return redirect()->route('pkl');
+        }
+        
         // Durasi PKL minimal 3 bulan
         $start = Carbon::parse($this->mulai);
         $end = Carbon::parse($this->selesai);
@@ -68,7 +80,6 @@ class Form extends Component
 
         if ($diffInMonths < 3) {
             session()->flash('message', 'Durasi PKL minimal 3 bulan, silakan ulangi.');
-            // $this->resetOnly(['selesai']);
             return redirect()->route('pkl.create');
         }
 
@@ -79,7 +90,7 @@ class Form extends Component
             $siswa = Siswa::where('email', $this->userMail)->first();
 
             // Cek jika siswa ditemukan dan sudah punya laporan PKL
-            if ($siswa && PKL::where('siswa_id', $siswa->id)->exists()) {
+            if ($siswa && PKL::where('siswa_id', $siswa->id)->exists() && !$this->id) {
                 DB::rollBack();
                 session()->flash('message', 'Input dibatalkan: Anda sudah pernah melaporkan PKL.');
                 return redirect()->route('pkl');
@@ -112,6 +123,7 @@ class Form extends Component
 
         return view('livewire.pkl.form', [
             'siswa_login'=>$siswa_login,
+            'alreadyExists' => $this->alreadyExists, // Pass the value to the view
         ]);
     }
 }
