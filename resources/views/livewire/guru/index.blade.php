@@ -62,7 +62,7 @@
                                         <x-heroicon-o-eye class="w-4 h-4 inline-block mr-2" />
                                         Detail
                                     </a>
-                                    @if(auth()->user() && auth()->user()->hasRole('Guru') && auth()->user()->hasRole('super_admin'))
+                                    @if(auth()->user() && auth()->user()->hasRole('Guru') || auth()->user()->hasRole('super_admin'))
                                     <a href="{{ route('guru.edit', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
                                         <x-heroicon-o-pencil class="w-4 h-4 inline-block mr-2" />
