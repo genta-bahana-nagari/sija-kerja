@@ -23,7 +23,7 @@
     @if (session()->has('message'))
         @php
             $message = session('message');
-            $type = $message['type'] ?? 'info';  // Default 'info' if no type
+            $type = $message['type'] ?? 'info';
             $text = $message['text'];
         @endphp
 
