@@ -3,58 +3,48 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+    <body class="min-h-screen bg-blue-50 dark:bg-blue-950 text-gray-800 dark:text-white">
+        <flux:sidebar sticky stashable class="border-e border-transparent bg-gradient-to-b from-blue-200 via-blue-100 to-blue-300 dark:from-blue-950 dark:via-gray-900 dark:to-zinc-900 shadow-md">
+
+            <!-- Toggle Button -->
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
+            <!-- Branding -->
+            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse px-4 pt-6 pb-3" wire:navigate>
+                <x-app-logo class="h-8 w-auto" />
             </a>
 
+            <!-- Navigation -->
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                    <span class="text-blue-600 dark:text-blue-300">{{ __('Dashboard') }}</span>
+                </flux:navlist.item>
             </flux:navlist>
-            
+
+            <!-- Data Personal -->
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Data Personal')" class="grid">
-                    <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('siswa')" wire:navigate>{{ __('Siswa') }}</flux:navlist.item>
-                    <flux:navlist.item icon="academic-cap" :href="route('guru')" :current="request()->routeIs('guru')" wire:navigate>{{ __('Guru') }}</flux:navlist.item>
+                    <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('siswa')" wire:navigate class="text-blue-600 dark:text-blue-300">{{ __('Siswa') }}</flux:navlist.item>
+                    <flux:navlist.item icon="academic-cap" :href="route('guru')" :current="request()->routeIs('guru')" wire:navigate class="text-blue-600 dark:text-blue-300">{{ __('Guru') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
+            <!-- Data PKL -->
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Data PKL')" class="grid">
-                    <flux:navlist.item icon="building-office-2" :href="route('industri')" :current="request()->routeIs('industri')" wire:navigate>{{ __('Industri') }}</flux:navlist.item>
-                    <flux:navlist.item icon="briefcase" :href="route('pkl')" :current="request()->routeIs('pkl')" wire:navigate>{{ __('Status PKL') }}</flux:navlist.item>
+                    <flux:navlist.item icon="building-office-2" :href="route('industri')" :current="request()->routeIs('industri')" wire:navigate class="text-blue-600 dark:text-blue-300">{{ __('Industri') }}</flux:navlist.item>
+                    <flux:navlist.item icon="briefcase" :href="route('pkl')" :current="request()->routeIs('pkl')" wire:navigate class="text-blue-600 dark:text-blue-300">{{ __('Status PKL') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
-            @if(auth()->user() && auth()->user()->hasRole('super_admin'))
+            <!-- Back to Home -->
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Data Khusus Admin')" class="grid">
-                    <flux:navlist.item icon="user" :href="route('siswa')" :current="request()->routeIs('user')" wire:navigate>{{ __('User') }}</flux:navlist.item>
-                    <flux:navlist.item icon="shield-check" :href="route('siswa')" :current="request()->routeIs('role')" wire:navigate>{{ __('Tipe Akun (Role)') }}</flux:navlist.item>
-                </flux:navlist.group>
-            </flux:navlist>
-            @endif
-            
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="home" :href="route('home')" wire:navigate>{{ __('Kembali') }}</flux:navlist.item>
+                <flux:navlist.item icon="home" :href="route('home')" wire:navigate class="text-blue-600 dark:text-blue-300">{{ __('Kembali') }}</flux:navlist.item>
             </flux:navlist>
 
             <flux:spacer />
 
-            <!-- <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
-            </flux:navlist> -->
-
-            <!-- Desktop User Menu -->
+            <!-- User Menu Desktop -->
             <flux:dropdown position="bottom" align="start">
                 <flux:profile
                     :name="auth()->user()->name"
@@ -66,16 +56,14 @@
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                    <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                    >
+                                    <span class="flex h-full w-full items-center justify-center rounded-lg bg-blue-200 text-black dark:bg-blue-800 dark:text-white">
                                         {{ Str::limit(auth()->user()->initials(), 2, '') }}
                                     </span>
                                 </span>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                    <span class="truncate font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</span>
+                                    <span class="truncate text-xs text-gray-600 dark:text-gray-300">{{ auth()->user()->email }}</span>
                                 </div>
                             </div>
                         </div>
@@ -84,14 +72,14 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Setting') }}</flux:menu.item>
+                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate class="text-blue-600 dark:text-blue-300">{{ __('Setting') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-blue-600 dark:text-blue-300">
                             {{ __('Log Out') }}
                         </flux:menu.item>
                     </form>
@@ -116,9 +104,7 @@
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                    <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                    >
+                                    <span class="flex h-full w-full items-center justify-center rounded-lg bg-blue-200 text-black dark:bg-blue-800 dark:text-white">
                                         {{ auth()->user()->initials() }}
                                     </span>
                                 </span>
@@ -134,14 +120,14 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Setting') }}</flux:menu.item>
+                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate class="text-blue-600 dark:text-blue-300">{{ __('Setting') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-blue-600 dark:text-blue-300">
                             {{ __('Log Out') }}
                         </flux:menu.item>
                     </form>
