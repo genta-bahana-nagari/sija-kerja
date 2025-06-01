@@ -49,7 +49,7 @@ class Form extends Component
             'alamat' => 'required|string',
             'kontak' => 'required|string',
             'email' => 'required|email|unique:siswa,email,' . $this->id,
-            'foto' => 'nullable|image',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,bmp,webp', 
             'status_pkl' => 'required|in:0,1',
         ];
     }
