@@ -117,11 +117,13 @@
                                     <x-heroicon-o-eye class="w-4 h-4 inline-block mr-2" />
                                     Detail
                                 </a>
+                                @if(auth()->user() && auth()->user()->hasRole('Siswa'))
                                 <a href="{{ route('pkl.edit', ['id' => $pkl->id]) }}"
                                 class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
                                     <x-heroicon-o-pencil class="w-4 h-4 inline-block mr-2" />
                                     Update
                                 </a>
+                                @endif
                                 @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                 <button wire:click="delete({{ $pkl->id }})"
                                     class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">
