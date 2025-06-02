@@ -56,6 +56,10 @@ php artisan make:filament-user
 php artisan serve
 npm run dev
 ```
+Lebih praktis 1 terminal:
+```bash
+composer run dev
+```
 
 7. Jika ingin deploy, build dulu:
 ```bash
