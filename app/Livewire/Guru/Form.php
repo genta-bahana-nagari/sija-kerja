@@ -60,9 +60,17 @@ class Form extends Component
             'email' => $this->email,
         ];
 
-        // Tambahkan user_id jika ini insert baru
+        // Tambahkan user_id jika ini insert baru atau jika user_id belum ada pada data yang sedang diedit
         if (!$this->id) {
+            // Jika belum ada id, artinya ini adalah insert baru
             $data['user_id'] = auth()->id();
+        } else {
+            // Jika sudah ada id, periksa apakah user_id sudah terisi
+            $guru = Guru::find($this->id);
+            if (!$guru->user_id) {
+                // Jika user_id masih kosong, set user_id ke auth()->id()
+                $data['user_id'] = auth()->id();
+            }
         }
 
         Guru::updateOrCreate(
@@ -72,7 +80,7 @@ class Form extends Component
 
         session()->flash('message', [
             'type' => 'success',
-            'text' => 'Data guru berhasil dihapus.'
+            'text' => 'Data guru berhasil disimpan.'
         ]);
         return redirect()->route('guru');
     }

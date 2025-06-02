@@ -77,8 +77,17 @@ class Form extends Component
             'status_pkl' => (int) $this->status_pkl,  // Pastikan status_pkl otomatis '0'
         ];
 
+        // Tambahkan user_id jika ini insert baru atau jika user_id belum ada pada data yang sedang diedit
         if (!$this->id) {
+            // Jika belum ada id, artinya ini adalah insert baru
             $data['user_id'] = auth()->id();
+        } else {
+            // Jika sudah ada id, periksa apakah user_id sudah terisi
+            $siswa = Siswa::find($this->id);
+            if (!$siswa->user_id) {
+                // Jika user_id masih kosong, set user_id ke auth()->id()
+                $data['user_id'] = auth()->id();
+            }
         }
 
         Siswa::updateOrCreate(
