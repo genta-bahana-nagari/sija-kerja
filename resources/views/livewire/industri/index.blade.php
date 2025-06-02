@@ -93,7 +93,7 @@
 
                 <!-- Card Body -->
                 <div class="p-4">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $industri->nama }}</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ \Illuminate\Support\Str::limit($industri->nama, 15) }}</h3>
                     <div class="font-semibold inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
                         {{ $industri->bidang_usaha }}
                     </div>
