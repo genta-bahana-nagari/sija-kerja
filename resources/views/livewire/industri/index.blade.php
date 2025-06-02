@@ -77,7 +77,7 @@
                             <button 
                                 onclick="confirm('Yakin ingin menghapus data ini?') || event.stopImmediatePropagation()" 
                                 wire:click="delete({{ $industri->id }})" 
-                                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150"
+                                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150 cursor-pointer"
                             >
                                 <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />    
                                 Hapus
