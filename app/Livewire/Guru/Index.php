@@ -27,7 +27,21 @@ class Index extends Component
 
     public function delete($id)
     {
-        Guru::findOrFail($id)->delete();
+        // Hapus data industri
+        $guru = Guru::findOrFail($id);
+        // Cek apakah ada relasi dengan PKL
+        if ($guru->pkl()->exists()) {
+            // Jika ada relasi, kembalikan pesan error atau lakukan penanganan lain
+            session()->flash('message', [
+                'type' => 'error',
+                'text' => 'Data guru tidak bisa dihapus karena terkait dengan PKL.'
+            ]);
+            return;
+        }
+
+        // Jika tidak ada relasi, hapus data siswa
+        $guru->delete();
+
         session()->flash('message', [
             'type' => 'success',
             'text' => 'Data guru berhasil dihapus.'

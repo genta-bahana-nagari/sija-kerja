@@ -3,11 +3,11 @@
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
             @if(auth()->check() && auth()->user()->hasRole('Siswa') && !auth()->user()->siswa)
-                <a href="{{ route('siswa.create') }}"
+                <!-- <a href="{{ route('siswa.create') }}"
                 class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200
                 dark:bg-blue-500 dark:hover:bg-blue-800">
                     Tambah Siswa
-                </a>
+                </a> -->
             @endif
         </div>
         <div class="col-span-12 md:col-span-6 flex justify-end space-x-4">
@@ -103,26 +103,24 @@
                                         <x-heroicon-o-eye class="w-4 h-4 inline-block mr-2" />
                                         Detail
                                     </a>
-                                    @if(auth()->user() && auth()->user()->hasRole('Siswa'))
+
+                                    @if(auth()->user() || auth()->user()->hasRole('Siswa') || auth()->user()->hasRole('super_admin'))
                                     <a href="{{ route('siswa.edit', ['id' => $siswa->id]) }}"
                                     class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
                                         <x-heroicon-o-pencil class="w-4 h-4 inline-block mr-2" />
                                         Update
                                     </a>
                                     @endif
-                                    @php
-                                        $hasPklRelation = $siswa->pkl()->exists(); // Cek apakah siswa memiliki data PKL terkait
-                                    @endphp
 
-                                    @if (!$hasPklRelation)
-                                        <button 
-                                            onclick="confirm('Yakin ingin menghapus data ini?') || event.stopImmediatePropagation()" 
-                                            wire:click="delete({{ $siswa->id }})" 
-                                            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150"
-                                        >
-                                            <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />    
-                                            Hapus
-                                        </button>
+                                    @if(auth()->user()->hasRole('super_admin') || (auth()->user()->hasRole('Siswa') && !$siswa->pkl()->exists()))
+                                    <button 
+                                        onclick="confirm('Yakin ingin menghapus data ini?') || event.stopImmediatePropagation()" 
+                                        wire:click="delete({{ $siswa->id }})" 
+                                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150"
+                                    >
+                                        <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />    
+                                        Hapus
+                                    </button>
                                     @endif
                                 </div>
                             </div>

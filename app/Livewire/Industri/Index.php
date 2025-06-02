@@ -23,12 +23,19 @@ class Index extends Component
     {
         // Hapus data industri
         $industri = Industri::findOrFail($id);
+        // Cek apakah ada relasi dengan PKL
+        if ($industri->pkl()->exists()) {
+            // Jika ada relasi, kembalikan pesan error atau lakukan penanganan lain
+            session()->flash('message', [
+                'type' => 'error',
+                'text' => 'Data industri tidak bisa dihapus karena terkait dengan PKL.'
+            ]);
+            return;
+        }
+
+        // Jika tidak ada relasi, hapus data siswa
         $industri->delete();
 
-        // Reset Auto-Increment
-        DB::statement('ALTER TABLE industri AUTO_INCREMENT = 1');
-
-        // Menampilkan pesan flash
         session()->flash('message', [
             'type' => 'success',
             'text' => 'Data industri berhasil dihapus.'
