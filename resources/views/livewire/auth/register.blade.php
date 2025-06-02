@@ -25,6 +25,11 @@
             autocomplete="email"
             placeholder="contoh@email.com"
         />
+        
+        <!-- Display Email Error -->
+        @if ($emailError)
+            <div class="text-red-500 text-sm">{{ $emailError }}</div>
+        @endif
 
         <!-- Password -->
         <flux:input
@@ -47,17 +52,6 @@
             :placeholder="__('Konfirmasi password')"
             viewable
         />
-
-        <!-- Role Selection (Teacher or Student) -->
-        <!-- Jika ingin menambahkan pilihan peran, bisa uncomment bagian ini -->
-        <!-- <div class="flex flex-col gap-2">
-            <label for="role" class="font-semibold">{{ __('Pilih Jenis Akun') }}</label>
-            <select wire:model="role" id="role" required class="p-2 border border-gray-300 rounded">
-                <option value="">{{ __('Pilih Peran') }}</option>
-                <option value="guru">{{ __('Guru') }}</option>
-                <option value="siswa">{{ __('Siswa') }}</option>
-            </select>
-        </div> -->
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full cursor-pointer bg-blue-600 hover:bg-black transition-all duration-150">

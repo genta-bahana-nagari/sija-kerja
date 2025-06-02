@@ -37,9 +37,9 @@
         
         <div class="relative">
             <flux:checkbox wire:model="remember" :label="__('Ingat saya')" />
-            <!-- <flux:link class="absolute end-0 top-0 text-sm" :href="route('register')" wire:navigate>
+            <flux:link class="absolute end-0 top-0 text-sm" :href="route('register')" wire:navigate>
                 {{ __('Belum punya akun?') }}
-            </flux:link> -->
+            </flux:link>
         </div>
         <!-- Remember Me -->
 
