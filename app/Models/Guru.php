@@ -16,7 +16,7 @@ class Guru extends Model
 
     public function industri()
     {
-        return $this->hasMany(Industri::class);
+        return $this->hasMany(Industri::class, 'guru_pembimbing');
     }
     
     public function pkl()

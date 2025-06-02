@@ -85,27 +85,31 @@
                                 </button>
                                 <div x-show="open" x-transition @click.away="open = false"
                                     class="cursor-pointer absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-                                    <a href="{{ route('guru.show', ['id' => $guru->id]) }}"
+                                    <a href="{{ route('siswa.show', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
                                         <x-heroicon-o-eye class="w-4 h-4 inline-block mr-2" />
                                         Detail
                                     </a>
-                                    @if(auth()->user() && auth()->user()->hasRole('Guru') || auth()->user()->hasRole('super_admin'))
-                                    <a href="{{ route('guru.edit', ['id' => $guru->id]) }}"
+
+                                    @if(auth()->user() || auth()->user()->hasRole('Guru') || auth()->user()->hasRole('super_admin'))
+                                    <a href="{{ route('siswa.edit', ['id' => $guru->id]) }}"
                                     class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
                                         <x-heroicon-o-pencil class="w-4 h-4 inline-block mr-2" />
                                         Update
                                     </a>
                                     @endif
-                                    @if(auth()->user() && auth()->user()->hasRole('super_admin'))
-                                        <button 
-                                            onclick="confirm('Yakin ingin menghapus data ini?') || event.stopImmediatePropagation()" 
-                                            wire:click="delete({{ $guru->id }})" 
-                                            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150"
-                                        >
-                                            <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />    
-                                            Hapus
-                                        </button>
+
+                                    @if(auth()->user()->hasRole('super_admin') || 
+                                        (auth()->user()->hasRole('Guru') && !$guru->industri()->exists() && !$guru->pkl()->exists())
+                                    )
+                                    <button 
+                                        onclick="confirm('Yakin ingin menghapus data ini?') || event.stopImmediatePropagation()" 
+                                        wire:click="delete({{ $guru->id }})" 
+                                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150 cursor-pointer"
+                                    >
+                                        <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />    
+                                        Hapus
+                                    </button>
                                     @endif
                                 </div>
                             </div>
