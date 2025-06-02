@@ -28,7 +28,10 @@
         
         <!-- Display Email Error -->
         @if ($emailError)
-            <div class="text-red-500 text-sm">{{ $emailError }}</div>
+            <div class="text-red-500 text-sm">
+                <x-heroicon-o-exclamation-triangle class="w-4 h-4 inline-block mr-2" />
+                {{ $emailError }}
+            </div>
         @endif
 
         <!-- Password -->
