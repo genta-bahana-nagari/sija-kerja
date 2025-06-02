@@ -76,7 +76,7 @@
                     <td class="px-6 py-3">
                         @if ($pkl->siswa)
                             <!-- {{ $pkl->siswa->nama }}  Menampilkan nama siswa -->
-                            {{ \Illuminate\Support\Str::limit($pkl->siswa->nama, 15) }}
+                            {{ \Illuminate\Support\Str::limit($pkl->siswa->nama, 25) }}
                         @else
                             <em>{{ __('Nama Siswa Tidak Ditemukan') }}</em>
                         @endif
