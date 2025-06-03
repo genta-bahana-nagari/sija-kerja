@@ -11,12 +11,16 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Illuminate\Support\Collection;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class IndustriResource extends Resource
@@ -28,6 +32,12 @@ class IndustriResource extends Resource
     protected static ?string $navigationLabel = 'Data Industri';
     
     protected static ?string $pluralLabel = 'Daftar Data Industri';
+
+    public static function canDelete(Model $record): bool
+    {
+        // Cek apakah industri ini memiliki relasi ke PKL
+        return $record->pkl()->count() === 0;
+    }
 
     public static function form(Form $form): Form
     {
@@ -88,8 +98,36 @@ class IndustriResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]),
+                    BulkAction::make('deleteSelected')
+                        ->label('Hapus Terpilih')
+                        ->action(function (Collection $records) {
+                            $failed = [];
+
+                            foreach ($records as $record) {
+                                if ($record->pkl()->exists()) {
+                                    $failed[] = $record->nama;
+                                    continue;
+                                }
+
+                                $record->delete();
+                            }
+
+                            if (!empty($failed)) {
+                                Notification::make()
+                                    ->title('Beberapa data tidak bisa dihapus')
+                                    ->body('Data industri berikut tidak bisa dihapus karena memiliki relasi PKL: ' . implode(', ', $failed))
+                                    ->danger()
+                                    ->send();
+                            } else {
+                                Notification::make()
+                                    ->title('Data berhasil dihapus')
+                                    ->success()
+                                    ->send();
+                            }
+                        })
+                        ->requiresConfirmation()
+                        ->deselectRecordsAfterCompletion(),
+                ]),
         ]);
     }
 
