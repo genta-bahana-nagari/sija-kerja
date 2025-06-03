@@ -76,6 +76,7 @@
                     <th scope="col" class="px-6 py-3">NIS</th>
                     <th scope="col" class="px-6 py-3">Status PKL</th>
                     <th scope="col" class="px-6 py-3">Kontak</th>
+                    <th scope="col" class="px-6 py-3">Email</th>
                     <th scope="col" class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -91,6 +92,7 @@
                         <td class="px-6 py-3">{{ $siswa->nis }}</td>
                         <td class="px-6 py-3">{{ $this->ketStatusPKL($siswa->status_pkl) }}</td>
                         <td class="px-6 py-3">{{ $siswa->kontak }}</td>
+                        <td class="px-6 py-3">{{ $siswa->email }}</td>
                         <td class="px-6 py-3 text-center">
                             <div x-data="{ open: false }" class="inline-block text-left">
                                 <button @click="open = !open" class="text-gray-900 dark:text-gray-100 focus:outline-none transition duration-200">
