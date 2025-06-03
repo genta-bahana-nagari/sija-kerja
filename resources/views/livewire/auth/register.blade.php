@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 bg-white/80 dark:bg-[#121212]/80">
+<div class="flex flex-col gap-6 bg-white/80 dark:bg-black">
     <x-auth-header :title="__('Buat akun anda')" :description="__('Masukkan detail anda di bawah ini untuk membuat akun')" />
 
     <!-- Session Status -->
