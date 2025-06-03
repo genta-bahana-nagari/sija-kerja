@@ -42,9 +42,9 @@ class Register extends Component
 
         // Cek apakah email sudah terdaftar di tabel siswa atau guru
         if (Siswa::where('email', $this->email)->exists()) {
-            $this->role = 'siswa'; // Menetapkan role siswa jika email ditemukan di tabel siswa
+            $this->role = 'Siswa'; // Menetapkan role siswa jika email ditemukan di tabel siswa
         } elseif (Guru::where('email', $this->email)->exists()) {
-            $this->role = 'guru'; // Menetapkan role guru jika email ditemukan di tabel guru
+            $this->role = 'Guru'; // Menetapkan role guru jika email ditemukan di tabel guru
         } else {
             // Jika email tidak terdaftar di tabel siswa atau guru
             $this->emailError = 'Email ini tidak terdaftar di sistem kami';
