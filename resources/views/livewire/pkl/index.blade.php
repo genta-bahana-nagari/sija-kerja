@@ -57,7 +57,7 @@
     @endif
 
     <div class="overflow-x-auto bg-white dark:bg-gray-800 shadow-sm rounded-lg">
-        <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
+        <table class="w-full text-sm text-left table-fixed text-gray-700 dark:text-gray-100">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
                     <th scope="col" class="px-6 py-3 whitespace-nowrap">Nama Siswa</th>
@@ -97,12 +97,9 @@
                             <em>{{ __('Guru Pembimbing Tidak Ditemukan') }}</em>
                         @endif
                     </td>
-                    <!-- Tanggal Masuk -->
-                    <td class="px-6 py-3">{{ $pkl->mulai }}</td>
-                    <!-- Tanggal Keluar -->
-                    <td class="px-6 py-3">{{ $pkl->selesai }}</td>
-                    <!-- Durasi -->
-                    <td class="px-6 py-3">
+                    <td class="px-6 py-3 text-center whitespace-nowrap">{{ $pkl->mulai }}</td>
+                    <td class="px-6 py-3 text-center whitespace-nowrap">{{ $pkl->selesai }}</td>
+                    <td class="px-6 py-3 text-center whitespace-nowrap">
                         {{ \Carbon\Carbon::parse($pkl->mulai)->diffInDays($pkl->selesai) }} hari
                     </td>
                     <td class="px-6 py-3 text-center">
