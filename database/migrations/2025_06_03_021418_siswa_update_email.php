@@ -13,7 +13,6 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared("
-            DELIMITER //
             CREATE TRIGGER siswa_change_email
             AFTER UPDATE ON siswa
             FOR EACH ROW
@@ -23,8 +22,12 @@ return new class extends Migration
                     SET email = NEW.email
                     WHERE id = NEW.user_id;
                 END IF;
-            END//
-            DELIMITER ;
+                IF NEW.nama <> OLD.nama THEN
+                    UPDATE users
+                    SET name = NEW.nama
+                    WHERE id = NEW.user_id;
+                END IF;
+            END;
         ");
     }
 
