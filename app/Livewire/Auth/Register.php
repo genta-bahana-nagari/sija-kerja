@@ -3,6 +3,8 @@
 namespace App\Livewire\Auth;
 
 use App\Models\User;
+use App\Models\Guru; // Untuk cek email guru
+use App\Models\Siswa; // Untuk cek email siswa
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,22 +25,37 @@ class Register extends Component
 
     public string $password_confirmation = '';
 
+    public $emailError = null; // Variabel public untuk menyimpan pesan error email
+
     /**
      * Handle an incoming registration request.
      */
     public function register(): void
     {
+        $this->emailError = null; // Reset error email sebelum validasi
+
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-            // 'role' => ['required', 'in:guru,siswa'],  // Validasi untuk role
         ]);
+
+        // Cek apakah email sudah terdaftar di tabel siswa atau guru
+        if (Siswa::where('email', $this->email)->exists()) {
+            $this->role = 'siswa'; // Menetapkan role siswa jika email ditemukan di tabel siswa
+        } elseif (Guru::where('email', $this->email)->exists()) {
+            $this->role = 'guru'; // Menetapkan role guru jika email ditemukan di tabel guru
+        } else {
+            // Jika email tidak terdaftar di tabel siswa atau guru
+            $this->emailError = 'Email ini tidak terdaftar di sistem kami';
+            return; // Jangan lanjutkan registrasi jika email tidak ditemukan
+        }
 
         $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create($validated);
-        // $user->assignRole($this->role);  // Menambahkan role ke user yang baru dibuat
+        // Menambahkan role ke pengguna yang baru dibuat
+        $user->assignRole($this->role);
 
         event(new Registered($user));
 

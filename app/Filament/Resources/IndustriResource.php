@@ -67,13 +67,14 @@ class IndustriResource extends Resource
                     ->label('Foto Industri')
                     ->height(40)
                     ->circular(),
-                TextColumn::make('nama')->label('Nama Industri'),
-                TextColumn::make('bidang_usaha')->label('Bidang Usaha')->limit(25),
+                TextColumn::make('nama')->label('Nama Industri')
+                    ->searchable(),
+                TextColumn::make('bidang_usaha')->label('Bidang Usaha')->limit(25)->searchable(),
                 TextColumn::make('alamat')->label('Alamat')->limit(25),
                 TextColumn::make('kontak')->label('Kontak'),
-                TextColumn::make('email')->label('Email'),
-                TextColumn::make('website')->label('Website'),
-                TextColumn::make('guru.nama')->label('Guru Pembimbing'),
+                TextColumn::make('email')->label('Email')->searchable(),
+                TextColumn::make('website')->label('Website')->searchable(),
+                TextColumn::make('guru.nama')->label('Guru Pembimbing')->searchable(),
             ])
             ->filters([
                 //

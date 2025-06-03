@@ -50,9 +50,9 @@ class PKLResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('siswa.nama')->label('Nama'),
-                TextColumn::make('industri.nama')->label('Industri'),
-                TextColumn::make('guru.nama')->label('Guru Pembimbing'),
+                TextColumn::make('siswa.nama')->label('Nama')->searchable(),
+                TextColumn::make('industri.nama')->label('Industri')->searchable(),
+                TextColumn::make('guru.nama')->label('Guru Pembimbing')->searchable(),
                 TextColumn::make('mulai')->label('Tanggal Mulai'),
                 TextColumn::make('selesai')->label('Tanggal Selesai'),
             ])

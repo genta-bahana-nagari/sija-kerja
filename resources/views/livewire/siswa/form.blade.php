@@ -1,97 +1,113 @@
-<div class="p-6 max-w-3xl mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg text-gray-800 dark:text-gray-100">
+<div class="max-w-4xl mx-auto p-8 bg-gray-50 dark:bg-gray-900 rounded-xl text-gray-800 dark:text-gray-100">
     @if(auth()->user() && auth()->user()->hasRole('Siswa'))
-    <h2 class="text-2xl font-semibold mb-6 text-center">
-        {{ $id ? 'Edit Siswa' : 'Tambah Siswa' }}
-    </h2>
 
-    <form wire:submit.prevent="save" class="space-y-6">
-        <!-- Foto -->
-        <div>
-            <label class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2">Foto Siswa</label>
-            <input type="file"
-                   class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
-                   wire:model="foto">
-            @error('foto') <span class="text-red-500">{{ $message }}</span>@enderror
-        </div>
+    
+        @if($alreadyExists && !$id)
+            <!-- Tampilan jika sudah mengisi data -->
+            <div class="text-center py-16">
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                    Kamu sudah mengisi data siswa.
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Data kamu sudah tercatat di sistem. Silakan hubungi admin jika ini adalah kesalahan.
+                </p>
+                <a href="{{ route('siswa') }}"
+                class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200">
+                Kembali
+                </a>
+            </div>
+        @else
+        <h2 class="text-2xl font-semibold mb-8 text-center">
+            {{ $id ? 'Edit Siswa' : 'Tambah Siswa' }}
+        </h2>
+        <form wire:submit.prevent="save" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Foto -->
+            <div class="col-span-1 md:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <label class="block text-sm font-semibold mb-2">Foto Siswa</label>
+                <input type="file"
+                    wire:model="foto"
+                    class="w-full text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                @error('foto') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Nama -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Nama</label>
-            <input type="text" wire:model="nama"
-                   class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 mt-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            @error('nama') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <!-- Nama -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <label class="block text-sm font-semibold mb-2">Nama</label>
+                <input type="text" wire:model="nama"
+                    placeholder="Nama lengkap"
+                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                @error('nama') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- NIS -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">NIS</label>
-            <input type="text" wire:model="nis"
-                   class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 mt-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            @error('nis') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <!-- NIS -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <label class="block text-sm font-semibold mb-2">NIS</label>
+                <input type="text" wire:model="nis"
+                    placeholder="Nomor Induk Siswa"
+                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                @error('nis') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Gender -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 my-2">Gender</label>
-            <flux:radio.group wire:model="gender">
-                <flux:radio value="L" label="Laki Laki" />
-                <flux:radio value="P" label="Perempuan" />
-            </flux:radio.group>
-            @error('gender') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <!-- Gender -->
+            <div class="col-span-1 md:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <label class="block text-sm font-semibold mb-2">Gender</label>
+                <div class="flex gap-6 mt-1">
+                    <label class="inline-flex items-center">
+                        <input type="radio" wire:model="gender" value="L" class="form-radio text-blue-600" />
+                        <span class="ml-2">Laki Laki</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" wire:model="gender" value="P" class="form-radio text-blue-600" />
+                        <span class="ml-2">Perempuan</span>
+                    </label>
+                </div>
+                @error('gender') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Alamat -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Alamat</label>
-            <textarea wire:model="alamat"
-                      class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 mt-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      rows="2"></textarea>
-            @error('alamat') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <!-- Alamat -->
+            <div class="col-span-1 md:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <label class="block text-sm font-semibold mb-2">Alamat</label>
+                <textarea wire:model="alamat"
+                        rows="2"
+                        placeholder="Alamat lengkap"
+                        class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                @error('alamat') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Kontak -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Kontak</label>
-            <input type="text" wire:model="kontak"
-                   class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 mt-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            @error('kontak') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <!-- Kontak -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <label class="block text-sm font-semibold mb-2">Kontak</label>
+                <input type="text" wire:model="kontak"
+                    placeholder="Nomor HP / WA"
+                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                @error('kontak') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Email -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
-            <input type="email" wire:model="email"
-                   class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 mt-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <!-- Email -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <label class="block text-sm font-semibold mb-2">Email</label>
+                <input type="email" wire:model="email"
+                    placeholder="Alamat Email"
+                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Status PKL -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 my-2">Status PKL</label>
-            <flux:radio.group wire:model="status_pkl">
-                <flux:radio value="0" label="Belum diterima PKL" />
-                <flux:radio value="1" label="Sudah diterima PKL" />
-            </flux:radio.group>
-            @error('status_pkl') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <!-- Tombol -->
+            <div class="col-span-1 md:col-span-2 flex justify-between pt-6">
+                <a href="{{ route('siswa') }}"
+                class="inline-block text-center bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 transition">
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                    Simpan
+                </button>
+            </div>
+        </form>
+        @endif
 
-        <!-- Tombol -->
-        <div class="flex justify-between">
-            <!-- Cancel -->
-            <a href="{{ route('siswa') }}"
-               class="inline-block bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-700 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
-                Cancel
-            </a>
-
-            <!-- Simpan -->
-            <button type="submit"
-                    class="bg-blue-600 cursor-pointer text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
-                Simpan
-            </button>
-        </div>
-    </form>
     @else
-    <h2 class="text-2xl font-semibold my-6 text-center">
+    <h2 class="text-2xl font-semibold text-center">
         Anda tidak punya akses untuk ini.
     </h2>
     @endif

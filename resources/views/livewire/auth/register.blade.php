@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 bg-white/80 dark:bg-[#121212]/80">
+<div class="flex flex-col gap-6 bg-white/80 dark:bg-black">
     <x-auth-header :title="__('Buat akun anda')" :description="__('Masukkan detail anda di bawah ini untuk membuat akun')" />
 
     <!-- Session Status -->
@@ -25,6 +25,14 @@
             autocomplete="email"
             placeholder="contoh@email.com"
         />
+        
+        <!-- Display Email Error -->
+        @if ($emailError)
+            <div class="text-red-500 text-sm">
+                <x-heroicon-o-exclamation-triangle class="w-4 h-4 inline-block mr-2" />
+                {{ $emailError }}
+            </div>
+        @endif
 
         <!-- Password -->
         <flux:input
@@ -47,17 +55,6 @@
             :placeholder="__('Konfirmasi password')"
             viewable
         />
-
-        <!-- Role Selection (Teacher or Student) -->
-        <!-- Jika ingin menambahkan pilihan peran, bisa uncomment bagian ini -->
-        <!-- <div class="flex flex-col gap-2">
-            <label for="role" class="font-semibold">{{ __('Pilih Jenis Akun') }}</label>
-            <select wire:model="role" id="role" required class="p-2 border border-gray-300 rounded">
-                <option value="">{{ __('Pilih Peran') }}</option>
-                <option value="guru">{{ __('Guru') }}</option>
-                <option value="siswa">{{ __('Siswa') }}</option>
-            </select>
-        </div> -->
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full cursor-pointer bg-blue-600 hover:bg-black transition-all duration-150">

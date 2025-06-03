@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\PKL;
+namespace App\Livewire\Pkl;
 
 use App\Models\PKL;
 use Livewire\Component;

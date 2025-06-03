@@ -21,69 +21,105 @@
 
     <!-- Flash Message -->
     @if (session()->has('message'))
-        <div class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 p-2 mb-4 rounded text-center">
-            {{ session('message') }}
+        @php
+            $message = session('message');
+            $type = $message['type'] ?? 'info';
+            $text = $message['text'];
+        @endphp
+
+        <div
+            x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 3000)"
+            x-show="show"
+            x-transition
+            class="p-2 mb-4 rounded text-center
+                @if($type == 'success') bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200 @endif
+                @if($type == 'warning') bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200 @endif
+                @if($type == 'error') bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200 @endif">
+            
+            <div class="flex items-center justify-center space-x-2">
+                <!-- Icon -->
+                @if($type == 'success')
+                    <x-heroicon-o-check-circle class="w-5 h-5 text-green-600 dark:text-green-400" />
+                @elseif($type == 'warning')
+                    <x-heroicon-o-exclamation-circle  class="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                @elseif($type == 'error')
+                    <x-heroicon-o-x-circle class="w-5 h-5 text-red-600 dark:text-red-400" />
+                @else
+                    <x-heroicon-o-information-circle class="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                @endif
+
+                <!-- Message Text -->
+                <span class="text-sm">
+                    {{ $text }}
+                </span>
+            </div>
         </div>
     @endif
 
-    <!-- Tabel -->
-    <div class="overflow-x-auto bg-white dark:bg-gray-800 shadow-sm rounded-lg">
-        <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
-                <tr>
-                    <th class="px-6 py-3">Nama</th>
-                    <th class="px-6 py-3">Bidang Usaha</th>
-                    <th class="px-6 py-3">Alamat</th>
-                    <th class="px-6 py-3">Kontak</th>
-                    <th class="px-6 py-3">Guru Pembimbing</th>
-                    <th class="px-6 py-3 text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($industriList as $industri)
-                    <tr class="border-b dark:bg-gray-800 dark:hover:bg-gray-500 whitespace-nowrap">
-                        <td class="px-6 py-3">{{ $industri->nama }}</td>
-                        <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($industri->bidang_usaha, 25) }}</td>
-                        <td class="px-6 py-3">{{ \Illuminate\Support\Str::limit($industri->alamat, 25) }}</td>
-                        <td class="px-6 py-3">{{ $industri->kontak }}</td>
-                        <td class="px-6 py-3">
-                            @if ($industri->guru)
-                                {{ $industri->guru->nama }}
-                            @else
-                                <em>{{ __('Guru Pembimbing Tidak Ditemukan') }}</em>
-                            @endif
-                        </td>
-                        <td class="px-6 py-3 text-center">
-                            <div x-data="{ open: false }" class="inline-block text-left">
-                                <button @click="open = !open"
-                                        class="text-gray-900 dark:text-gray-100 focus:outline-none transition duration-200">
-                                    &#8942;
-                                </button>
-                                <div x-show="open" x-transition @click.away="open = false"
-                                     class="cursor-pointer absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-                                    <a href="{{ route('industri.show', ['id' => $industri->id]) }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">View</a>
-                                    <a href="{{ route('industri.edit', ['id' => $industri->id]) }}"
-                                       class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Edit</a>
-                                    <button wire:click="delete({{ $industri->id }})"
-                                            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
-                                        Hapus
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center py-4">Tidak ada data ditemukan.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+    <!-- Card List -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @forelse ($industriList as $industri)
+            <div class="relative max-w-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition duration-300">
+                <!-- Kebab Menu - Above Image -->
+                <div class="absolute top-2 right-2 z-10">
+                    <div x-data="{ open: false }" class="inline-block text-left">
+                        <button @click="open = !open" class="text-gray-100 focus:outline-none transition duration-200">
+                            &#8942;
+                        </button>
+                        <div x-show="open" x-transition @click.away="open = false" class="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50 text-xs">
+                            <a href="{{ route('industri.show', ['id' => $industri->id]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
+                                <x-heroicon-o-eye class="w-4 h-4 inline-block mr-2" />
+                                Detail</a>
+                            <a href="{{ route('industri.edit', ['id' => $industri->id]) }}" class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
+                                <x-heroicon-o-pencil class="w-4 h-4 inline-block mr-2" />
+                                Update</a>
+                            <button 
+                                onclick="confirm('Yakin ingin menghapus data ini?') || event.stopImmediatePropagation()" 
+                                wire:click="delete({{ $industri->id }})" 
+                                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150 cursor-pointer"
+                            >
+                                <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />    
+                                Hapus
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Industri Image -->
+                <div class="relative">
+                    <img class="rounded-t-lg w-full h-48 object-cover" src="{{ asset('storage/'.$industri->foto) }}" alt="{{ $industri->nama }}">
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ \Illuminate\Support\Str::limit($industri->nama, 15) }}</h3>
+                    <div class="font-semibold inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                        {{ $industri->bidang_usaha }}
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ \Illuminate\Support\Str::limit($industri->alamat, 30) }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ $industri->kontak }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ $industri->email }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Pembimbing: 
+                        @if ($industri->guru)
+                            {{ \Illuminate\Support\Str::limit($industri->guru->nama, 10) }}
+                        @else
+                            <em>{{ __('Guru Pembimbing Tidak Ditemukan') }}</em>
+                        @endif
+                    </p>
+                </div>
+            </div>
+        @empty
+            <div class="col-span-4 text-center py-4 text-gray-600 dark:text-gray-400">
+                Tidak ada data ditemukan.
+            </div>
+        @endforelse
     </div>
+
+    <!-- Pagination Section -->
     @if(auth()->user())
         <div class="my-4">
-            <!-- Pagination Links -->
             <div class="flex justify-between items-center mb-4">
                 <!-- Page Size Selection -->
                 <div class="flex items-center space-x-2">
@@ -102,7 +138,7 @@
                     </select>
                     <span class="text-sm text-gray-700 dark:text-gray-300">data per halaman</span>
                 </div>
-                
+
                 <!-- Pagination Controls -->
                 <div class="flex justify-end">
                     {{ $industriList->links('vendor.pagination.tailwind') }}

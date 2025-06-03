@@ -25,7 +25,7 @@ class UserGuruSeeder extends Seeder
         ];
 
         // Buat role guru jika belum ada
-        Role::firstOrCreate(['name' => 'guru']);
+        Role::firstOrCreate(['name' => 'Guru']);
 
         foreach ($guruData as $data) {
             $user = User::firstOrCreate(

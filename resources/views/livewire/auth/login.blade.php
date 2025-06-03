@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-6 bg-white/80 dark:bg-[#121212]/80">
+<div class="flex flex-col gap-6 bg-white/80 dark:bg-black">
     <x-auth-header :title="__('Log in ke akun anda')" :description="__('Masukkan email dan password di bawah ini')" />
 
     <!-- Session Status -->
@@ -37,9 +37,9 @@
         
         <div class="relative">
             <flux:checkbox wire:model="remember" :label="__('Ingat saya')" />
-            <!-- <flux:link class="absolute end-0 top-0 text-sm" :href="route('register')" wire:navigate>
+            <flux:link class="absolute end-0 top-0 text-sm" :href="route('register')" wire:navigate>
                 {{ __('Belum punya akun?') }}
-            </flux:link> -->
+            </flux:link>
         </div>
         <!-- Remember Me -->
 

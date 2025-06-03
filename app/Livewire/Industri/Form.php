@@ -44,7 +44,7 @@ class Form extends Component
             'email' => 'required|email',
             'guru_pembimbing' => 'required|exists:guru,id',  // Memastikan guru_pembimbing valid
             'website' => 'required|string',
-            'foto' => 'nullable|image',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,bmp,webp', 
         ];
     }
 
@@ -52,12 +52,13 @@ class Form extends Component
     {
         $this->validate();
 
-        // $imagePath = $this->foto ? $this->foto->store('foto_industri', 'public') : $this->foto;
-        $imagePath = $this->foto;
-
+        // Jika foto ada, simpan foto tersebut
+        $imagePath = null;
         if ($this->foto && !is_string($this->foto)) {
-            // Jika user mengupload file baru
             $imagePath = $this->foto->store('foto_industri', 'public');
+        } elseif ($this->foto && is_string($this->foto)) {
+            // Jika foto sudah ada dalam bentuk string (misal, saat edit)
+            $imagePath = $this->foto;
         }
 
         // Update or create industri
@@ -75,7 +76,10 @@ class Form extends Component
             ]
         );
 
-        session()->flash('message', 'Data industri berhasil disimpan.');
+        session()->flash('message', [
+            'type' => 'success', // Jenis pesan (success, warning, error)
+            'text' => 'Data industri berhasil disimpan.'
+        ]);
 
         return redirect()->route('industri');
     }

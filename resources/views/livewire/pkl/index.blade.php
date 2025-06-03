@@ -17,25 +17,55 @@
             </div>
         </div>
     </div>
+
+    <!-- Flash Message -->
     @if (session()->has('message'))
+        @php
+            $message = session('message');
+            $type = $message['type'] ?? 'info';  // Default 'info' if no type
+            $text = $message['text'];
+        @endphp
+
         <div
-        x-data="{ show: true }"
-        x-init="setTimeout(() => show = false, 3000)"
-        x-show="show"
-        x-transition
-        class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 p-2 mb-4 rounded text-center">
-            {{ session('message') }}
+            x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 3000)"
+            x-show="show"
+            x-transition
+            class="p-2 mb-4 rounded text-center
+                @if($type == 'success') bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200 @endif
+                @if($type == 'warning') bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200 @endif
+                @if($type == 'error') bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200 @endif">
+            
+            <div class="flex items-center justify-center space-x-2">
+                <!-- Icon -->
+                @if($type == 'success')
+                    <x-heroicon-o-check-circle class="w-5 h-5 text-green-600 dark:text-green-400" />
+                @elseif($type == 'warning')
+                    <x-heroicon-o-exclamation-circle  class="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                @elseif($type == 'error')
+                    <x-heroicon-o-x-circle class="w-5 h-5 text-red-600 dark:text-red-400" />
+                @else
+                    <x-heroicon-o-information-circle class="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                @endif
+
+                <!-- Message Text -->
+                <span class="text-sm">
+                    {{ $text }}
+                </span>
+            </div>
         </div>
     @endif
+
     <div class="overflow-x-auto bg-white dark:bg-gray-800 shadow-sm rounded-lg">
-        <table class="w-full text-sm text-left text-gray-700 dark:text-gray-100">
+        <table class="w-full text-sm text-left table-fixed text-gray-700 dark:text-gray-100">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Nama Siswa</th>
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Nama Siswa</th>
                     <th scope="col" class="px-6 py-3">Industri</th>
-                    <th scope="col" class="px-6 py-3">Guru Pembimbing</th>
-                    <th scope="col" class="px-6 py-3 text-center">Tanggal Mulai</th>
-                    <th scope="col" class="px-6 py-3 text-center">Tanggal Selesai</th>
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">Guru Pembimbing</th>
+                    <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Tanggal Mulai</th>
+                    <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Tanggal Selesai</th>
+                    <th scope="col" class="px-6 py-3 text-center whitespace-nowrap">Durasi (hari)</th>
                     <th scope="col" class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -46,7 +76,7 @@
                     <td class="px-6 py-3">
                         @if ($pkl->siswa)
                             <!-- {{ $pkl->siswa->nama }}  Menampilkan nama siswa -->
-                            {{ \Illuminate\Support\Str::limit($pkl->siswa->nama, 15) }}
+                            {{ \Illuminate\Support\Str::limit($pkl->siswa->nama, 25) }}
                         @else
                             <em>{{ __('Nama Siswa Tidak Ditemukan') }}</em>
                         @endif
@@ -67,10 +97,11 @@
                             <em>{{ __('Guru Pembimbing Tidak Ditemukan') }}</em>
                         @endif
                     </td>
-                    <!-- Tanggal Masuk -->
-                    <td class="px-6 py-3">{{ $pkl->mulai }}</td>
-                    <!-- Tanggal Keluar -->
-                    <td class="px-6 py-3">{{ $pkl->selesai }}</td>
+                    <td class="px-6 py-3 text-center whitespace-nowrap">{{ $pkl->mulai }}</td>
+                    <td class="px-6 py-3 text-center whitespace-nowrap">{{ $pkl->selesai }}</td>
+                    <td class="px-6 py-3 text-center whitespace-nowrap">
+                        {{ \Carbon\Carbon::parse($pkl->mulai)->diffInDays($pkl->selesai) }} hari
+                    </td>
                     <td class="px-6 py-3 text-center">
                         <div x-data="{ open: false }" class="inline-block text-left">
                             <button @click="open = !open" class="text-gray-900 dark:text-gray-100 focus:outline-none transition duration-200">
@@ -79,12 +110,23 @@
                             <div x-show="open" x-transition @click.away="open = false"
                                 class="cursor-pointer absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
                                 <a href="{{ route('pkl.show', ['id' => $pkl->id]) }}"
-                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">View</a>
-                                @if(auth()->user() && auth()->user()->hasRole('super_admin'))
+                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
+                                    <x-heroicon-o-eye class="w-4 h-4 inline-block mr-2" />
+                                    Detail
+                                </a>
+                                @if(auth()->user() && auth()->user()->hasRole('Siswa'))
                                 <a href="{{ route('pkl.edit', ['id' => $pkl->id]) }}"
-                                    class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">Edit</a>
+                                class="block px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150">
+                                    <x-heroicon-o-pencil class="w-4 h-4 inline-block mr-2" />
+                                    Update
+                                </a>
+                                @endif
+                                @if(auth()->user() && auth()->user()->hasRole('super_admin'))
                                 <button wire:click="delete({{ $pkl->id }})"
-                                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">Hapus</button>
+                                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-500 transition duration-150">
+                                    <x-heroicon-o-trash class="w-4 h-4 inline-block mr-2" />
+                                    Hapus
+                                </button>
                                 @endif
                             </div>
                         </div>

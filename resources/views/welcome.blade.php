@@ -6,6 +6,7 @@
     <title>SIJA Kerja - Penempatan PKL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- SwiperJS CSS -->
+    <link rel="icon" href="{{ asset('favicon.png') }}" sizes="any">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>

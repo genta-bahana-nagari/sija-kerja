@@ -13,6 +13,7 @@ class Form extends Component
 
     public $id, $nama, $nis, $gender, $alamat, $kontak, $email, $foto;
     public $status_pkl = '0';
+    public $alreadyExists = false;
 
     public function mount($id = null)
     {
@@ -20,10 +21,10 @@ class Form extends Component
         $existingSiswa = Auth::user()->siswa;
 
         if (!$id && $existingSiswa) {
-            // Tidak mengizinkan akses create form
-            abort(403, 'Kamu sudah mengisi data siswa.');
+            // Tandai bahwa user sudah punya data siswa, jangan abort langsung
+            $this->alreadyExists = true;
+            return;
         }
-
         // Jika sedang edit
         if ($id) {
             $siswa = Siswa::findOrFail($id);
@@ -48,7 +49,7 @@ class Form extends Component
             'alamat' => 'required|string',
             'kontak' => 'required|string',
             'email' => 'required|email|unique:siswa,email,' . $this->id,
-            'foto' => 'nullable|image',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,bmp,webp', 
             'status_pkl' => 'required|in:0,1',
         ];
     }
@@ -56,6 +57,8 @@ class Form extends Component
     public function save()
     {
         $this->validate();
+
+        $this->status_pkl = 0;
 
         $imagePath = $this->foto;
 
@@ -71,11 +74,20 @@ class Form extends Component
             'kontak' => $this->kontak,
             'email' => $this->email,
             'foto' => $imagePath,
-            'status_pkl' => (int) $this->status_pkl,
+            'status_pkl' => (int) $this->status_pkl,  // Pastikan status_pkl otomatis '0'
         ];
 
+        // Tambahkan user_id jika ini insert baru atau jika user_id belum ada pada data yang sedang diedit
         if (!$this->id) {
+            // Jika belum ada id, artinya ini adalah insert baru
             $data['user_id'] = auth()->id();
+        } else {
+            // Jika sudah ada id, periksa apakah user_id sudah terisi
+            $siswa = Siswa::find($this->id);
+            if (!$siswa->user_id) {
+                // Jika user_id masih kosong, set user_id ke auth()->id()
+                $data['user_id'] = auth()->id();
+            }
         }
 
         Siswa::updateOrCreate(
@@ -83,7 +95,10 @@ class Form extends Component
             $data
         );
 
-        session()->flash('message', 'Data siswa berhasil disimpan.');
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Data siswa berhasil disimpan.'
+        ]);
         return redirect()->route('siswa');
     }
 

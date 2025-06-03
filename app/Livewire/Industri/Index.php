@@ -3,6 +3,7 @@
 namespace App\Livewire\Industri;
 
 use App\Models\Industri;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,8 +21,25 @@ class Index extends Component
 
     public function delete($id)
     {
-        Industri::findOrFail($id)->delete();
-        session()->flash('message', 'Data industri berhasil dihapus.');
+        // Hapus data industri
+        $industri = Industri::findOrFail($id);
+        // Cek apakah ada relasi dengan PKL
+        if ($industri->pkl()->exists()) {
+            // Jika ada relasi, kembalikan pesan error atau lakukan penanganan lain
+            session()->flash('message', [
+                'type' => 'error',
+                'text' => 'Data industri tidak bisa dihapus karena terkait dengan PKL.'
+            ]);
+            return;
+        }
+
+        // Jika tidak ada relasi, hapus data siswa
+        $industri->delete();
+
+        session()->flash('message', [
+            'type' => 'success',
+            'text' => 'Data industri berhasil dihapus.'
+        ]);
     }
 
     public function render()
