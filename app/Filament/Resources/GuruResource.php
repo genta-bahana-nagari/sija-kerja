@@ -47,13 +47,16 @@ class GuruResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nama')->label('Nama'),
-                TextColumn::make('nip')->label('NIP'),
+                TextColumn::make('nama')->label('Nama')
+                    ->searchable(),
+                TextColumn::make('nip')->label('NIP')
+                    ->searchable(),
                 TextColumn::make('ketGender')
                     ->label('Jenis Kelamin'),
                 TextColumn::make('alamat')->label('Alamat'),
                 TextColumn::make('kontak')->label('Kontak'),
-                TextColumn::make('email')->label('Email'),
+                TextColumn::make('email')->label('Email')
+                    ->searchable(),
             ])
             ->filters([
                 //

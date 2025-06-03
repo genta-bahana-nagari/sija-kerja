@@ -80,13 +80,16 @@ class SiswaResource extends Resource
                     ->label('Foto Siswa')
                     ->height(40)
                     ->circular(),
-                TextColumn::make('nama')->label('Nama'),
-                TextColumn::make('nis')->label('NIS'),
+                TextColumn::make('nama')->label('Nama')
+                    ->searchable(),
+                TextColumn::make('nis')->label('NIS')
+                    ->searchable(),
                 TextColumn::make('ketGender')
                     ->label('Jenis Kelamin'),
                 TextColumn::make('alamat')->label('Alamat'),
                 TextColumn::make('kontak')->label('Kontak'),
-                TextColumn::make('email')->label('Email'),
+                TextColumn::make('email')->label('Email')
+                    ->searchable(),
                 IconColumn::make('status_pkl')
                     ->label('Status Lapor PKL')
                     ->alignCenter()
