@@ -1,7 +1,7 @@
 <div class="p-4">
     <div class="relative mb-6 w-full grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-6 flex justify-start items-center">
-        @if(auth()->check() && auth()->user()->hasRole('Siswa') && !auth()->user()->siswa->pkl)
+        @if(auth()->check() && auth()->user()->hasRole('Siswa') && !auth()->user()->siswa?->pkl)
             <a href="{{ route('pkl.create') }}"
                 class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-200
                 dark:bg-blue-500 dark:hover:bg-blue-800">
