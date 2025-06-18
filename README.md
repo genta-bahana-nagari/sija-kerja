@@ -1,89 +1,135 @@
-# Aplikasi PKL - Manajemen Praktik Kerja Lapangan
+# 📚 PKL Management App – Laravel, Livewire & Filament
 
-Aplikasi ini dibangun menggunakan Laravel 12, Livewire Starterkits, dan Filament untuk membantu manajemen data Praktik Kerja Lapangan (PKL) di lingkungan sekolah atau kampus. Fitur utama termasuk pengelolaan data siswa, pembimbing, instansi, dan laporan PKL, serta sistem otorisasi berbasis peran menggunakan Filament Shield.
+Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**, dan **Filament** untuk mengelola data Praktik Kerja Lapangan (PKL) di lingkungan sekolah atau universitas. Aplikasi ini memudahkan pengelolaan data siswa, pembimbing, instansi/perusahaan, serta status dan laporan PKL, lengkap dengan sistem **role-based access control** menggunakan **Filament Shield**.
 
-## Fitur Utama
+---
 
-- Manajemen data siswa peserta PKL
-- Manajemen instansi/perusahaan tempat PKL
-- Monitoring status PKL siswa (sudah diterima PKL atau belum diterima)
-- Role-based access control (RBAC) dengan **Filament Shield**
-- Antarmuka admin berbasis Filament Admin Panel
-- Restful API untuk managemen data tanpa frontend atau dengan frontend terpisah. Cek file routes/web.php
+## 🔧 Fitur Utama
 
-## Teknologi yang Digunakan
+- 🧑‍🎓 Manajemen data PKL siswa  
+- 🏢 Manajemen data instansi/perusahaan  
+- 📊 Monitoring status PKL siswa (diterima/menunggu)  
+- 🔐 Hak akses berdasarkan peran menggunakan **Filament Shield**  
+- 🧩 Admin panel menggunakan **Filament Admin Panel**  
+- ⚙️ Tersedia API headless via route `web.php` (contoh sudah disediakan)  
 
-- [Laravel](https://laravel.com/) 12
-- [Livewire](https://laravel-livewire.com)
-- [Filament](https://filamentphp.com/) 3
-- [Filament Shield](https://github.com/ryangjchandler/filament-shield)
-## Instalasi
+---
 
-Livewire Starterkit menggunakan NodeJS untuk development. Jadi perhatikan ya... :)
+## 🛠️ Teknologi yang Digunakan
 
-1. Clone repositori:
+- [Laravel 12](https://laravel.com/)  
+- [Livewire](https://laravel-livewire.com) ==> Starterkit. Untuk instalasi project starterkit bisa [dilihat disini](https://qadrlabs.com/post/laravel-12-starter-kit)
+- [Filament 3](https://filamentphp.com/)  
+- [Filament Shield](https://github.com/ryangjchandler/filament-shield)  
 
-```bash
-git clone -b main --single-branch https://github.com/genta-bahana-nagari/project_pkl_fullstack.git
-cd project_pkl_fullstack
-```
-Clone yang branch  main --> sudah teruji.
+---
 
-2. Install dependensi:
-```bash
-composer install
-npm install
-```
+## ⚙️ Instalasi
 
-3. Copy file environment dan konfigurasi:
-```bash
-cp .env.example .env
-php artisan key:generate
-```
+1. **Clone repository:**
+   ```bash
+   git clone -b main https://github.com/genta-bahana-nagari/project_pkl_fullstack.git
+   cd pkl-management-app
+   ```
+   > Branch `main` sudah stabil dan teruji.
 
-4. Migrate database:
-```bash
-php artisan migrate
-```
+2. **Install dependensi Laravel dan Livewire:**
+   ```bash
+   composer install
+   npm install
+   ```
 
-5. Membuat user super admin untuk Filament Shield:
-```bash
-php artisan make:filament-user
-```
+3. **Copy file environment & generate key:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-6. Jalankan server lokal:
-```bash
-php artisan serve
-npm run dev
-```
-Lebih praktis 1 terminal:
-```bash
-composer run dev
-```
+4. **Migrasi database & seed:**
+   ```bash
+   php artisan migrate --seed
+   ```
 
-7. Jika ingin deploy, build dulu:
-```bash
-npm run build
-```
-## Role dan Hak Akses
+5. **Buat user Filament (admin):**
+   ```bash
+   php artisan make:filament-user
+   ```
 
-Filament Shield digunakan untuk mengelola peran seperti:
+6. **Install Filament Shield & generate hak akses:**
+   ```bash
+   php artisan shield:install
+   php artisan shield:generate
+   ```
 
-- Admin: Akses penuh ke seluruh modul
-- Guru: Akses view ke data siswa yang dibimbing, industri, dan update data dirinya sendiri
-- Siswa: Input data diri, menambah data industri, dan update status PKL.
+7. **Jalankan server lokal:**
+   ```bash
+   composer run dev
+   ```
 
-Gunakan perintah berikut untuk mengelola peran dan izin:
+---
+
+## 🔐 Peran & Hak Akses
+
+Manajemen peran dan akses menggunakan **Filament Shield**, dengan struktur peran seperti berikut:
+
+- **Admin/Super Admin:** akses penuh ke modul admin (CRUD user, siswa, perusahaan, dll)  
+- **Guru Pembimbing:** akses monitoring siswa PKL  
+- **Siswa:** akses ke frontend (jika dikembangkan) untuk input/melihat status  
+
+Perintah untuk pengelolaan peran:
 ```bash
 php artisan shield:generate
 php artisan shield:super-admin
 ```
 
-## Contributing
+---
 
-Kontribusi selalu diterima! Boleh fork dan pull request, atau lebih aman git clone dulu, kembangkan di local :).
-## License
+## 📂 Struktur Proyek (Utama)
 
-Project ini memiliki lisensi
-[MIT](https://choosealicense.com/licenses/mit/).
+```
+📁 app/
+├── Models/
+│   └── Siswa.php
+│   └── Industri.php
+├── Filament/
+│   └── Resources/
+│       └── SiswaResource.php
+│       └── IndustriResource.php
 
+📁 routes/
+└── web.php
+
+📁 database/
+├── migrations/
+├── seeders/
+```
+
+---
+
+## 🤝 Kontribusi
+
+Kontribusi sangat dipersilakan!  
+Silakan fork repo ini, buat branch baru, dan ajukan pull request.  
+Atau clone secara lokal untuk eksperimen dan pengembangan.
+
+---
+
+## 👤 Penulis
+
+- **Genta Bahana Nagari**  
+  [LinkedIn](https://www.linkedin.com/in/genta-bahana-nagari/) | [GitHub](https://github.com/genta-bahana-nagari)
+
+---
+
+## 🌟 Dukung Proyek Ini
+
+Jika kamu merasa proyek ini bermanfaat, jangan ragu untuk beri ⭐ di GitHub dan bagikan ke teman-temanmu!
+
+---
+
+## 📜 Lisensi
+
+Proyek ini dirilis di bawah lisensi **MIT License**. Silakan gunakan dan modifikasi sesuai kebutuhan.  
+Lihat detailnya di file [LICENSE](LICENSE).
+
+---
