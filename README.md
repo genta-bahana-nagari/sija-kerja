@@ -90,14 +90,19 @@ php artisan shield:super-admin
 📁 app/
 ├── Models/
 │   └── Siswa.php
+│   └── Guru.php
 │   └── Industri.php
+│   └── PKL.php
 ├── Filament/
 │   └── Resources/
 │       └── SiswaResource.php
+│       └── GuruResource.php
 │       └── IndustriResource.php
+│       └── PKLResource.php
 
 📁 routes/
 └── web.php
+└── api.php
 
 📁 database/
 ├── migrations/
@@ -114,7 +119,7 @@ Atau clone secara lokal untuk eksperimen dan pengembangan.
 
 ---
 
-## 👤 Penulis
+## 👤 Author
 
 - **Genta Bahana Nagari**  
   [LinkedIn](https://www.linkedin.com/in/genta-bahana-nagari/) | [GitHub](https://github.com/genta-bahana-nagari)
