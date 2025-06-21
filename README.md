@@ -11,7 +11,7 @@ Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**,
 - 📊 Monitoring status PKL siswa (diterima/menunggu)  
 - 🔐 Hak akses berdasarkan peran menggunakan **Filament Shield**  
 - 🧩 Admin panel menggunakan **Filament Admin Panel**  
-- ⚙️ Tersedia API headless via route `web.php` (contoh sudah disediakan)  
+- ⚙️ Tersedia API headless via route `routes/api.php` (contoh sudah disediakan)  
 
 ---
 
