@@ -84,7 +84,7 @@ php artisan shield:super-admin
 
 ---
 
-## 📂 Struktur Proyek (Utama)
+## 📂 Struktur Proyek
 
 ```
 📁 app/
