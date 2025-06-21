@@ -29,7 +29,7 @@ This application facilitates the management of student data, supervisors, agenci
 
 1. **Clone repository:**
 ```bash
-git clone -b main https://github.com/genta-bahana-nagari/project_your intern_fullstack.git
+git clone https://github.com/genta-bahana-nagari/project_pkl_fullstack.git
 cd your intern-management-app
 ```
 > The `main` branch is stable and tested.
