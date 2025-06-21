@@ -28,7 +28,7 @@ Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**,
 
 1. **Clone repository:**
    ```bash
-   git clone -b main https://github.com/genta-bahana-nagari/project_pkl_fullstack.git
+   git clone https://github.com/genta-bahana-nagari/project_pkl_fullstack.git
    cd pkl-management-app
    ```
    > Branch `main` sudah stabil dan teruji.
