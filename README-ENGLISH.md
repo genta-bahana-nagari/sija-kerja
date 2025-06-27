@@ -6,7 +6,7 @@ This application facilitates the management of student data, supervisors, agenci
 
 ---
 
-## 🔧 Fitur Utama
+## 🔧 Main Features
 
 - 🧑‍🎓 Intern student data management 
 - 🏢 Agency/company data management 
