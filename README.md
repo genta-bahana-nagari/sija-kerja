@@ -57,8 +57,8 @@ Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**,
 
 6. **Install Filament Shield & generate hak akses:**
    ```bash
-   php artisan shield:install
    php artisan shield:generate
+   php artisan shield:super-admin --panel
    ```
 
 7. **Jalankan server lokal:**
@@ -78,8 +78,8 @@ Manajemen peran dan akses menggunakan **Filament Shield**, dengan struktur peran
 
 Perintah untuk pengelolaan peran:
 ```bash
-php artisan shield:generate
-php artisan shield:super-admin
+   php artisan shield:generate
+   php artisan shield:super-admin --panel
 ```
 
 ---

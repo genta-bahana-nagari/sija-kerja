@@ -58,8 +58,8 @@ cd your project_pkl_fullstack
 
 6. **Install Filament Shield & generate access rights:**
    ```bash
-   php artisan shield:install
    php artisan shield:generate
+   php artisan shield:super-admin --panel
    ```
 
 7. **Run local server:**
@@ -79,8 +79,8 @@ Role and access management using **Filament Shield**, with the following role st
 
 Commands for role management:
 ```bash
-php artisan shield:generate
-php artisan shield:super-admin
+   php artisan shield:generate
+   php artisan shield:super-admin --panel
 ```
 
 ---
