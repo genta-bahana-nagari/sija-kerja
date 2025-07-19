@@ -29,7 +29,7 @@ This application facilitates the management of student data, supervisors, agenci
 
 1. **Clone repository:**
 ```bash
-git clone https://github.com/genta-bahana-nagari/project_pkl_fullstack.git
+git clone https://github.com/genta-bahana-nagari/sija-kerja.git
 cd your project_pkl_fullstack
 ```
 > The `main` branch is stable and tested.
