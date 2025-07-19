@@ -30,7 +30,7 @@ This application facilitates the management of student data, supervisors, agenci
 1. **Clone repository:**
 ```bash
 git clone https://github.com/genta-bahana-nagari/sija-kerja.git
-cd your project_pkl_fullstack
+cd sija-kerja
 ```
 > The `main` branch is stable and tested.
 
