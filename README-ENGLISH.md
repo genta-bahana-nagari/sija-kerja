@@ -1,4 +1,4 @@
-# 📚 Internship Management App – Laravel, Livewire & Filament
+# 📚 SIJA Kerja (SIJA Work) - Internship Management App
 
 Web application built using **Laravel 12**, **Livewire Starter Kit**, and **Filament** to manage Field Work Practice (or you can call it Internship) data in a school or university environment.
 I made this based on the internship program that is usually followed by vocational high school students in Indonesia before graduation or in the final semester.
