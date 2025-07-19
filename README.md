@@ -1,4 +1,4 @@
-# 📚 PKL Management App – Laravel, Livewire & Filament
+# 📚 SIJA Kerja - Manajemen PKL
 
 Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**, dan **Filament** untuk mengelola data Praktik Kerja Lapangan (PKL) di lingkungan sekolah atau universitas. Aplikasi ini memudahkan pengelolaan data siswa, pembimbing, instansi/perusahaan, serta status dan laporan PKL, lengkap dengan sistem **role-based access control** menggunakan **Filament Shield**.
 
