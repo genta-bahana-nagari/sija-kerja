@@ -29,7 +29,7 @@ Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**,
 1. **Clone repository:**
    ```bash
    git clone https://github.com/genta-bahana-nagari/sija-kerja.git
-   cd pkl-management-app
+   cd sija-kerja
    ```
    > Branch `main` sudah stabil dan teruji.
 
