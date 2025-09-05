@@ -88,25 +88,76 @@ Perintah untuk pengelolaan peran:
 
 ```
 📁 app/
+│
+├── Filament/Resources/
+│   └── SiswaResource
+│   └── GuruResource
+│   └── IndustriResource
+│   └── PKLResource
+│
+├── Http/Controllers/Api
+│   └──AuthController.php
+│   └──GuruController.php
+│   └──IndustriController.php
+│   └──PKLController.php
+│   └──SiswaController.php
+│    
+├── Livewire/
+│   └── Siswa
+│   │   └──Form.php
+│   │   └──Index.php
+│   │   └──View.php
+│   │
+│   └── Guru
+│   │   └──Form.php
+│   │   └──Index.php
+│   │   └──View.php
+│   │
+│   └── Industri
+│   │   └──Form.php
+│   │   └──Index.php
+│   │   └──View.php
+│   │
+│   └── Pkl
+│       └──Form.php
+│       └──Index.php
+│       └──View.php
+│
 ├── Models/
 │   └── Siswa.php
 │   └── Guru.php
 │   └── Industri.php
 │   └── PKL.php
-├── Filament/
-│   └── Resources/
-│       └── SiswaResource.php
-│       └── GuruResource.php
-│       └── IndustriResource.php
-│       └── PKLResource.php
-
-📁 routes/
-└── web.php
-└── api.php
-
+│
 📁 database/
 ├── migrations/
 ├── seeders/
+│
+📁 resources/view/livewire
+│   │
+│   └── guru
+│   │   └──form.blade.php
+│   │   └──index.blade.php
+│   │   └──view.blade.php
+│   │
+│   └── industri
+│   │   └──form.blade.php
+│   │   └──index.blade.php
+│   │   └──view.blade.php
+│   │
+│   └── pkl
+│   │   └──form.blade.php
+│   │   └──index.blade.php
+│   │   └──view.blade.php
+│   │
+│   └── siswa
+│       └──form.blade.php
+│       └──index.blade.php
+│       └──view.blade.php
+│
+📁 routes/
+└── web.php
+└── api.php
 ```
 
 ---

@@ -8,64 +8,72 @@ This application facilitates the management of student data, supervisors, agenci
 
 ## 🔧 Main Features
 
-- 🧑‍🎓 Intern student data management 
-- 🏢 Agency/company data management 
-- 📊 Monitoring your intern student status (accepted/waiting) 
-- 🔐 Role-based access rights using **Filament Shield** 
-- 🧩 Admin panel using **Filament Admin Panel** 
-- ⚙️ Restful API available via `routes/api.php` (example already provided)
+-   🧑‍🎓 Intern student data management
+-   🏢 Agency/company data management
+-   📊 Monitoring your intern student status (accepted/waiting)
+-   🔐 Role-based access rights using **Filament Shield**
+-   🧩 Admin panel using **Filament Admin Panel**
+-   ⚙️ Restful API available via `routes/api.php` (example already provided)
 
 ---
 
 ## 🛠️ Technologies Used
 
-- [Laravel 12](https://laravel.com/) 
-- [Livewire](https://laravel-livewire.com) ==> Starterkit. For starterkit project installation can be [seen here](https://qadrlabs.com/post/laravel-12-starter-kit)
-- [Filament 3](https://filamentphp.com/) 
-- [Filament Shield](https://github.com/ryangjchandler/filament-shield)
+-   [Laravel 12](https://laravel.com/)
+-   [Livewire](https://laravel-livewire.com) ==> Starterkit. For starterkit project installation can be [seen here](https://qadrlabs.com/post/laravel-12-starter-kit)
+-   [Filament 3](https://filamentphp.com/)
+-   [Filament Shield](https://github.com/ryangjchandler/filament-shield)
+
 ---
 
 ## ⚙️ Installation
 
 1. **Clone repository:**
+
 ```bash
 git clone https://github.com/genta-bahana-nagari/sija-kerja.git
 cd sija-kerja
 ```
+
 > The `main` branch is stable and tested.
 
 2. **Install Laravel and Livewire dependencies:**
-   ```bash
-   composer install
-   npm install
-   ```
+
+    ```bash
+    composer install
+    npm install
+    ```
 
 3. **Copy environment files & generate key:**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
 4. **Database & seed migration:**
-   ```bash
-   php artisan migrate --seed
-   ```
+
+    ```bash
+    php artisan migrate --seed
+    ```
 
 5. **Create Filament user (admin):**
-   ```bash
-   php artisan make:filament-user
-   ```
+
+    ```bash
+    php artisan make:filament-user
+    ```
 
 6. **Install Filament Shield & generate access rights:**
-   ```bash
-   php artisan shield:generate
-   php artisan shield:super-admin --panel
-   ```
+
+    ```bash
+    php artisan shield:generate
+    php artisan shield:super-admin --panel
+    ```
 
 7. **Run local server:**
-   ```bash
-   composer run dev
-   ```
+    ```bash
+    composer run dev
+    ```
 
 ---
 
@@ -73,11 +81,12 @@ cd sija-kerja
 
 Role and access management using **Filament Shield**, with the following role structure:
 
-- **Admin/Super Admin:** full access to admin modules (CRUD user, student, company, etc.) 
-- **Supervisor:** access to monitor your intern students 
-- **Students:** access to the frontend (if developed) for input/view status 
+-   **Admin/Super Admin:** full access to admin modules (CRUD user, student, company, etc.)
+-   **Supervisor:** access to monitor your intern students
+-   **Students:** access to the frontend (if developed) for input/view status
 
 Commands for role management:
+
 ```bash
    php artisan shield:generate
    php artisan shield:super-admin --panel
@@ -86,44 +95,102 @@ Commands for role management:
 ---
 
 ## 📂 Project Structure
-Folders still in Indonesian, and in this readme, I only show you the main structure and resource. You can explore more in this repo:
+
+Folders still in Indonesian. You can explore more in this repo:
+
 ```
 📁 app/
+│
+├── Filament/Resources/
+│   └── SiswaResource
+│   └── GuruResource
+│   └── IndustriResource
+│   └── PKLResource
+│
+├── Http/Controllers/Api
+│   └──AuthController.php
+│   └──GuruController.php
+│   └──IndustriController.php
+│   └──PKLController.php
+│   └──SiswaController.php
+│
+├── Livewire/
+│   └── Siswa
+│   │   └──Form.php
+│   │   └──Index.php
+│   │   └──View.php
+│   │
+│   └── Guru
+│   │   └──Form.php
+│   │   └──Index.php
+│   │   └──View.php
+│   │
+│   └── Industri
+│   │   └──Form.php
+│   │   └──Index.php
+│   │   └──View.php
+│   │
+│   └── Pkl
+│       └──Form.php
+│       └──Index.php
+│       └──View.php
+│
 ├── Models/
 │   └── Siswa.php
 │   └── Guru.php
 │   └── Industri.php
 │   └── PKL.php
-├── Filament/
-│   └── Resources/
-│       └── SiswaResource.php
-│       └── GuruResource.php
-│       └── IndustriResource.php
-│       └── PKLResource.php
-
+│
+📁 database/
+├── migrations/
+├── seeders/
+│
+📁 resources/view/livewire
+│   │
+│   └── guru
+│   │   └──form.blade.php
+│   │   └──index.blade.php
+│   │   └──view.blade.php
+│   │
+│   └── industri
+│   │   └──form.blade.php
+│   │   └──index.blade.php
+│   │   └──view.blade.php
+│   │
+│   └── pkl
+│   │   └──form.blade.php
+│   │   └──index.blade.php
+│   │   └──view.blade.php
+│   │
+│   └── siswa
+│       └──form.blade.php
+│       └──index.blade.php
+│       └──view.blade.php
+│
 📁 routes/
 └── web.php
 └── api.php
 
-📁 database/
-├── migrations/
-├── seeders/
 ```
+- Siswa = Students
+- Guru = Teacher
+- Industri = Company (to apply intern)
+- PKL = Intern
 
 ---
 
 ## 🤝 Contributions
 
-Contributions are very welcome! 
-Please feel free to fork this repo, create a new branch, and submit a pull request. 
-Or clone it locally for experimentation and development. 
+Contributions are very welcome!
+Please feel free to fork this repo, create a new branch, and submit a pull request.
+Or clone it locally for experimentation and development.
 
 ---
 
 ## 👤 Author
 
-- **Genta Bahana Nagari** 
-[LinkedIn](https://www.linkedin.com/in/genta-bahana-nagari/) | [GitHub](https://github.com/genta-bahana-nagari)
+-   **Genta Bahana Nagari**
+    [LinkedIn](https://www.linkedin.com/in/genta-bahana-nagari/) | [GitHub](https://github.com/genta-bahana-nagari)
 
 ---
 
@@ -135,7 +202,7 @@ If you find this project useful, feel free to ⭐ it on GitHub and share it with
 
 ## 📜 License
 
-This project is released under the **MIT License**. Feel free to use and modify it as needed. 
-See details in the [LICENSE](LICENSE) file. 
+This project is released under the **MIT License**. Feel free to use and modify it as needed.
+See details in the [LICENSE](LICENSE) file.
 
 ---
