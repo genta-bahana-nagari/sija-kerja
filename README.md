@@ -60,6 +60,42 @@ Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**,
    php artisan shield:generate
    php artisan shield:super-admin --panel
    ```
+   > Kalau kamu menemui error stty interaction error pada output terminal, bisa buka file (app/Providers/AppServiceProvider.php):
+   ```
+   <?php
+
+    namespace App\Providers;
+
+    use Illuminate\Support\ServiceProvider;
+    use Laravel\Prompts\Prompt;
+
+    class AppServiceProvider extends ServiceProvider
+    {
+        /**
+        * Register any application services.
+        */
+        public function register(): void
+        {
+            //
+        }
+
+        /**
+        * Bootstrap any application services.
+        */
+        public function boot(): void
+        {
+            Prompt::interactive(false);
+        }
+    }
+
+   ```
+   > Kemudian di terminal:
+   ```
+   php artisan shield:generate --all --no-interaction --panel=admin
+   php artisan shield:super-admin --panel
+
+   ```
+   > Biasanya karena clone proyek lama ke environment baru atau proyek Laravel yang tidak cocok dengan terminal Anda.
 
 7. **Jalankan server lokal:**
    ```bash

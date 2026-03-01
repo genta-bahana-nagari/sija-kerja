@@ -69,6 +69,42 @@ cd sija-kerja
     php artisan shield:generate
     php artisan shield:super-admin --panel
     ```
+    > If you find an interaction error because of stty interaction errors, open this file: (app/Providers/AppServiceProvider.php):
+   ```
+   <?php
+
+    namespace App\Providers;
+
+    use Illuminate\Support\ServiceProvider;
+    use Laravel\Prompts\Prompt;
+
+    class AppServiceProvider extends ServiceProvider
+    {
+        /**
+        * Register any application services.
+        */
+        public function register(): void
+        {
+            //
+        }
+
+        /**
+        * Bootstrap any application services.
+        */
+        public function boot(): void
+        {
+            Prompt::interactive(false);
+        }
+    }
+
+   ```
+   > Then run this terminal:
+   ```
+   php artisan shield:generate --all --no-interaction --panel=admin
+   php artisan shield:super-admin --panel
+
+   ```
+   > Usually due to cloning an old project to a new environment or a Laravel project that is not compatible with your terminal.
 
 7. **Run local server:**
     ```bash
