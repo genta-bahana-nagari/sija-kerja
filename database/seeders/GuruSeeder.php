@@ -15,11 +15,11 @@ class GuruSeeder extends Seeder
     {
         $data = [
             ['nama' => 'Guru 1', 'nip' => '93 928 72836 235', 'gender' => 'L', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru1@sija.com'],
-            ['nama' => 'Guru 2', 'nip' => '93 928 72836 235', 'gender' => 'P', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru2@sija.com'],
-            ['nama' => 'Guru 3', 'nip' => '93 928 72836 235', 'gender' => 'L', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru3@sija.com'],
-            ['nama' => 'Guru 4', 'nip' => '93 928 72836 235', 'gender' => 'P', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru4@sija.com'],
-            ['nama' => 'Guru 5', 'nip' => '93 928 72836 235', 'gender' => 'L', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru5@sija.com'],
-            ['nama' => 'Guru 6', 'nip' => '93 928 72836 235', 'gender' => 'L', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru6@sija.com'],
+            ['nama' => 'Guru 2', 'nip' => '91443232', 'gender' => 'P', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru2@sija.com'],
+            ['nama' => 'Guru 3', 'nip' => '2342333329023', 'gender' => 'L', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru3@sija.com'],
+            ['nama' => 'Guru 4', 'nip' => '23423234234', 'gender' => 'P', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru4@sija.com'],
+            ['nama' => 'Guru 5', 'nip' => '909803753455', 'gender' => 'L', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru5@sija.com'],
+            ['nama' => 'Guru 6', 'nip' => '34343434254564', 'gender' => 'L', 'alamat' => 'Alamat guru', 'kontak' => '12431342465', 'email' => 'guru6@sija.com'],
         ];
 
         DB::table('guru')->insert($data);
