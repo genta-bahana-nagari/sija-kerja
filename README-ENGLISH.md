@@ -102,7 +102,6 @@ cd sija-kerja
    ```
    php artisan shield:generate --all --no-interaction --panel=admin
    php artisan shield:super-admin --panel
-
    ```
    > Usually due to cloning an old project to a new environment or a Laravel project that is not compatible with your terminal.
 
