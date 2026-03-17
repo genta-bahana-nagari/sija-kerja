@@ -93,7 +93,6 @@ Aplikasi web yang dibangun menggunakan **Laravel 12**, **Livewire Starter Kit**,
    ```
    php artisan shield:generate --all --no-interaction --panel=admin
    php artisan shield:super-admin --panel
-
    ```
    > Biasanya karena clone proyek lama ke environment baru atau proyek Laravel yang tidak cocok dengan terminal Anda.
 
